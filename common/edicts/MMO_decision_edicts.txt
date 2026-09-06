@@ -1507,7 +1507,6 @@ unplugged_quest = {
 			}
 		}
 	}
-	TODO: Alter events
 
 	allow = {
 		custom_tooltip = {
@@ -1544,7 +1543,7 @@ unplugged_quest = {
 				solar_system = {
 					spawn_planet = {
 						class = pc_nuked
-						orbit_distance = 15
+						orbit_distance = 70
 						orbit_angle = { min = 90 max = 270 }
 						size = 12
 						flags = {

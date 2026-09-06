@@ -354,5 +354,25 @@ country_event = {
         event_target:unplugged_homeworld = {
             save_global_event_target_as = origin_unplugged_unplugged_planet_@prev
         }
+        owner = { country_event = { id = mmo_unplugged.3 }}
     }
+}
+
+# Narrative start, also dirty hack to kick off the actual plot.
+country_event = {
+    id = mmo_unplugged.3
+    is_triggered_only = yes
+    picture = "GFX_origin_unplugged"
+
+    desc = {
+        text = "START_SCREEN_UNPLUGGED"
+    }
+
+    trigger = {
+        has_country_flag = decision_unplugged
+    }
+
+    immediate = {
+        owner = { country_event = { id = unplugged.100 }} }
+
 }
