@@ -1,0 +1,98 @@
+
+@covenant_rank_1 = 20
+@covenant_rank_2 = 50
+@covenant_rank_3 = 90
+@covenant_rank_4 = 150
+
+namespace = utopia
+
+country_event = {
+    id = utopia.2500
+    title = utopia.2500.name
+    desc = {
+        trigger = {
+            NOT = { has_unplugged_origin = yes }
+        }
+        text = utopia.2500.desc
+    }
+    desc = {
+        trigger = {
+            has_unplugged_origin = yes
+        }
+        text = utopia.2500.desc.unplugged
+    }
+    picture = GFX_evt_cybernetics
+    show_sound = event_laboratory_sound
+    trackable = yes
+
+    is_triggered_only = yes
+
+    option = {
+        name = "utopia.2500.a"
+        hidden_effect = { save_event_target_as = flesh_weak_owner }
+        capital_scope = {
+            enable_special_project = {
+                name = "FLESH_IS_WEAK_PROJECT"
+                location = this
+                owner = root
+            }
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                has_machine_age_dlc = yes
+                has_unplugged_origin = yes
+            }
+            set_country_flag = augmentation_center_available
+            custom_tooltip = "utopia.2500.unplugged.tt"
+        }
+    }
+}
+
+# Mind over Matter
+country_event = {
+    id = utopia.2600
+    title = utopia.2600.name
+    desc = {
+        trigger = {
+            NOT = { has_unplugged_origin = yes }
+        }
+        text = utopia.2600.desc
+    }
+    desc = {
+        trigger = {
+            has_unplugged_origin = yes
+        }
+        text = utopia.2600.desc.unplugged
+    }
+    picture = GFX_evt_psionics
+    show_sound = event_mind_over_matter
+    is_triggered_only = yes
+
+    trigger = {
+        is_psionic = yes
+    }
+
+    immediate = {
+        mind_over_matter_immediate = yes
+    }
+
+    option = {
+        name = "utopia.2600.a"
+        trigger = {
+            NOT = { has_origin = origin_shroudwalker_apprentice }
+        }
+        tooltip = {
+            add_latent_psionic_trait = yes
+        }
+    }
+
+    option = {
+        name = "utopia.2600.a"
+        trigger = {
+            has_origin = origin_shroudwalker_apprentice
+        }
+    }
+}

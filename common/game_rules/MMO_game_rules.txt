@@ -1,0 +1,659 @@
+#Tooltips will be generated from these rules when they fail. Use of custom_tooltip is recommended
+#There are still multiple hard-coded rules that apply in addition to these.
+#If rules here evaluate to true, there might still be other rules that make the action unavailable.
+#If a rule here evaluates to false the action will become unavailable
+
+#Root = target country
+#This = country
+
+#Root = planet
+#This = species
+species_can_live_on_planet = {
+	hidden_trigger = {
+		exists = root #somehow this appeared in the error log. No idea how!
+		NAND = {
+			root = { is_planet_class = pc_machine }
+			NOR = {
+				has_trait = trait_machine_unit
+				has_trait = trait_mechanical
+				has_trait = trait_cybernetic
+				has_unplugged_positive_trait = yes
+			}
+		}
+		if = {
+			limit = {
+				root = { is_planet_class = pc_hive }
+			}
+			OR = {
+				has_trait = trait_hive_mind
+				AND = { #Necrophage Hive Mind can have Necrophytes
+					exists = root.owner
+					root.owner = {
+						is_hive_empire = yes
+						OR = {
+							has_country_flag = decision_necrophage
+							has_origin = origin_necrophage
+						}
+						prev = { species_can_be_necrophaged = yes }
+					}
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			exists = root.owner
+			root.owner = {
+				OR = {
+					has_country_flag = decision_clone_army
+					has_origin = origin_clone_army
+				}
+			}
+			OR = {
+				has_trait = trait_clone_soldier_infertile
+				has_trait = trait_clone_soldier_infertile_full_potential
+			}
+		}
+		custom_tooltip = {
+			fail_text = CLONE_ARMY_FORCE_DECLINE
+			root = {
+				check_variable = { which = clone_pops_missing value >= 0 }
+			}
+		}
+	}
+	custom_tooltip = {
+		fail_text = WILDERNESS_NATURAL_WORLDS_DECLINE
+		if = {
+			limit = {
+				has_trait = trait_wilderness
+			}
+			root = { is_habitable_for_wilderness = yes }
+		}
+	}
+
+	custom_tooltip = {
+		fail_text = WILDERNESS_DEAD_WORLD
+		if = {
+			limit = {
+				has_trait = trait_wilderness
+				exists = root.owner
+			}
+			root.owner = { is_wilderness_empire = yes }
+		}
+	}
+}
+
+#Root = ship
+#This = species
+species_can_live_on_ship = {
+	hidden_trigger = {
+		exists = root #somehow this appeared in the error log. No idea how!
+		if = {
+			limit = {
+				exists = root.owner
+				root.owner = {
+					OR = {
+						has_country_flag = decision_clone_army
+						has_origin = origin_clone_army
+					}
+				}
+				OR = {
+					has_trait = trait_clone_soldier_infertile
+					has_trait = trait_clone_soldier_infertile_full_potential
+				}
+			}
+			custom_tooltip = {
+				fail_text = CLONE_ARMY_FORCE_DECLINE
+				root = {
+					check_variable = { which = clone_pops_missing value >= 0 }
+				}
+			}
+		}
+	}
+}
+
+
+# Root = country
+# This = species
+can_modify_species = {
+	# Can't modify root Species during Ascension Situations
+	if = {
+		limit = {
+			is_same_species = ROOT
+		}
+		custom_tooltip = {
+			fail_text = "ASCENSION_SITUATION_ONGOING"
+
+			ROOT = {
+				NOT = {
+					any_situation = {
+						has_ascension_situation_ongoing = yes
+					}
+				}
+			}
+		}
+	}
+	# Organic Species
+	if = {
+		limit = {
+			OR = {
+				is_archetype = BIOLOGICAL
+				is_archetype = LITHOID
+			}
+			NOR = {
+				has_trait = trait_clone_soldier_infertile
+				has_trait = trait_clone_soldier_infertile_full_potential
+			}
+		}
+		custom_tooltip = {
+			fail_text = "NEEDS_GENE_TAILORING_OR_INTERGRATED_ANATOMY"
+			ROOT = {
+				OR = {
+					has_technology = tech_gene_tailoring
+					has_active_tradition = tr_cybernetics_integrated_anatomy
+					has_active_tradition = tr_cybernetics_assimilator_integrated_anatomy
+				}
+			}
+		}
+	}
+	# Clone Army
+	if = {
+		limit = {
+			OR = {
+				has_trait = trait_clone_soldier_infertile
+				has_trait = trait_clone_soldier_infertile_full_potential
+			}
+		}
+		custom_tooltip = {
+			fail_text = "NEEDS_GENE_TAILORING_AND_CLONE_SYNTHESIZATION"
+			ROOT = {
+				has_technology = tech_gene_tailoring
+				has_active_tradition = tr_cloning_somatic_synthesization_clone_army
+			}
+		}
+	}
+	# Robots & Machines
+	else_if = {
+		limit = {
+			OR = {
+				is_archetype = ROBOT
+				is_archetype = MACHINE
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					OR = {
+						AND = { ## organic trying to robomod
+							is_individual_machine = no
+							is_machine_empire = no
+						}
+						AND = { ## Machines with origins that delay them
+							OR = {
+								is_individual_machine = yes
+								is_machine_empire = yes
+							}
+							OR  = {
+								has_origin = origin_life_seeded
+								has_country_flag = decision_life_seeded
+								has_origin = origin_ocean_machines
+								has_country_flag = decision_ocean_paradise
+								has_origin = origin_void_machines
+								has_country_flag = decision_void_machines
+								has_origin = origin_shattered_ring
+								has_country_flag = decision_shattered_ring
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = "NEEDS_ROBOT_MODDING"
+
+				ROOT = {
+					OR = {
+						has_technology = tech_robomodding
+						has_technology = tech_robomodding_m
+					}
+				}
+			}
+		}
+	}
+	# Self-Modified
+	custom_tooltip = {
+		fail_text = "CANNOT_MODIFY_SELF_MODIFIED_SPECIES"
+		AND = {
+			NOT = {
+				has_trait = trait_self_modified
+			}
+			#is_same_species = root
+		}
+	}
+	# Malleable Genes
+	custom_tooltip = {
+		fail_text = "CANNOT_MODIFY_MALLEABLE_GENES_SPECIES"
+		NOT = {
+			has_trait = trait_malleable_genes
+		}
+	}
+}
+
+#Root = country, attacker
+#This = country, target
+#This rule is a condition for taking hostile actions towards neutral targets. Such as landing troops or attacking their fleets
+can_take_hostile_actions = {
+	if = {
+		limit = {
+			ROOT = {
+				NOT = { has_policy_flag = first_contact_attack_allowed }
+			}
+			NOT = {
+				is_hostile = ROOT
+				has_communications = ROOT
+			}
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL"
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = fotd_seperatist_country@ROOT
+			ROOT = {
+				OR = {
+					has_country_flag = decision_fear_of_the_dark
+					has_origin = origin_fear_of_the_dark
+				}
+			}
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_FOTD"
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { has_country_flag = hostile_to_nomads }
+				ROOT = {
+					is_country_type = nomad
+				}
+			}
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL"
+			always = no
+		}
+	}
+	else_if = {
+		#attacking primitives with non-interference
+		limit = {
+			ROOT = {
+				is_country_type = default
+				NOT = {
+					has_policy_flag = interference_aggressive
+				}
+			}
+			is_primitive = yes
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_NATIVE_INTERFERENCE"
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			ROOT = { any_agreement = { agreement_preset = preset_satrapy } }
+			is_country_type = faction
+			root = {
+				any_owned_planet = {
+					exists = controller
+					controller = {
+						is_same_value = prevprevprev
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = ""
+			always = yes
+		}
+	}
+	else_if = {
+		limit = {
+			exists = overlord
+			ROOT = { any_agreement = { agreement_preset = preset_satrapy } }
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_SATRAPY"
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			exists = overlord
+			overlord = { is_same_value = root }
+			ROOT = { any_agreement = { agreement_preset = preset_satrapy } }
+		}
+		custom_tooltip = {
+			text = "CAN_TAKE_HOSTILE_ACTION_OVERLORD"
+			always = no
+		}
+	}
+	else = {
+		always = yes
+	}
+}
+
+# root = country
+# Determines if AI-controlled empires should never restrict (and thus avoid) a system
+# Used by regular empires, fallen empires & crises
+ai_should_not_restrict_system = {
+	AND = {
+		has_star_flag = starlit_sealed_system
+		root = {
+			OR = {
+				has_country_flag = decision_starlit_citadel
+				has_origin = origin_starlit_citadel
+			}
+		}
+	}
+}
+
+
+## If this returns true, the species will be set to decline even if it is not being purged
+# This = species
+# From = planet
+## Note: success text tooltips are shown in alert_pops_declining alert.
+should_force_decline_species = {
+	OR = {
+		# Infertile Clone Army pops should decline if in Country that can't have Vats, or there is a Vat shortage.
+		custom_tooltip = {
+			success_text = CLONE_ARMY_FORCE_DECLINE
+			exists = this
+			OR = {
+				has_trait = trait_clone_soldier_infertile
+				has_trait = trait_clone_soldier_infertile_full_potential
+			}
+			from = {
+				OR = {
+					# Check if country is unable to build Vats for this species.
+					AND = {
+						exists = owner
+						owner = {
+							OR = {
+								NOR = { 
+									has_origin = origin_clone_army
+									has_country_flag = decision_clone_army }				# Can't have Vats.
+								has_country_flag = clone_army_fertility_unlocked			# Can't have Vats anymore.
+								NOT = { owner_main_species = { is_same_species = root } }	# Our Vats can't build this species.
+							}
+						}
+					}
+					# Vats check out, but are there more pops than Vats support?
+					check_variable = { which = clone_pops_missing value < 0 }
+				}
+			}
+		}
+		#Turned off in 4.4???
+		## This slowly kills off the Syntheic Fertility Species
+		#custom_tooltip = {
+		#	success_text = PATHOGENIC_GENES_FORCE_DECLINE
+		#	exists = this
+		#	has_trait = trait_pathogenic_genes
+		#}
+		from = {
+			custom_tooltip = {
+				success_text = VOIDSPAWN_FORCE_DECLINE
+				exists = this
+				has_modifier = voidspawn_colony_mod
+			}
+		}
+	}
+}
+
+
+# Turned off for 4.4??
+## This = planet
+#has_enough_pops_for_necrophage_on_planet = {
+#	owner = { OR = {
+#			has_country_flag = decision_necrophage
+#			has_origin = origin_necrophage
+#				} }
+#	has_available_jobs = necro_apprentice
+#	if = {
+#		limit = {
+#			has_planet_flag = necrophage_alert_timer
+#		}
+#		count_owned_species = {
+#			count = 0
+#			limit = { species_can_be_necrophaged = yes }
+#		}
+#	}
+#	else = {
+#		NOT = { any_owned_pop_group = { can_work_specific_job = necro_apprentice } }
+#	}
+#}
+
+# This = country establishing contact | From = target country
+# Final check for whether there should be a first contact site spawned. Main check is via country type 'contact_rule', in code. See also: error-logging/fixing event 'action.240', which duplicates this trigger.
+can_have_first_contact = {
+	if = {
+		limit = { from = { is_amoeba_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = { is_amoeba_country_type = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_tiyanki_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = { is_tiyanki_country_type = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_cutholoids_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = { is_cutholoids_country_type = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_voidworms_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = { is_voidworms_country_type = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_crystal_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = {
+					is_crystal_country_type = yes
+					NOT = { has_country_flag = queued_to_destroy }
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_drone_country_type = yes } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = {
+					is_drone_country_type = yes
+					NOT = { has_country_flag = queued_to_destroy }
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { from = { is_country_type = cloud } }
+		NOT = {
+			any_active_first_contact = {
+				contact_country = { is_country_type = cloud }
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			from = {
+				OR = {
+					is_country_type = caravaneer_fleet
+					is_country_type = caravaneer_home
+				}
+			}
+		}
+		NOT = {
+			any_active_first_contact = {
+				contact_country = {
+					OR = {
+						is_country_type = caravaneer_fleet
+						is_country_type = caravaneer_home
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			from = {
+				is_country_type = dragon_dummy
+			}
+		}
+		OR = {
+			has_country_flag = decision_here_be_dragons
+			has_origin = origin_here_be_dragons
+		}
+		from = { has_country_flag = dragon_of@prev }
+	}
+	else_if = {
+		limit = {
+			from = {
+				is_country_type = jaunting_traveler_dummy
+			}
+		}
+		from = { has_country_flag = jaunting_traveler_of@prev }
+	}
+}
+
+#this/root = pop
+#checked if job's possible_precalc = can_fill_ruler_job
+can_fill_ruler_job = {
+	if = {
+		limit = {
+			exists = owner
+			owner = {
+				OR = {
+					has_country_flag = decision_necrophage
+					has_origin = origin_necrophage
+				}
+				has_trait = trait_necrophage
+			}
+		}
+		custom_tooltip = {
+			text = RULER_JOB_NECROPHAGE_TRIGGER
+			has_trait = trait_necrophage
+			is_enslaved = no
+			is_being_purged = no
+			is_being_assimilated = no
+		}
+	}
+	else = {
+		custom_tooltip = RULER_JOB_TRIGGER
+		hidden_trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+			exists = owner
+			is_enslaved = no
+			is_being_purged = no
+			is_being_assimilated = no
+			NOT = { has_trait = trait_syncretic_proles }
+			# Rule out Traits for servitude & lack of free will
+			can_think = yes
+			# Rule out Disconnected Drones
+			has_disconnected_drone_citizenship_type = no
+			# Rule out Machine Pops, unless they're rendered sapient
+			OR = {
+				NOT = { has_trait = trait_mechanical }
+				AND = {
+					owner = { has_technology = tech_synthetic_workers }
+					owner = { has_policy_flag = ai_full_rights }
+				}
+			}
+			# Rule out Organic Trophies
+			NOT = {
+				has_citizenship_type = {
+					type = citizenship_organic_trophy
+					country = owner
+				}
+				has_citizenship_type = {
+					type = citizenship_cruise_passenger
+					country = owner
+				}
+			}
+			# Rule out violations of the 'Right to Work' Resolution (prioritises organic workers)
+			if = {
+				limit = {
+					divinity_right_to_work_job_check_trigger_exempt = no
+				}
+				divinity_right_to_work_job_check_trigger_ruler = yes
+			}
+		}
+	}
+}
+
+#This, root = country
+can_remove_positive_traits_organic = {
+	OR = {
+		AND = {
+			OR = {
+				has_tradition = tr_genetics_resequencing
+				has_active_tradition = tr_cybernetics_integrated_anatomy
+				has_active_tradition = tr_cybernetics_assimilator_integrated_anatomy
+				has_active_tradition = tr_purity_genotype_regeneration
+				has_active_tradition = tr_purity_genotype_regeneration_wilderness
+				has_active_tradition = tr_cloning_somatic_synthesization
+				has_active_tradition = tr_cloning_somatic_synthesization_clone_army
+				has_active_tradition = tr_mutation_unnatural_selection
+			}
+		}
+		AND = {
+			has_toxoids = yes
+			OR = {
+				has_country_flag = decision_overtuned
+				has_origin = origin_overtuned
+			}
+		}
+		has_technology = tech_gene_expressions
+		has_technology = tech_epigenetic_triggers
+	}
+}
+
+can_explore_rifts_outside_borders = {
+	exists = this
+	exists = from
+	OR = {
+		is_nomadic = yes
+		has_origin = origin_riftworld
+		has_country_flag = decision_riftworld
+	}
+	OR = {
+		from = { # regular case
+			solar_system = { NOT = { exists = owner } }
+		}
+		AND = { # Nomadic with Research Agreement
+			is_nomadic = yes
+			from = {
+				solar_system = { exists = owner }
+			}
+			is_nomadic = yes
+			has_research_agreement = from.solar_system.owner
+		}
+	}
+}

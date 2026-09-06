@@ -1,0 +1,56 @@
+namespace = mmo_lost_colony
+
+
+country_event = {
+    id = mmo_lost_colony.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = decision_lost_colony
+    }
+
+    immediate = {
+        log = "Reach Event: mmo_lost_colony.1"
+        if = {
+            limit = {
+                is_human_species = yes
+            }
+            if = {
+                limit = {
+                    any_system = { has_star_flag = sol }
+                    any_country = { has_country_flag = human_1 }
+                }
+                log = "Reach Event: sol exists"
+                mmo_lost_colony_setup_humans = yes
+            }
+            else = {
+                log = "Reach Event: sol did not exists"
+                random_system = {
+                    limit = {
+                        has_owner = no
+                        has_special_star_flag_trigger = no
+                    }
+                    spawn_system = {
+                        initializer = "lost_colony_sol_system_mmo"
+                        hyperlane = yes
+                    }
+                }
+
+            }
+        }
+        else = {
+            log = "Reach Event: other option"
+            random_system = {
+                limit = {
+                    has_owner = no
+                    has_special_star_flag_trigger = no
+                }
+                spawn_system = {
+                    initializer = "lost_colony_mmo"
+                    hyperlane = yes
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,1056 @@
+
+namespace = unplugged
+
+country_event = {
+    id = unplugged.199
+    is_triggered_only = yes
+    hide_window = yes
+    trigger = {
+        has_unplugged_origin = yes
+    }
+    immediate = {
+        set_variable = {
+            which = var_unplugged_cybernetic_benefits
+            value = 3
+        }
+        set_variable = {
+            which = var_unplugged_cybernetic_negatives
+            value = 3
+        }
+
+        every_owned_leader = {
+            limit = {
+                leader_class = commander
+                is_ruler = no
+            }
+            add_trait = {
+                trait = leader_trait_unplugged_cybernetic_positives_3
+                show_message = no
+            }
+        }
+
+        species = {
+            set_species_flag = unplugged_species
+        }
+
+        capital_star = {
+            event_target:origin_unplugged_assimilator_empire = {
+                create_fleet = {
+                    name = NAME_Exigency_Fleet
+                    effect = {
+                        set_owner = event_target:origin_unplugged_assimilator_empire
+                        while = {
+                            count = 3
+                            create_ship = {
+                                name = random
+                                design = "NAME_Unplugged_Machine_Legacy_Corvette"
+                                prefix = no
+                            }
+                        }
+                        set_location = PREVPREV
+                        set_fleet_stance = aggressive
+                        set_aggro_range_measure_from = self
+                        set_aggro_range = 400
+                        set_fleet_flag = unplugged_starting_civilwar_fleet_flag
+                    }
+                }
+            }
+            create_ambient_object = {
+                type = medium_debris_02_object
+            }
+            create_ambient_object = {
+                type = abandoned_ship_2_object
+            }
+            solar_system = {
+                every_system_planet = {
+                    limit = {
+                        has_carrier_flag = unplugged_homeworld
+                    }
+                    while = {
+                        count = 10
+                        create_army = {
+                            name = random
+                            owner = root
+                            species = root
+                            type = "assault_army"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# unplugged.198 on_survey_planet Hidden event for surveying in the machine legacy systems
+ship_event = {
+    id = unplugged.198
+    is_triggered_only = yes
+    hide_window = yes
+
+    trigger = {
+        OR = {
+            AND = {
+                exists = event_target:origin_unplugged_maker_planet
+                from = { is_same_value = event_target:origin_unplugged_maker_planet }
+            }
+            AND = {
+                exists = event_target:origin_unplugged_taken_planet
+                from = { is_same_value = event_target:origin_unplugged_taken_planet }
+            }
+            AND = {
+                exists = event_target:origin_unplugged_creators_planet
+                from = { is_same_value = event_target:origin_unplugged_creators_planet }
+            }
+            AND = {
+                exists = event_target:origin_unplugged_machine_legacy_core_planet
+                from = { is_same_value = event_target:origin_unplugged_machine_legacy_core_planet }
+            }
+        }
+    }
+
+    immediate = {
+        # planet scope
+        from = {
+            unplugged_origin_check_remove_poi_effect = {
+                POI = unplugged_machine_legacy_makers_poi
+            }
+            if = {
+                limit = {
+                    is_same_value = event_target:origin_unplugged_maker_planet
+                }
+                if = {
+                    limit = {
+                        root.controller = {
+                            has_unplugged_origin = yes
+                        }
+                    }
+                    add_anomaly = {
+                        category = MACHINE_LEGACY_MAKERS_UNPLUGGED_CAT
+                        target = root.controller
+                    }
+                }
+                else = {
+                    add_anomaly = {
+                        category = MACHINE_LEGACY_MAKERS_CAT
+                        target = root.controller
+                    }
+                }
+            }
+            unplugged_origin_check_remove_poi_effect = {
+                POI = unplugged_machine_legacy_taken_poi
+            }
+            if = {
+                limit = {
+                    is_same_value = event_target:origin_unplugged_taken_planet
+                }
+                if = {
+                    limit = {
+                        root.controller = {
+                            has_unplugged_origin = yes
+                        }
+                    }
+                    enable_special_project = {
+                        name = MACHINE_LEGACY_TAKEN_UNPLUGGED
+                        location = this
+                        owner = root.controller
+                    }
+                }
+                else = {
+                    add_anomaly = {
+                        category = MACHINE_LEGACY_TAKEN_CAT
+                        target = root.controller
+                    }
+                }
+            }
+            unplugged_origin_check_remove_poi_effect = {
+                POI = unplugged_machine_legacy_creators_poi
+            }
+            if = {
+                limit = {
+                    is_same_value = event_target:origin_unplugged_creators_planet
+                }
+                if = {
+                    limit = {
+                        root.controller = {
+                            has_unplugged_origin = yes
+                        }
+                    }
+                    enable_special_project = {
+                        name = MACHINE_LEGACY_CREATORS_UNPLUGGED
+                        location = this
+                        owner = root.controller
+                    }
+                }
+                else = {
+                    add_anomaly = {
+                        category = MACHINE_LEGACY_CREATORS_CAT
+                        target = root.controller
+                    }
+                }
+            }
+            unplugged_origin_check_remove_poi_effect = {
+                POI = unplugged_machine_legacy_core_poi
+            }
+        }
+    }
+}
+
+############
+# CIVIL WAR
+############
+
+# unplugged.100 "Victory is Ours"
+country_event = {
+    id = unplugged.100
+    is_triggered_only = yes
+    picture = GFX_evt_small_space_battle
+    title = unplugged.100.name
+    desc = unplugged.100.desc
+
+    trigger = {
+        has_unplugged_origin = yes
+        fromfromfrom = {
+            has_fleet_flag = unplugged_starting_civilwar_fleet_flag
+            solar_system.star = {
+                is_same_value = prevprev.capital_star
+            }
+        }
+    }
+
+    immediate = {
+        hidden_effect = {
+            solar_system = {
+                every_system_planet = {
+                    limit = {
+                        has_carrier_flag = unplugged_pre_ftl_carrier_flag
+                    }
+                    save_global_event_target_as = origin_unplugged_pre_ftl_planet
+                }
+            }
+        }
+    }
+
+    option = {
+        name = unplugged.100.a
+    }
+    option = {
+        name = unplugged.100.b
+        exclusive_trigger = {
+            has_civic = civic_barbaric_despoilers
+        }
+    }
+    option = {
+        name = unplugged.100.c
+        exclusive_trigger = {
+            OR = {
+                has_civic = civic_private_military_companies
+                has_civic = civic_corporate_scavengers
+                has_civic = civic_scavengers
+            }
+        }
+    }
+    option = {
+        name = unplugged.100.d
+        exclusive_trigger = {
+            is_spiritualist = yes
+        }
+    }
+    after = {
+        hidden_effect = {
+            event_target:origin_unplugged_pre_ftl_planet = {
+                create_archaeological_site = pre_ftl_remains_site
+            }
+            owner = {
+                country_event = {
+                    days = 100
+                    random = 20
+                    id = unplugged.2000
+                }
+            }
+        }
+    }
+}
+
+# 'The Makers' stage 1: factory floor
+fleet_event = {
+    id = unplugged.2010
+    is_triggered_only = yes
+    location = from
+    archaeology = yes
+    picture = GFX_evt_archaeology_camp
+    event_chain = unplugged_origin_machine_legacy_chain
+    title = unplugged.2010.name
+
+    show_sound = archeology_log_entry_neutral
+
+    immediate = {
+        from = { set_site_progress_locked = yes }
+    }
+
+    after = {
+        from = { set_site_progress_locked = no }
+    }
+
+    desc = unplugged.2010.desc.unplugged
+
+    option = {
+        trigger = {
+            controller = {
+                has_unplugged_origin = yes
+            }
+        }
+        name = unplugged.2010.a
+    }
+    option = {
+        trigger = {
+            controller = {
+                has_unplugged_origin = yes
+                NOT = { has_country_flag = unplugged_has_started_identity_situation_flag }
+            }
+        }
+        name = unplugged.2010.b
+        hidden_effect = {
+            controller = {
+                country_event = {
+                    id = unplugged.3000
+                }
+            }
+        }
+    }
+    option = {
+        trigger = {
+            controller = {
+                NOT = { has_unplugged_origin = yes }
+            }
+        }
+        name = DIG
+    }
+}
+
+# 'The Makers' epilogue: hostile fleet is destroyed [HIDDEN]
+country_event = {
+    id = unplugged.2035
+    is_triggered_only = yes
+    hide_window = yes
+
+    trigger = {
+        fromfrom = {
+            has_fleet_flag = machine_legacy_makers_fleet
+        }
+    }
+
+    immediate = {
+        every_country = {
+            limit = {
+                has_unplugged_origin = yes
+            }
+            set_country_flag = origin_unplugged_maker_fleet_defeated
+            if = {
+                limit = {
+                    is_same_value = from
+                }
+                country_event = { id = unplugged.2036 }
+            }
+            else = {
+                country_event = { id = unplugged.2037 }
+            }
+        }
+    }
+}
+
+# SYSTEM 3: 'THE CREATORS'
+
+# "Dust Monitor" Anomaly researched (all versions)
+ship_event = {
+    id = unplugged.2200
+    title = unplugged.2200.name
+    desc = unplugged.2200.desc.others # standard
+    desc = { # Unplugged, with the Monitor intact
+        text = unplugged.2200.desc
+        exclusive_trigger = {
+            exists = controller
+            controller = {
+                has_unplugged_origin = yes
+            }
+            fromfrom = {
+                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+            }
+        }
+    }
+    desc = { # Unplugged, with the Monitor scrapped
+        text = unplugged.2200.desc.scrapped
+        exclusive_trigger = {
+            exists = controller
+            controller = {
+                has_unplugged_origin = yes
+            }
+            fromfrom = {
+                has_carrier_flag = creators_planet_monitor_scrapped
+            }
+        }
+    }
+    picture = GFX_evt_satellite_in_orbit
+    show_sound = event_default
+    location = fromfrom
+    event_chain = unplugged_origin_machine_legacy_chain
+    is_triggered_only = yes
+
+    immediate = {
+        controller = {
+            if = {
+                limit = {
+                    has_unplugged_origin = yes
+                }
+                set_country_flag = unplugged_visible_site_@fromfrom
+            }
+        }
+    }
+
+    option = { # Unplugged, with the Monitor intact: proceed
+        name = unplugged.2200.a
+        trigger = {
+            exists = controller
+            controller = {
+                has_unplugged_origin = yes
+            }
+            fromfrom = {
+                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+            }
+        }
+        fromfrom = {
+            create_archaeological_site = machine_legacy_creators_site
+        }
+    }
+    option = { # Unplugged, with the Monitor intact: don't bother digging
+        name = unplugged.2200.b
+        trigger = {
+            exists = controller
+            controller = {
+                has_unplugged_origin = yes
+            }
+            fromfrom = {
+                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+            }
+        }
+    }
+    option = { # Unplugged, with the Monitor scrapped
+        name = CURSES
+        trigger = {
+            exists = controller
+            controller = {
+                has_unplugged_origin = yes
+            }
+            fromfrom = {
+                has_carrier_flag = creators_planet_monitor_scrapped
+            }
+        }
+    }
+    option = { # non-Unplugged
+        name = CURIOUS
+        trigger = {
+            exists = controller
+            controller = {
+                NOT = { has_unplugged_origin = yes }
+            }
+        }
+        controller = {
+            add_monthly_resource_mult = {
+                resource = society_research
+                value = @tier1researchreward
+                min = @tier1researchmin
+                max = @tier1researchmax
+            }
+        }
+    }
+    option = { # non-Unplugged: scrap the monitor
+        name = unplugged.2200.c
+        trigger = {
+            exists = controller
+            controller = {
+                NOT = { has_unplugged_origin = yes }
+            }
+            fromfrom = {
+                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+            }
+        }
+        fromfrom = {
+            set_carrier_flag = creators_planet_monitor_scrapped
+        }
+        controller = {
+            add_monthly_resource_mult = {
+                resource = alloys
+                value = @tier1materialreward
+                min = @tier1materialmin
+                max = @tier1materialmax
+            }
+        }
+    }
+
+    after = {
+        hidden_effect = {
+            controller = {
+                remove_point_of_interest = unplugged_machine_legacy_creators_poi
+            }
+        }
+    }
+}
+
+# 'The Creators' breadcrumb event: upon entering this system, set timer to reveal 'The Unplugged' system [HIDDEN]
+ship_event = {
+    id = unplugged.2204
+    is_triggered_only = yes
+    hide_window = yes
+
+    trigger = {
+        fromfrom = {
+            has_unplugged_origin = yes
+            NOT = { has_country_flag = unplugged_has_found_homeworld_flag }
+        }
+        from = {
+            has_star_flag = unplugged_machine_legacy_flag
+            any_system_planet = {
+                is_same_value = event_target:origin_unplugged_creators_planet
+            }
+        }
+        exists = event_target:origin_unplugged_unplugged_planet_@fromfrom
+    }
+
+    immediate = {
+        fromfrom = {
+            country_event = {
+                id = unplugged.2205
+                days = 360
+            }
+        }
+    }
+}
+
+# SYSTEM 4: 'THE UNPLUGGED'
+
+# 'The Unplugged' prologue: upon entering the system
+fleet_event = {
+    id = unplugged.2300
+    is_triggered_only = yes
+    event_chain = unplugged_origin_machine_legacy_chain
+    picture = GFX_evt_ancient_databank
+    title = unplugged.2300.name
+    desc = unplugged.2300.desc
+
+    option = {
+        name = unplugged.2300.a
+
+        custom_tooltip = unplugged.2300.a.tt
+
+    }
+
+    trigger = {
+        controller = {
+            has_unplugged_origin = yes
+        }
+        from = {
+            has_star_flag = unplugged_machine_legacy_flag
+            any_system_planet = {
+                is_point_of_interest = {
+                    id = unplugged_machine_legacy_unplugged_poi
+                    event_chain = unplugged_origin_machine_legacy_chain
+                    owner = root.controller
+                }
+            }
+        }
+    }
+
+    immediate = {
+        from = {
+            every_system_planet = {
+                limit = {
+                    is_point_of_interest = {
+                        id = unplugged_machine_legacy_unplugged_poi
+                        event_chain = unplugged_origin_machine_legacy_chain
+                        owner = root.controller
+                    }
+                }
+                enable_special_project = {
+                    name = MACHINE_LEGACY_UNPLUGGED_VAULT_BEACON
+                    owner = root.controller
+                    location = this
+                }
+            }
+        }
+        controller = {
+            remove_point_of_interest = unplugged_machine_legacy_unplugged_poi
+            set_country_flag = unplugged_has_found_homeworld_flag
+        }
+    }
+}
+
+
+# 'The Unplugged' epilogue: hostile fleet destroyed; Opus Sentinel (or else the Nexus) sends taunt
+country_event = {
+    id = unplugged.2390
+    title = unplugged.2390.name
+    desc = unplugged.2390.desc
+    picture = GFX_evt_small_space_battle
+    event_chain = unplugged_origin_machine_legacy_chain
+    is_triggered_only = yes
+
+    trigger = {
+        has_unplugged_origin = yes
+        fromfromfrom = {
+            has_fleet_flag = unplugged_homeworld_intercept_fleet
+        }
+    }
+
+    immediate = {
+        set_visited = event_target:origin_unplugged_machine_legacy_core
+        create_point_of_interest = {
+            id = unplugged_machine_legacy_core_poi
+            name = unplugged_machine_legacy_core_poi
+            desc = unplugged_machine_legacy_core_poi_desc
+            event_chain = unplugged_origin_machine_legacy_chain
+            location = event_target:origin_unplugged_machine_legacy_core
+        }
+    }
+
+    option = {
+        name = ACKNOWLEDGED
+
+        tooltip = {
+            create_point_of_interest = {
+                id = unplugged_machine_legacy_core_poi
+                name = unplugged_machine_legacy_core_poi
+                desc = unplugged_machine_legacy_core_poi_desc
+                event_chain = unplugged_origin_machine_legacy_chain
+                location = event_target:origin_unplugged_machine_legacy_core
+            }
+        }
+
+    }
+}
+
+# SYSTEM 5: 'THE MACHINE'
+
+# 'The Machine' prologue: Opus Sentinel destroyed [HIDDEN]
+country_event = {
+    id = unplugged.2400
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        fromfromfrom = {
+            has_fleet_flag = machine_legacy_machine_core_fleet
+        }
+    }
+
+    immediate = {
+        set_country_flag = machine_legacy_destroyed_boss
+        if = {
+            limit = {
+                has_unplugged_origin = yes
+            }
+            country_event = {
+                id = unplugged.2401
+            }
+        }
+        else = {
+            country_event = {
+                id = unplugged.2403
+            }
+        }
+        every_country = {
+            limit = {
+                has_unplugged_origin = yes
+                NOT = { is_same_value = root }
+            }
+            country_event = {
+                id = unplugged.2402
+            }
+        }
+    }
+}
+
+# 'The Machine': opening dialog with the Nexus (all versions)
+country_event = {
+    id = unplugged.2405
+    is_triggered_only = yes
+    event_chain = unplugged_origin_machine_legacy_chain
+    title = TRANSMISSION
+    diplomatic = yes
+    picture_event_data = {
+        room = no_video_feed_room
+    }
+
+    desc = {
+        text = unplugged.2405.desc.unplugged
+        trigger = {
+            has_unplugged_origin = yes
+            is_synthetic_empire = no
+            has_country_flag = machine_legacy_destroyed_boss
+        }
+    }
+
+    desc = {
+        text = unplugged.2405.desc.unplugged_remote
+        trigger = {
+            has_unplugged_origin = yes
+            is_synthetic_empire = no
+            NOT = { has_country_flag = machine_legacy_destroyed_boss }
+        }
+    }
+
+    desc = {
+        text = unplugged.2405.desc.unplugged_synth
+        trigger = {
+            has_unplugged_origin = yes
+            is_synthetic_empire = yes
+        }
+    }
+
+    desc = {
+        text = unplugged.2405.desc.other
+        trigger = {
+            NOT = { has_unplugged_origin = yes }
+        }
+    }
+
+    option = {
+        name = ACKNOWLEDGED
+        hidden_effect = {
+            if = {
+                limit = {
+                    has_unplugged_origin = yes
+                }
+                country_event = {
+                    id = unplugged.2410
+                }
+            }
+            else = {
+                country_event = {
+                    id = unplugged.2411
+                }
+            }
+        }
+    }
+
+    option = {
+        name = unplugged.2405.a
+        trigger = {
+            has_unplugged_origin = yes
+            NOT = { has_ascension_perk = ap_synthetic_evolution }
+        }
+        is_dialog_only = yes
+        response_text = unplugged.2405.response_text.unplugged1
+    }
+
+    option = {
+        name = unplugged.2405.b
+        trigger = {
+            has_unplugged_origin = yes
+            has_ascension_perk = ap_synthetic_evolution
+        }
+        is_dialog_only = yes
+        response_text = unplugged.2405.response_text.unplugged1
+    }
+
+    option = {
+        name = unplugged.2405.c
+        trigger = {
+            has_unplugged_origin = yes
+        }
+        is_dialog_only = yes
+        response_text = unplugged.2405.response_text.unplugged2
+    }
+
+    option = {
+        name = unplugged.2405.d
+        trigger = {
+            NOT = { has_unplugged_origin = yes }
+        }
+        is_dialog_only = yes
+        response_text = unplugged.2405.response_text.other
+    }
+}
+
+# 'The Machine': dialog with the Nexus (non-Unplugged version)
+country_event = {
+    id = unplugged.2411
+    is_triggered_only = yes
+    event_chain = unplugged_origin_machine_legacy_chain
+    title = TRANSMISSION
+    diplomatic = yes
+    picture_event_data = {
+        room = no_video_feed_room
+    }
+    desc = unplugged.2411.desc
+
+    immediate = {
+        if = { # pick an Unplugged empire to implicate, if they still exist
+            limit = {
+                any_playable_country = {
+                    has_unplugged_origin = yes
+                }
+            }
+            random_playable_country = {
+                limit = {
+                    has_unplugged_origin = yes
+                }
+                save_event_target_as = unplugged_empire
+                establish_communications_no_message = root
+            }
+        }
+        else = { # target the Opus as an even more delusional fallback
+            event_target:origin_unplugged_assimilator_empire = {
+                save_event_target_as = unplugged_empire
+            }
+        }
+    }
+
+    option = {
+        name = unplugged.2411.a
+    }
+
+    option = {
+        name = unplugged.2411.b
+        add_opinion_modifier = {
+            modifier = opinion_implicated_by_unplugged_assimilator
+            who = event_target:unplugged_empire
+        }
+        trigger = {
+            event_target:unplugged_empire = {
+                NOT = { is_same_value = event_target:origin_unplugged_assimilator_empire }
+            }
+        }
+    }
+
+    after = {
+        event_target:origin_unplugged_machine_legacy_core_planet = {
+            if = {
+                limit = {
+                    NOT = { has_deposit = d_unplugged_assimilator_hulk }
+                }
+                add_deposit = d_unplugged_assimilator_hulk
+            }
+        }
+    }
+}
+
+# Encounter with the Opus Sentinel
+# via on_entering_system_fleet | this = player fleet; from = system
+fleet_event = {
+    id = unplugged.2495
+    title = unplugged.2495.name
+    desc = {
+        text = unplugged.2495.desc.other
+        trigger = {
+            controller = {
+                NOT = { has_unplugged_origin = yes }
+            }
+        }
+    }
+    desc = {
+        text = unplugged.2495.desc.unplugged
+        trigger = {
+            controller = { has_unplugged_origin = yes }
+        }
+    }
+    picture = GFX_evt_unplugged_opus_nexus
+    location = from
+    show_sound = event_yellow_alert
+    is_triggered_only = yes
+
+    trigger = {
+        from = {
+            has_star_flag = unplugged_machine_legacy_core_flag
+            any_fleet_in_system = { has_fleet_flag = machine_legacy_machine_core_fleet }
+        }
+        controller = {
+            NOT = {
+                has_country_flag = opus_sentinel_encounter
+            }
+            is_country_type = default
+        }
+    }
+
+    immediate = {
+        controller = {
+            set_country_flag = opus_sentinel_encounter
+        }
+    }
+
+    option = {
+        name = unplugged.2495.a
+    }
+}
+
+#######################
+# CYBERNETIC RECKONING
+#######################
+
+# Our Embodiment - Situation Start Event
+country_event = {
+    id = unplugged.3000
+    title = unplugged.3000.name
+    desc = unplugged.3000.desc
+    picture = GFX_evt_unplugged
+    is_triggered_only = yes
+
+    trigger = {
+        has_unplugged_origin = yes
+        any_pop_faction = {
+            exists = this
+        }
+        NOT = { has_country_flag = unplugged_has_started_identity_situation_flag }
+    }
+
+    immediate = {
+        start_situation = {
+            type = situation_unplugged_identity
+            target = root
+        }
+        hidden_effect = {
+            set_country_flag = unplugged_has_started_identity_situation_flag
+        }
+    }
+
+    option = { # Status Quo
+        name = unplugged.3000.a
+        random_situation = {
+            limit = { is_situation_type = situation_unplugged_identity }
+            set_situation_approach = situation_unplugged_identity_discourage_change
+        }
+    }
+    option = { # Embrace Opinion
+        name = unplugged.3000.b
+        random_situation = {
+            limit = { is_situation_type = situation_unplugged_identity }
+            set_situation_approach = situation_unplugged_identity_embrace_opinion
+        }
+    }
+    option = { # Allow Debate
+        name = unplugged.3000.c
+        random_situation = {
+            limit = { is_situation_type = situation_unplugged_identity }
+            set_situation_approach = situation_unplugged_identity_open_conversations
+        }
+    }
+
+    after = {
+        tooltip = {
+            start_situation = {
+                type = situation_unplugged_identity
+                target = root
+            }
+        }
+    }
+}
+
+# Other Empires Seem to Fear Us: "A Legacy of Terror" (Established Communications version)
+# via 'on_post_communications_established' | from = contacted country
+country_event = {
+    id = unplugged.3200
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_unplugged_origin = yes
+        NOT = { has_country_flag = unplugged_legacyofterror }
+        OR = {
+            has_country_flag = unplugged_fearofthemachine
+            from = {
+                NOT = { is_machine_empire = yes }
+            }
+        }
+        from = {
+            fears_unplugged_empire = yes
+        }
+    }
+
+    immediate = {
+        owner = {
+            country_event = {
+                id = unplugged.3205
+                days = 1
+            }
+        }
+    }
+}
+
+# Gatekeeper for unplugged.3250 & unplugged.3255
+# via 'on_post_communications_established' | from = contacted country
+country_event = {
+    id = unplugged.3249
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_unplugged_origin = yes
+        from = {
+            is_machine_empire = yes
+        }
+    }
+
+    immediate = {
+        owner = {
+            country_event = {
+                id = unplugged.3250
+                days = 1
+            }
+            country_event = {
+                id = unplugged.3255
+                days = 1
+            }
+        }
+    }
+}
+
+######################
+# POLITICAL DISCOURSE
+######################
+
+# Gatekeeper event (hidden, chance of a nudge to spawn Pop Factions)
+# via 'on_yearly_pulse_country', plus assorted nudges from Unplugged events
+country_event = {
+    id = unplugged.4000
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        NOR = {
+            has_country_flag = first_faction
+            has_country_flag = unplugged_faction_allowed
+        }
+        has_unplugged_origin = yes
+    }
+
+    immediate = {
+        unplugged_spawn_factions_check = yes
+    }
+}
+
+# Emerging political issues & structures (visible, guaranteed nudge to spawn Pop Factions)
+# via 'unplugged_spawn_factions_check'
+country_event = {
+    id = unplugged.4005
+    title = unplugged.4005.name
+    desc = unplugged.4005.desc
+    picture = GFX_evt_civil_action
+    show_sound = event_factions
+    location = capital_scope
+    is_triggered_only = yes
+
+    trigger = {
+        NOR = {
+            has_country_flag = first_faction
+            has_country_flag = unplugged_faction_allowed
+        }
+        has_unplugged_origin = yes
+    }
+
+    immediate = {
+        set_country_flag = unplugged_faction_allowed # see 'is_faction_allowed'
+    }
+
+    option = { # not the time!
+        name = unplugged.4005.a
+        custom_tooltip = "unplugged.4005.tt"
+    }
+}

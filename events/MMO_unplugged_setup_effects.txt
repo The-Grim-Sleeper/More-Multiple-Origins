@@ -1,0 +1,358 @@
+namespace = mmo_unplugged
+
+# create origin_unplugged_assimilator_empire if none exists, for linking to player, see mmo_unplugged.2
+country_event = {
+    id = mmo_unplugged.1
+    hide_window = yes
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        has_country_flag = decision_unplugged
+    }
+    immediate = {
+        if = {
+            limit = {
+                NOT = { exists = event_target:origin_unplugged_assimilator_empire }
+            }
+
+            create_species = {
+                name = NAME_Unplugged_Assimilator_species
+                class = MACHINE
+                namelist = MACHINE2
+                portrait = sd_art_robot
+                traits = {
+                    ideal_planet_class = pc_machine
+                    trait = trait_machine_unit
+                    trait = random_traits
+                }
+                extra_trait_points = 2
+                allow_negative_traits = yes
+            }
+            last_created_species = {
+                save_event_target_as = unplugged_assimilator_species
+            }
+
+            create_country = {
+                name = NAME_Unplugged_Assimilator
+                type = faction
+                auto_delete = no
+                flag = {
+                    icon = {
+                        category = "legion"
+                        file = "flag_opus.dds"
+                    }
+                    background = {
+                        category = "backgrounds"
+                        file = "00_solid.dds"
+                    }
+                    colors = {
+                        "burgundy"
+                        "burgundy"
+                        "null"
+                        "null"
+                    }
+                }
+                origin = origin_machine
+                species = event_target:unplugged_assimilator_species
+
+                effect = {
+                    set_country_flag = unplugged_assimilator_empire
+                    save_global_event_target_as = origin_unplugged_assimilator_empire
+                    set_faction_hostility = {
+                        set_hostile = yes
+                        set_neutral = no
+                        set_friendly = no
+                    }
+                    random_playable_country = {
+                        limit = {
+                            has_unplugged_origin = yes
+                        }
+                        save_event_target_as = random_unplugged_country
+                    }
+                    set_graphical_culture = event_target:random_unplugged_country
+                }
+            }
+
+
+            # Spawn the Machine capital
+            if = {
+                limit = {
+                    NOT = { exists = event_target:origin_unplugged_machine_legacy_core }
+                }
+                random_system = {
+                    limit = {
+                        has_owner = no
+                        has_special_star_flag_trigger = no
+                    }
+                    weights = {
+                        base = 1
+                        modifier = {
+                            factor = 1000000
+                            closest_system = {
+                                use_bypasses = no
+                                min_steps = 3
+                                max_steps = 4
+                                limit = {
+                                    has_owner = yes
+                                    owner = {
+                                        has_country_flag = decision_unplugged
+                                    }
+                                }
+                            }
+                        }
+                        modifier = {
+                            factor = 0.5
+                            closest_system = {
+                                use_bypasses = no
+                                min_steps = 1
+                                max_steps = 3
+                                limit = {
+                                    has_owner = yes
+                                    owner = {
+                                        NOT = { has_country_flag = decision_unplugged }
+                                    }
+                                }
+                            }
+                        }
+                        modifier = {
+                            factor = 2
+                            count_neighbor_system = {
+                                count > 2
+                            }
+                        }
+                    }
+                    set_spawn_system_batch = begin
+                    random_list = {
+                        1 = {
+                            spawn_system = {
+                                min_distance = 15
+                                max_distance = 15
+                                max_jumps = 0
+                                hyperlane = no
+                                # angle of 270 +- 60
+                                min_orientation_angle = 210
+                                max_orientation_angle = 330
+                                initializer = origin_unplugged_machine_legacy_core_system_init
+                            }
+                            set_star_flag = machine_legacy_connect_periphery_1
+                        }
+                        1 = {
+                            spawn_system = {
+                                min_distance = 15
+                                max_distance = 15
+                                max_jumps = 0
+                                hyperlane = no
+                                # angle of 30 +- 60
+                                min_orientation_angle = 330
+                                max_orientation_angle = 90
+                                initializer = origin_unplugged_machine_legacy_core_system_init
+                            }
+                            set_star_flag = machine_legacy_connect_periphery_2
+                        }
+                        1 = {
+                            spawn_system = {
+                                min_distance = 15
+                                max_distance = 15
+                                max_jumps = 0
+                                hyperlane = no
+                                # angle of 150 +- 60
+                                min_orientation_angle = 90
+                                max_orientation_angle = 210
+                                initializer = origin_unplugged_machine_legacy_core_system_init
+                            }
+                            set_star_flag = machine_legacy_connect_periphery_3
+                        }
+                    }
+
+                    event_target:origin_unplugged_machine_legacy_core.solar_system = {
+                        spawn_system = {
+                            min_distance = 6
+                            max_distance = 6
+                            max_jumps = 0
+                            hyperlane = no
+                            min_orientation_angle = 90
+                            max_orientation_angle = 90
+                            initializer = origin_unplugged_machine_legacy_periphery_system_init
+                        }
+                        last_created_system = {
+                            save_event_target_as = origin_unplugged_machine_legacy_periphery_system_1
+                        }
+                        spawn_system = {
+                            min_distance = 6
+                            max_distance = 6
+                            max_jumps = 0
+                            hyperlane = no
+                            min_orientation_angle = 210
+                            max_orientation_angle = 210
+                            initializer = origin_unplugged_machine_legacy_periphery_system_init
+                        }
+                        last_created_system = {
+                            save_event_target_as = origin_unplugged_machine_legacy_periphery_system_2
+                        }
+                        spawn_system = {
+                            min_distance = 6
+                            max_distance = 6
+                            max_jumps = 0
+                            hyperlane = no
+                            min_orientation_angle = 330
+                            max_orientation_angle = 330
+
+                            initializer = origin_unplugged_machine_legacy_periphery_system_init
+                        }
+                        last_created_system = {
+                            save_event_target_as = origin_unplugged_machine_legacy_periphery_system_3
+                        }
+                    }
+                    set_spawn_system_batch = end
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_core
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_1
+                    }
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_core
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_2
+                    }
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_core
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_3
+                    }
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_1
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_2
+                    }
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_2
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_3
+                    }
+                    imperial_origin_start_hyperlane_effect = {
+                        ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_3
+                        SECOND_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_1
+                    }
+
+                    switch = {
+                        trigger = has_star_flag
+                        machine_legacy_connect_periphery_1 = {
+                            imperial_origin_start_hyperlane_effect = {
+                                ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_1
+                                SECOND_STAR_SYSTEM = this
+                            }
+                        }
+                        machine_legacy_connect_periphery_2 = {
+                            imperial_origin_start_hyperlane_effect = {
+                                ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_2
+                                SECOND_STAR_SYSTEM = this
+                            }
+                        }
+                        machine_legacy_connect_periphery_3 = {
+                            imperial_origin_start_hyperlane_effect = {
+                                ORIGINAL_STAR_SYSTEM = event_target:origin_unplugged_machine_legacy_periphery_system_3
+                                SECOND_STAR_SYSTEM = this
+                            }
+                        }
+                    }
+                }
+
+                # every unplugged player should have some machine legacy around them
+                every_country = {
+                    limit = {
+                        has_country_flag = decision_unplugged
+                    }
+                    capital_star.solar_system = {
+                        every_neighbor_system = {
+                            limit = {
+                                has_owner = no
+                            }
+                            set_star_flag = unplugged_machine_legacy_flag
+                            set_star_flag = unplugged_machine_legacy_border_flag_3
+                        }
+                    }
+                }
+
+                unplugged_origin_expand_machine_legacy_border_effect = yes
+
+                set_spawn_system_batch = begin
+
+                unplugged_origin_place_special_system_effect = {
+                    SYSTEM_FLAG = unplugged_machine_legacy_border_flag_3
+                    INITIALIZER = unplugged_machine_legacy_tomb_1_system_init
+                }
+
+                unplugged_origin_place_special_system_effect = {
+                    SYSTEM_FLAG = unplugged_machine_legacy_border_flag_3
+                    INITIALIZER = unplugged_machine_legacy_tomb_2_system_init
+                }
+
+                unplugged_origin_place_special_system_effect = {
+                    SYSTEM_FLAG = unplugged_machine_legacy_border_flag_1
+                    INITIALIZER = unplugged_machine_legacy_tomb_3_system_init
+                }
+
+                unplugged_origin_place_special_system_effect = {
+                    SYSTEM_FLAG = unplugged_machine_legacy_border_flag_2
+                    INITIALIZER = unplugged_machine_legacy_tomb_4_system_init
+                }
+
+                set_spawn_system_batch = end
+
+                unplugged_origin_mark_exisiting_tomb_worlds_effect = yes
+
+                unplugged_origin_system_backup_effect = yes
+
+                unplugged_origin_find_available_machine_legacy_world_effect = {
+                    LOCAL_EVENT_TARGET = maker_planet
+                }
+                event_target:maker_planet = {
+                    save_global_event_target_as = origin_unplugged_maker_planet
+                }
+                unplugged_origin_find_available_machine_legacy_world_effect = {
+                    LOCAL_EVENT_TARGET = taken_planet
+                }
+                event_target:taken_planet = {
+                    save_global_event_target_as = origin_unplugged_taken_planet
+                }
+                unplugged_origin_find_available_machine_legacy_world_effect = {
+                    LOCAL_EVENT_TARGET = creators_planet
+                }
+                event_target:creators_planet = {
+                    save_global_event_target_as = origin_unplugged_creators_planet
+                }
+
+                unplugged_origin_populate_machine_legacy_effect = yes
+            }
+        }
+    }
+}
+
+# link origin_unplugged_assimilator_empire to player triggering edict.
+country_event = {
+    id = mmo_unplugged.2
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = decision_unplugged
+    }
+    immediate = {
+        establish_communications_no_message = event_target:origin_unplugged_assimilator_empire
+        set_country_flag = Story2 # already encountered complex space-dwelling life
+        set_country_flag = Story5 # already encountered sapient lifeforms
+
+        capital_star.solar_system = {
+            every_neighbor_system = {
+                limit = {
+                    has_owner = no
+                }
+                set_star_flag = unplugged_machine_legacy_flag
+                set_star_flag = unplugged_machine_legacy_border_flag_3
+            }
+        }
+
+        unplugged_origin_find_available_machine_legacy_world_effect = {
+            LOCAL_EVENT_TARGET = unplugged_homeworld
+        }
+        event_target:unplugged_homeworld = {
+            save_global_event_target_as = origin_unplugged_unplugged_planet_@prev
+        }
+    }
+}

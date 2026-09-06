@@ -1,0 +1,235 @@
+namespace = timeline
+
+### Resource Consolidation ###
+
+# Creates Machine World
+carrier_event = {
+	id = timeline.57
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		this = {
+			is_planet_class = pc_machine
+		}
+		owner = {
+			OR = {
+				has_country_flag = decision_resource_consolidation
+				has_origin = origin_machine
+			}
+			is_country_type = default
+			NOT = { has_country_flag = resource_consolidation_created_machine_world }
+		}
+	}
+
+	immediate = {
+		this = {
+			save_event_target_as = this_planet
+		}
+
+		owner = {
+			set_country_flag = resource_consolidation_created_machine_world
+			save_event_target_as = this_country
+			add_timeline_event = {
+				type = timeline_origin_specific
+				override_id = timeline_resource_consolidation_created_machine_world
+				override_tooltip = "TIMELINE_EVENT_RESOURCE_CONSOLIDATION_TOOLTIP"
+				override_types = { }
+				override_text = { "text:TIMELINE_EVENT_RESOURCE_CONSOLIDATION" }
+				override_texture = { "background:GFX_evt_ai_planet" }
+				targets = { }
+			}
+		}
+	}
+}
+
+### Remnants ###
+
+# Restore Ecumenopolis
+planet_event = {
+	id = timeline.58
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		this = {
+			is_planet_class = pc_city
+			is_homeworld = yes
+		}
+		owner = {
+			OR = {
+				has_country_flag = decision_remnants
+				has_origin = origin_remnants
+			}
+			is_country_type = default
+			NOT = { has_country_flag = remnants_restored_ecumenopolis }
+		}
+	}
+
+	immediate = {
+		this = {
+			save_event_target_as = this_planet
+		}
+
+		owner = {
+			set_country_flag = remnants_restored_ecumenopolis
+			save_event_target_as = this_country
+			add_timeline_event = {
+				type = timeline_origin_specific
+				override_id = timeline_remnants_restored_ecumenopolis
+				override_tooltip = "TIMELINE_EVENT_REMNANTS_TOOLTIP"
+				override_types = { }
+				override_text = { "text:TIMELINE_EVENT_REMNANTS" }
+				override_texture = { "background:GFX_evt_overgrown_city" }
+				targets = { }
+			}
+		}
+	}
+}
+
+
+### Teachers of the Shroud ###
+
+# Built Shroud Tunnel
+country_event = {
+	id = timeline.60
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_shroudwalker_apprentice
+			has_origin = origin_shroudwalker_apprentice
+		}
+		is_country_type = default
+		NOT = { has_country_flag = teachers_of_the_shroud_built_shroud_tunnel }
+	}
+
+	immediate = {
+		set_country_flag = teachers_of_the_shroud_built_shroud_tunnel
+		save_event_target_as = this_country
+		add_timeline_event = {
+			type = timeline_origin_specific
+			override_id = timeline_teachers_of_the_shroud_built_shroud_tunnel
+			override_tooltip = "TIMELINE_EVENT_SHROUDWALKER_APPRENTICE_TOOLTIP"
+			override_types = { }
+			override_text = { "text:TIMELINE_EVENT_SHROUDWALKER_APPRENTICE" }
+			override_texture = { "background:GFX_evt_shroudwalker_teachers" }
+			targets = { }
+		}
+	}
+}
+
+### Void Dwellers ###
+
+# Built Second Habitat
+country_event = {
+	id = timeline.61
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		count_system_within_border = {
+			count >= 2
+			limit = {
+				any_system_planet = { is_planet_class = pc_habitat }
+			}
+		}
+		OR = {
+			has_country_flag = decision_void_dwellers
+			has_origin = origin_void_dwellers
+		}
+		is_country_type = default
+		NOT = { has_country_flag = void_dwellers_built_second_habitat }
+	}
+
+	immediate = {
+		set_country_flag = void_dwellers_built_second_habitat
+		save_event_target_as = this_country
+		add_timeline_event = {
+			type = timeline_origin_specific
+			override_id = timeline_void_dwellers_built_second_habitat
+			override_tooltip = "TIMELINE_EVENT_VOID_DWELLERS_TOOLTIP"
+			override_types = { }
+			override_text = { "text:TIMELINE_EVENT_VOID_DWELLERS" }
+			override_texture = { "background:GFX_evt_shattered_planet" }
+			targets = { }
+		}
+	}
+}
+
+### Ocean Paradise ###
+
+# Acquired Hydrocentric Ascension Perk (masters of ocean worlds)
+country_event = {
+	id = timeline.62
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_ocean_paradise
+			has_origin = origin_ocean_paradise
+			has_origin = origin_ocean_machines
+		}
+		is_country_type = default
+		has_ascension_perk = ap_hydrocentric
+		NOT = { has_country_flag = ocean_paradise_hydrocentric }
+	}
+
+	immediate = {
+		set_country_flag = ocean_paradise_hydrocentric
+		save_event_target_as = this_country
+		add_timeline_event = {
+			type = timeline_origin_specific
+			override_id = timeline_ocean_paradise_hydrocentric_ascension_perk
+			override_tooltip = "TIMELINE_EVENT_OCEAN_PARADISE_TOOLTIP"
+			override_types = { }
+			override_text = { "text:TIMELINE_EVENT_OCEAN_PARADISE" }
+			override_texture = { "background:GFX_evt_ocean" }
+			targets = { }
+		}
+	}
+}
+
+### BIOGENESIS TIMELINE EVENTS
+
+# Absorb a Species Trait
+
+country_event = {
+	id = timeline.90
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = no
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		NOT = {
+			owner = {
+				has_country_flag = evopred_first_absorb_flag
+			}
+		}
+	}
+
+	immediate = {
+		save_event_target_as = this_country
+		add_timeline_event = {
+			type = timeline_empire
+			override_id = timeline_evopred_absorb
+			override_tooltip = "TIMELINE_EVENT_EVOPRED_ABSORB_TOOLTIP"
+			override_types = { country }
+			override_text = { "text:TIMELINE_EVENT_EVOPRED_ABSORB" }
+			override_texture = { "background:GFX_origin_evolutionary_predators" }
+			targets = {event_target:this_country }
+		}
+	}
+
+	after = {
+		owner = {
+			set_country_flag = evopred_first_absorb_flag
+		}
+	}
+}

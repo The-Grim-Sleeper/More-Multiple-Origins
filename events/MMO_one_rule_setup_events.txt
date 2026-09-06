@@ -1,0 +1,70 @@
+namespace = mmo_one_rule_setup
+
+# Origin Events
+
+country_event = {
+    id = mmo_one_rule_setup.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = decision_legendary_leader
+    }
+
+    immediate = {
+        set_country_flag = decision_legendary_leader_dictatorial
+        set_government_cooldown = default
+        ruler = {
+			save_event_target_as = decision_legendary_leader
+            add_trait = {
+                trait = leader_trait_legendary_leader
+                show_message = no
+            }
+            add_skill_without_trait_selection = 3
+            set_leader_flag = leader_death_events_blocked
+            set_leader_flag = paragon_origin_legendary_leader
+            set_leader_flag = immune_to_negative_traits
+            set_variable = {
+                which = paragon_origin_story_ruling
+                value = 2
+            }
+            set_variable = {
+                which = paragon_origin_delusion_tier
+                value = 1
+            }
+            # This is a hack to effectively add extra trait picks to the Luminary.
+            # This results in:
+            # - The Luminary trait is free.
+            # - The first trait selected in empire creation is their level 1 trait.
+            # - The second trait selected in empire creation is paid for with the negative trait selected.
+            # - All additional levels give +1 trait selection.
+            set_variable = {
+                which = initial_level
+                value = trigger:has_base_skill
+            }
+            add_skill_without_trait_selection = trigger:num_positive_traits
+            set_skill = initial_level
+            clear_variable = initial_level
+        }
+        country_event = {
+            id = paragon.5004 days = 180 random = 360
+        }
+    }
+}
+
+country_event = {
+	id = mmo_one_rule_setup.2
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = "GFX_origin_legendary_leader"
+	#show_sound = par_notification_subtrait_01
+    title = "one_ruler_tip.name"
+
+	desc = {
+		text = "one_ruler_tip"
+	}
+
+	option = {
+		name = "i_know_what_im_doing"
+	}
+}

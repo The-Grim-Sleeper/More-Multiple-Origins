@@ -1,0 +1,249 @@
+
+namespace = colony
+
+carrier_event = { #hell
+	id = colony.3006
+	title = "colony.3006.name"
+	desc = {
+		text = colony.3006.knight.desc
+		trigger = {
+			owner = { OR = {has_origin = origin_toxic_knights has_country_flag = decision_toxic_knights}}
+		}
+	}
+	desc = {
+		text = colony.3006.spir.desc
+		trigger = {
+			owner = {
+				is_spiritualist = yes
+				NOR = { has_origin = origin_toxic_knights has_country_flag = decision_toxic_knights}
+			}
+		}
+	}
+	desc = {
+		text = colony.3006.desc
+		trigger = {
+			owner = {
+				is_spiritualist = no
+				NOR = { has_origin = origin_toxic_knights has_country_flag = decision_toxic_knights}
+			}
+		}
+	}
+	picture = GFX_evt_space_funeral
+	location = ROOT
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_carrier_flag = dportal_hell
+	}
+
+	option = {
+		trigger = {
+		owner = {
+				is_spiritualist = no
+			}
+		}
+		name = colony.3006.science
+		enable_special_project = {
+			name = "DPORTAL_PROJECT_SCIENCE"
+			location = this
+			owner = root
+		}
+	}
+
+	option = {
+		name = colony.3006.psi.prayer
+		trigger = {
+			owner = {
+				is_spiritualist = yes
+				has_technology = tech_psionic_theory
+			}
+		}
+		enable_special_project = {
+			name = "DPORTAL_PROJECT_PSI_PRAYER"
+			location = this
+			owner = root
+		}
+	}
+	option = {
+		name = colony.3006.prayer
+		trigger = {
+			owner = {
+				is_spiritualist = yes
+				NOT = {	has_technology = tech_psionic_theory }
+			}
+		}
+		enable_special_project = {
+			name = "DPORTAL_PROJECT_PRAYER"
+			location = this
+			owner = root
+		}
+	}
+
+	option = {
+		name = colony.3006.rocks
+		trigger = {
+			owner = {
+				is_spiritualist = no
+				has_civic = civic_feudal_realm
+			}
+		}
+		enable_special_project = {
+			name = "DPORTAL_PROJECT_ROCKS"
+			location = this
+			owner = root
+		}
+	}
+
+	option = {
+		name = colony.3006.knights
+		trigger = {
+			owner = {
+				OR = {
+					has_origin = origin_toxic_knights
+					has_country_flag = decision_toxic_knights
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				create_leader = {
+					class = commander
+					species = owner_main_species
+					name = random
+					traits = {
+						0 = leader_trait_chosen
+						1 = leader_trait_butcher
+					}
+				}
+				last_created_leader = {
+					exile_leader_as = doomslayer_knight
+					save_event_target_as = doomslayer_knight
+					set_immortal = yes
+					save_global_event_target_as = doomslayer_knight@prev
+				}
+			}
+			reroll_random = yes
+			random_list = {
+				15 = { }
+				25 = {
+					modifier = {
+						factor = 0
+						blocks_disruptive_gameplay = yes
+					}
+					carrier_event = { id = colony.3050 days = 3600 random = 900 } # Daemonic Incursion
+				}
+				20 = { carrier_event = { id = colony.3060 days = 3600 random = 900 } } # Quest Complete
+				40 = { carrier_event = { id = colony.3055 days = 3600 random = 900 } } # Daemon Refugees
+			}
+		}
+	}
+
+	option = {
+		name = colony.3006.keep
+		add_deposit = d_portal_research_zone
+		custom_tooltip = portal_zone_tooltip
+	}
+}
+
+
+carrier_event = { # fourth opportunity/problem - can increase production by increasing upkeep
+	id = colony.9280
+	title = "colony.9280.name"
+	desc = "colony.9280.desc"
+	picture = GFX_evt_sapient_AI
+	location = ROOT
+
+	pre_triggers = {
+		has_owner = yes
+		is_homeworld = no
+		original_owner = yes
+		is_ai = no
+		has_ground_combat = no
+		is_capital = no
+		original_owner = yes
+		is_occupied_flag = no
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = { # dont use the opportunity
+		name = colony.9280.a
+		custom_tooltip = colony.9280.a.desc
+		hidden_effect = {
+			carrier_event = {
+				id = colony.9290
+				days = 60
+				random = 60
+			}
+		}
+	}
+	option = { # use the opportunity - upkeep + production
+		name = colony.9280.b
+		custom_tooltip = colony.9280.b.desc
+		hidden_effect = {
+			random_list = {
+				34 = {
+					set_carrier_flag = manufactorium_took_opportunity
+				}
+				26 = {
+					set_carrier_flag = manufactorium_took_opportunity_bad
+				}
+				40 = {
+				}
+			}
+			carrier_event = {
+				id = colony.9290
+				days = 180
+				random = 360
+			}
+		}
+	}
+	option = { # Catalytic Processing - increase production, add food upkeep (better than casual 1:2 ratio)
+		name = colony.9280.c
+		custom_tooltip = colony.9280.c.desc
+		trigger = {
+			owner = {
+				OR = {
+					has_civic = civic_catalytic_processing
+					has_civic = civic_hive_catalytic_processing
+					has_civic = civic_machine_catalytic_processing
+					has_civic = civic_corporate_catalytic_processing
+					has_origin = origin_tree_of_life
+					has_country_flag = decision_tree_of_life
+				}
+			}
+		}
+		set_carrier_flag = manufactorium_catalytic
+		hidden_effect = {
+			carrier_event = {
+				id = colony.9290
+				days = 180
+				random = 360
+			}
+		}
+	}
+	option = { # remnants origin - upgrades casual option from taking the opportunity
+		name = colony.9280.d
+		custom_tooltip = colony.9280.d.desc
+		trigger = {
+			owner = {
+				OR = {
+					has_origin = origin_remnants
+					has_country_flag = decision_remnants
+				}
+			}
+		}
+		set_carrier_flag = manufactorium_remnants
+		hidden_effect = {
+			carrier_event = {
+				id = colony.9290
+				days = 180
+				random = 360
+			}
+		}
+	}
+}

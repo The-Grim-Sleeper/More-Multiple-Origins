@@ -1,0 +1,663 @@
+
+namespace = namarian
+
+# Nomads take contact
+country_event = {
+    id = namarian.10
+    title = namarian.10.name
+    desc = namarian.10.desc
+
+    picture_event_data = {
+        portrait = event_target:contact_speaker_leader
+        room = ethic_spaceship_room
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.contact_country = {
+            save_event_target_as = contact_speaker
+            save_event_target_as = contact_empire
+            random_controlled_ship = {
+                fleet = {
+                    leader = { save_event_target_as = contact_speaker_leader }
+                }
+            }
+        }
+        event_target:contact_speaker = {
+            establish_communications_no_message = root
+        }
+        set_country_flag = nomads_contacted
+    }
+
+    option = { #friendly
+        name = {
+            text = action.1.selective
+            trigger = {
+                has_valid_civic = civic_selective_kinship
+                event_target:contact_empire = {
+                    is_same_species_class = root
+                }
+            }
+        }
+        name = {
+            text = action.1.e
+            trigger = {
+                NOT = { is_same_species = event_target:contact_empire }
+                is_xenophile = yes
+            }
+        }
+        name = {
+            text = action.1.c
+            trigger = {
+                NOT = { is_same_species = event_target:contact_empire }
+                is_xenophile = yes
+            }
+        }
+        name = {
+            text = action.1.h
+            trigger = {
+                is_egalitarian = yes
+            }
+        }
+        name = {
+            text = action.1.n
+            trigger = {
+                is_spiritualist = yes
+                event_target:contact_empire = { is_machine_empire = no }
+            }
+        }
+        name = {
+            text = action.1.ag
+            trigger = {
+                is_materialist = yes
+            }
+        }
+        name = {
+            text = action.1.ah
+            trigger = {
+                is_xenophile = yes
+            }
+        }
+        name = {
+            text = action.1.ai
+            trigger = {
+                is_xenophile = yes
+                is_egalitarian = yes
+            }
+        }
+        name = {
+            text = action.1.aj
+            trigger = {
+                is_xenophile = yes
+                is_authoritarian = yes
+            }
+        }
+        name = {
+            text = action.1.ak
+            trigger = {
+                OR = {
+                    is_xenophile = yes
+                    is_militarist = yes
+                }
+            }
+        }
+        name = {
+            text = action.1.al
+            trigger = {
+                is_egalitarian = yes
+            }
+        }
+        name = {
+            text = action.1.am
+            trigger = {
+                is_spiritualist = yes
+            }
+        }
+        name = {
+            text = action.1.j
+            trigger = {
+                is_militarist = yes
+            }
+        }
+        name = {
+            text = action.1.l
+            trigger = {
+                is_pacifist = yes
+            }
+        }
+        name = {
+            text = action.1.p
+            trigger = {
+                is_materialist = yes
+            }
+        }
+        name = {
+            text = action.1.av
+            trigger = {
+                is_spiritualist = yes
+            }
+        }
+        name = {
+            text = action.1.aag
+            trigger = {
+                OR = {
+                    has_country_flag = decision_lost_colony
+                    has_origin = origin_lost_colony
+                }
+                event_target:contact_empire = {
+                    has_country_flag = special_intro_for@root
+                    has_country_flag = lost_colony_parent_of@root
+                }
+            }
+        }
+        name = {
+            text = action.1.hm
+            trigger = {
+                is_hive_empire = yes
+                NOT = { has_valid_civic = civic_hive_devouring_swarm }
+            }
+        }
+        name = {
+            text = action.1.me
+            trigger = {
+                is_machine_empire = yes
+                NOT = { has_valid_civic = civic_machine_terminator }
+            }
+        }
+        name = {
+            text = action.1.mtm
+            trigger = {
+                has_valid_civic = civic_machine_terminator
+                event_target:contact_empire = { is_machine_empire = yes }
+            }
+        }
+        name = {
+            text = action.1.o
+            trigger = {
+                is_spiritualist = yes
+                event_target:contact_empire = { is_machine_empire = no }
+            }
+        }
+        name = {
+            text = action.1.as
+            trigger = {
+                is_pacifist = yes
+            }
+        }
+        name = {
+            text = action.1.af
+            trigger = {
+                is_xenophobe = yes
+            }
+        }
+
+        icon = {
+            icon = GFX_option_icon_friendly
+            text = seek_friends_tt
+        }
+
+        allow = {
+            custom_tooltip_fail = {
+                text = friendship_already_precluded
+                event_target:contact_empire = {
+                    NOR = {
+                        has_opinion_modifier = {
+                            who = root
+                            modifier = opinion_caught_hacking
+                        }
+                        has_opinion_modifier = {
+                            who = root
+                            modifier = opinion_hostile_first_contact
+                        }
+                        has_opinion_modifier = {
+                            who = root
+                            modifier = opinion_hostile_first_contact_vivisection
+                        }
+                        has_opinion_modifier = {
+                            who = root
+                            modifier = opinion_hostile_first_contact_hungry
+                        }
+                    }
+                }
+            }
+        }
+
+        if = {
+            limit = {
+                OR = {
+                    NOT = { is_country_type = default }
+                    event_target:contact_empire = { is_country_type = fallen_empire }
+                }
+            }
+            custom_tooltip = action.1.fe_option
+        }
+        else = {
+            custom_tooltip = seek_friends_tt
+
+            event_target:contact_empire = {
+                add_opinion_modifier = {
+                    who = root
+                    modifier = opinion_friendly_first_comms_greeting
+                }
+            }
+        }
+
+        trigger = {
+            OR = {
+                is_homicidal = no
+                AND = {
+                    has_valid_civic = civic_machine_terminator
+                    event_target:contact_empire = { is_machine_empire = yes }
+                }
+            }
+            NOT = { has_valid_civic = civic_inwards_perfection }
+            NAND = {
+                has_valid_civic = civic_selective_kinship
+                event_target:contact_empire = { NOT = { is_same_species_class = root } }
+            }
+            NAND = {
+                is_fanatic_spiritualist = yes
+                event_target:contact_empire = { is_machine_empire = yes }
+            }
+            OR = {
+                NOT = { is_fanatic_xenophobe = yes }
+                event_target:contact_empire = { is_same_species = root }
+                AND = {
+                    has_valid_civic = civic_selective_kinship
+                    event_target:contact_empire = { is_same_species_class = root }
+                }
+            }
+        }
+
+        ai_chance = {
+            factor = 1
+            modifier = {
+                factor = 2
+                is_xenophile = yes
+            }
+            modifier = {
+                factor = 0.5
+                OR = {
+                    is_xenophobe = yes
+                    is_gestalt = yes
+                }
+            }
+            modifier = {
+                factor = 4 #actually *2 as it is multiplied by *0.5 in the above modifier
+                OR = {
+                    AND = {
+                        is_machine_empire = yes
+                        event_target:contact_empire = { is_machine_empire = yes }
+                    }
+                    AND = {
+                        is_hive_empire = yes
+                        event_target:contact_empire = { is_hive_empire = yes }
+                    }
+                }
+            }
+            modifier = {
+                factor = 0.1
+                first_contact_custom_greeting = yes #basically, various hostility
+            }
+        }
+    }
+    option = { #hostile - isolationist
+        name = {
+            text = action.1.ac
+            trigger = {
+                is_xenophobe = yes
+            }
+        }
+        name = {
+            text = action.1.aab
+            trigger = {
+                OR = {
+                    is_xenophobe = yes
+                    is_materialist = yes
+                }
+                NOT = { is_same_species = event_target:contact_empire }
+            }
+        }
+        name = {
+            text = action.1.ad
+            trigger = {
+                is_authoritarian = yes
+            }
+        }
+        name = {
+            text = action.1.d
+            trigger = {
+                NOT = { is_same_species = event_target:contact_empire }
+                is_xenophobe = yes
+            }
+        }
+        name = {
+            text = action.1.i
+            trigger = {
+                is_egalitarian = yes
+            }
+        }
+        name = {
+            text = action.1.m
+            trigger = {
+                is_pacifist = yes
+            }
+        }
+        name = {
+            text = action.1.r
+            trigger = {
+                is_spiritualist = yes
+                event_target:contact_empire = { is_machine_empire = yes }
+            }
+        }
+        name = {
+            text = action.1.aa
+            trigger = {
+                is_materialist = yes
+            }
+        }
+        name = {
+            text = action.1.ao
+            trigger = {
+                is_militarist = yes
+            }
+        }
+        name = {
+            text = action.1.aaa
+            trigger = {
+                is_authoritarian = yes
+            }
+        }
+        name = {
+            text = action.1.aae
+            trigger = {
+                is_authoritarian = yes
+            }
+        }
+        name = {
+            text = action.1.t1
+            trigger = {
+                is_xenophile = yes
+            }
+        }
+        name = {
+            text = action.1.t2
+            trigger = {
+                is_spiritualist = yes
+            }
+        }
+        name = {
+            text = action.1.t3
+            trigger = {
+                is_hive_empire = yes
+            }
+        }
+        name = {
+            text = action.1.t4
+            trigger = {
+                is_machine_empire = yes
+                NOR = {
+                    has_valid_civic = civic_machine_assimilator
+                    has_valid_civic = civic_machine_terminator
+                }
+            }
+        }
+        name = {
+            text = action.1.t5
+            trigger = {
+                has_valid_civic = civic_machine_assimilator
+            }
+        }
+        name = {
+            text = action.1.t6
+            trigger = {
+                has_valid_civic = civic_machine_terminator
+            }
+        }
+
+        icon = {
+            icon = GFX_option_icon_isolationist
+            text = seek_isolation_tt_short
+        }
+
+        if = {
+            limit = {
+                OR = {
+                    NOT = { is_country_type = default }
+                    event_target:contact_empire = { NOT = { is_country_type = default } }
+                }
+            }
+            custom_tooltip = action.1.fe_option
+        }
+        else = {
+            custom_tooltip = seek_isolation_tt
+
+            hidden_effect = {
+                event_target:contact_empire = {
+                    random_spynetwork = {
+                        limit = { target = { is_same_value = root } }
+                        add_modifier = {
+                            modifier = first_comms_defensive
+                            years = 15
+                        }
+                    }
+                }
+            }
+        }
+
+        ai_chance = {
+            factor = 1
+            modifier = {
+                factor = 2
+                is_xenophobe = yes
+                is_militarist = no
+            }
+            modifier = {
+                factor = 2
+                has_valid_civic = civic_inwards_perfection
+            }
+        }
+    }
+    option = { #hostile - expansionist
+        name = {
+            text = action.1.ae
+            trigger = {
+                OR = {
+                    is_xenophobe = yes
+                    is_militarist = yes
+                }
+            }
+        }
+        name = {
+            text = action.1.ds
+            trigger = {
+                has_valid_civic = civic_hive_devouring_swarm
+            }
+        }
+        name = {
+            text = action.1.mt
+            trigger = {
+                is_machine_empire = yes
+            }
+        }
+        name = {
+            text = action.1.aac
+            trigger = {
+                is_militarist = yes
+                OR = {
+                    is_spiritualist = yes
+                    is_authoritarian = yes
+                }
+            }
+        }
+        name = {
+            text = action.1.aad
+            trigger = {
+                is_spiritualist = yes
+                NOT = { is_same_species = event_target:contact_empire }
+            }
+        }
+        name = {
+            text = action.1.b
+            trigger = {
+                NOT = { is_same_species = event_target:contact_empire }
+                is_xenophobe = yes
+            }
+        }
+        name = {
+            text = action.1.s
+            trigger = {
+                is_spiritualist = yes
+                event_target:contact_empire = { is_machine_empire = yes }
+            }
+        }
+        name = {
+            text = action.1.ab
+            trigger = {
+                is_spiritualist = yes
+                NOT = { is_same_species = event_target:contact_empire }
+            }
+        }
+        name = {
+            text = action.1.an
+            trigger = {
+                is_militarist = yes
+            }
+        }
+        name = {
+            text = action.1.at
+            trigger = {
+                is_militarist = yes
+            }
+        }
+        name = {
+            text = action.1.au
+            trigger = {
+                is_spiritualist = yes
+                is_militarist = yes
+            }
+        }
+        name = {
+            text = action.1.k
+            trigger = {
+                OR = {
+                    is_militarist = yes
+                    is_authoritarian = yes
+                }
+            }
+        }
+        name = {
+            text = action.1.ax
+            trigger = {
+                OR = {
+                    is_materialist = yes
+                    is_egalitarian = yes
+                    is_pacifist = yes
+                }
+            }
+        }
+        name = {
+            text = action.1.u1
+            trigger = {
+                is_xenophile = yes
+            }
+        }
+        name = {
+            text = action.1.u2
+            trigger = {
+                is_authoritarian = yes
+            }
+        }
+        name = {
+            text = action.1.u3
+            trigger = {
+                is_gestalt = yes
+                NOT = { has_valid_civic = civic_hive_devouring_swarm }
+            }
+        }
+
+        icon = {
+            icon = GFX_option_icon_hostile
+            text = seek_enemies_tt_short
+        }
+
+        if = {
+            limit = {
+                OR = {
+                    NOT = { is_country_type = default }
+                    event_target:contact_empire = { NOT = { is_country_type = default } }
+                }
+            }
+            custom_tooltip = action.1.fe_option
+        }
+        else = {
+            custom_tooltip = seek_enemies_tt
+
+            event_target:contact_empire = {
+                add_opinion_modifier = {
+                    who = root
+                    modifier = opinion_hostile_first_comms_greeting
+                }
+            }
+            hidden_effect = {
+                random_spynetwork = {
+                    limit = {
+                        owner = { is_same_value = root }
+                        target = { is_same_value = event_target:contact_empire }
+                    }
+                    add_modifier = {
+                        modifier = first_comms_hostility_preparations
+                        years = 15
+                    }
+                }
+            }
+        }
+
+        trigger = {
+            NOR = {
+                is_fanatic_pacifist = yes
+                has_valid_civic = civic_inwards_perfection
+            }
+        }
+
+        ai_chance = {
+            factor = 1
+            modifier = {
+                factor = 100
+                is_homicidal = yes
+            }
+            modifier = {
+                factor = 2
+                is_militarist = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_pacifist = yes
+            }
+            modifier = {
+                factor = 2
+                first_contact_custom_greeting = yes #basically, various hostility
+            }
+            modifier = {
+                factor = 0.1
+                is_in_federation_with = event_target:contact_empire #just in case
+            }
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                NOT = {
+                    event_target:contact_speaker = { has_relation_flag = { flag = no_coms who = root } }
+                }
+            }
+            hidden_effect = { country_event = { id = story.7 days = 30 } }
+        }
+        hidden_effect = {
+            end_event_chain = "nomads_observation_chain"
+        }
+    }
+}

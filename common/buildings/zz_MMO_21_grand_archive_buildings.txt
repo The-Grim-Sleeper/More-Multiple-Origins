@@ -1,0 +1,591 @@
+
+wildlife_ranch = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+		}
+		NOR = {
+			has_building = hunting_grounds
+			has_building = wildlife_sanctuary
+			has_building = primal_arena
+			has_building = symbiosis_nexus
+		}
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOR = { has_origin = origin_primal_calling has_country_flag = decision_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds
+		wildlife_sanctuary
+		primal_arena
+		symbiosis_nexus
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"wildlife_ranch_2"
+	}
+}
+
+wildlife_ranch_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOR = { has_origin = origin_primal_calling has_country_flag = decision_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			OR = {
+				wrangler_is_trophy_hunter_trigger = no
+				wrangler_is_animal_handler_trigger = no
+				wrangler_is_beastfighter_trigger = no
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		primal_arena_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"wildlife_ranch_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+wildlife_ranch_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOR = { has_origin = origin_primal_calling has_country_flag = decision_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			OR = {
+				wrangler_is_trophy_hunter_trigger = no
+				wrangler_is_animal_handler_trigger = no
+				wrangler_is_beastfighter_trigger = no
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		primal_arena_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+wildlife_sanctuary_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_animal_handler_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_animal_handler_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		primal_arena_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"wildlife_sanctuary_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+wildlife_sanctuary_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_animal_handler_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_animal_handler_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		primal_arena_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+primal_arena_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_beastfighter_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_beastfighter_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"primal_arena_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+primal_arena_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_beastfighter_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_beastfighter_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+symbiosis_nexus_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	icon = wildlife_sanctuary_2
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_symbiosis_integrator_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_symbiosis_integrator_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		primal_arena_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"symbiosis_nexus_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+symbiosis_nexus_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	icon = wildlife_sanctuary_3
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_symbiosis_integrator_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			OR = {
+				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_calling
+			}
+			has_symbiosis_integrator_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		primal_arena_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}

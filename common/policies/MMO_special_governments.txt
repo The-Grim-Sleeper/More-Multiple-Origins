@@ -1,0 +1,101 @@
+
+
+
+decision_special_governments_policy = {
+	potential = {
+		OR = {
+			AND = {
+				has_country_flag = decision_evolutionary_predators
+				is_mutation_authority = yes
+			}
+			AND = {
+				has_country_flag = decision_wilderness
+				is_purity_authority = yes
+			}
+		}
+	}
+	
+	option = {
+		name = "decision_evolutionary_predators_governments"
+
+		potential = {
+			has_country_flag = decision_evolutionary_predators
+			is_mutation_authority = yes
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				set_country_flag = decision_evolutionary_predators_governments
+				remove_country_flag = decision_wilderness_governments
+				remove_country_flag = decision_one_rule_governments
+				advanced_authority_refresh = yes
+			}
+		}
+		
+		ai_weight = {
+			weight = 0
+		}
+	}
+
+	option = {
+		name = "decision_wilderness_governments"
+
+		potential = {
+			has_country_flag = decision_wilderness
+			is_purity_authority = yes
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				remove_country_flag = decision_evolutionary_predators_governments
+				set_country_flag = decision_wilderness_governments
+				remove_country_flag = decision_one_rule_governments
+				advanced_authority_refresh = yes
+			}
+		}
+
+		ai_weight = {
+			weight = 0
+		}
+	}
+
+	option = {
+		name = "decision_one_rule_governments"
+
+		potential = {
+			OR = {
+				has_country_flag = decision_legendary_leader_dictatorial
+				has_country_flag = decision_legendary_leader_imperial
+			}
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				remove_country_flag = decision_evolutionary_predators_governments
+				remove_country_flag = decision_wilderness_governments
+				set_country_flag = decision_one_rule_governments
+				advanced_authority_refresh = yes
+			}
+		}
+
+		ai_weight = {
+			weight = 0
+		}
+	}
+	
+	option = {
+		name = decision_no_governments
+		
+		on_enabled = {
+			hidden_effect = {
+				remove_country_flag = decision_evolutionary_predators_governments
+				remove_country_flag = decision_wilderness_governments
+				advanced_authority_refresh = yes
+			}
+		}
+		
+		ai_weight = {
+			weight = 0
+		}
+	}
+}

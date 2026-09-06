@@ -1,0 +1,54 @@
+namespace = mmo_fruitful
+
+
+country_event = {
+    id = mmo_fruitful.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = decision_fruitful
+    }
+
+    immediate = {
+        capital_scope.solar_system = {
+            if = {
+                limit = {
+                    exists = starbase
+                    owner = { is_nomadic = no }
+                }
+                starbase = {
+                    set_starbase_building = { slot = 1 building = feeder }
+                }
+            }
+        }
+#        capital_scope = {
+#            if {
+#                limit = {
+#                    owner_main_species = {
+#                        is_flora_species = yes
+#                    }
+#                }
+#                create_pop_group = {
+#                    species = owner_main_species
+#                    size = 100
+#                }
+#            }
+#            else = {
+#                create_species = {
+#                    name = random
+#                    class = PLANT
+#                    portrait = random
+#                    homeworld = this
+#                    traits = {
+#                        trait = trait_organic
+#                    }
+#                }
+#                create_pop_group = {
+#                    species = last_created_species
+#                    size = 100
+#                }
+#            }
+#        }
+    }
+}

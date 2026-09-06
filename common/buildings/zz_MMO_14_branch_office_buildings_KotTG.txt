@@ -1,0 +1,276 @@
+
+building_amusement_megaplex = {
+	base_buildtime = @b2_time
+	planet_limit = 1
+
+	owner_type = corporate
+
+	category = amenity
+
+	potential = {
+		has_branch_office = yes
+		branch_office_owner = {
+			is_legit_or_legal_criminal = yes
+		}
+		branch_office_owner = {
+			NOR = {
+				has_country_flag = decision_toxic_knights
+				has_origin = origin_toxic_knights
+			}
+		}
+	}
+
+	inline_script = {
+		script = jobs/entertainers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	custom_tooltip = branch_office_building_trade_bonus
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	# Trade from civics
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hedonism
+			}
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hyperspace_specialty
+			}
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_storm_callers_megacorp
+			}
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	#Crims cause crime even with deal
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				is_criminal_syndicate = yes
+			}
+		}
+		planet_crime_floor_add = @crime_floor_from_legal_crime
+	}
+
+	#Trader Jobs from civics
+	triggered_country_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hedonism
+			}
+		}
+		job_capital_trader_add = @traders_from_civic
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hyperspace_specialty
+			}
+		}
+		job_capital_trader_add = @traders_from_civic
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_storm_callers_megacorp
+			}
+		}
+		job_capital_trader_add = @traders_from_civic
+	}
+
+	resources = {
+		category = planet_branch_office_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			influence = 25
+		}
+		cost = {
+			trigger = {
+				owner = {
+					is_megacorp = yes
+				}
+			}
+			influence = 25
+		}
+		produces = {
+			energy = 10
+			mult = value:branch_office_value_for_buildings
+		}
+	}
+
+	destroy_trigger = {
+		exists = owner
+		branch_office_owner = { is_illegal_criminal = yes }
+	}
+
+	convert_to = {
+		building_underground_clubs
+	}
+
+	ai_weight = {
+		weight = 2
+
+		modifier = {
+			weight = 0.5
+			branch_office_owner = {
+				has_monthly_income = {
+					resource = energy
+					value > 50
+				}
+			}
+		}
+	}
+}
+
+building_knightly_theme_park = {
+	base_buildtime = @b2_time
+	icon = building_order_holding
+	planet_limit = 1
+
+	owner_type = corporate
+
+	category = amenity
+
+	potential = {
+		has_branch_office = yes
+		branch_office_owner = {
+			OR = {
+				has_country_flag = decision_toxic_knights
+				has_origin = origin_toxic_knights
+			}
+			NOT = { has_country_flag = quest_abandoned }
+		}
+	}
+
+	allow = {
+		pop_amount >= 5000
+	}
+
+	inline_script = {
+		script = jobs/entertainers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	custom_tooltip = branch_office_building_trade_bonus
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_civic = civic_corporate_hedonism
+			}
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_civic = civic_corporate_hyperspace_specialty
+			}
+		}
+		planet_entertainers_trade_produces_add = @med_trade_from_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			branch_office_owner = {
+				is_criminal_syndicate = yes
+				is_legit_or_legal_criminal = yes
+			}
+		}
+		planet_crime_floor_add = @crime_floor_from_legal_crime
+	}
+
+	#Trader Jobs from civics
+	triggered_country_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hedonism
+			}
+		}
+		job_capital_trader_add = @traders_from_civic
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			branch_office_owner = {
+				has_valid_civic = civic_corporate_hyperspace_specialty
+			}
+		}
+		job_capital_trader_add = @traders_from_civic
+	}
+
+	custom_tooltip = trade_value_from_workers
+
+	resources = {
+		category = planet_branch_office_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			influence = 25
+		}
+		cost = {
+			trigger = {
+				owner = {
+					is_megacorp = yes
+				}
+			}
+			influence = 25
+		}
+		produces = {
+			energy = 10
+			mult = value:branch_office_value_for_buildings
+		}
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = planet.owner
+		}
+		text = knightly_theme_park_quest_effect_desc
+	}
+
+	ai_weight = {
+		weight = 5
+	}
+}

@@ -1,0 +1,286 @@
+
+holding_tree_of_life_sapling = {
+	base_buildtime = @b1_time
+	owner_type = subject_holding
+	icon = holding_tree_of_life_sapling
+	planet_limit = 1
+
+	category = resource
+
+	resources = {
+		category = planet_holdings
+		cost = {
+			food = 1000
+		}
+	}
+
+	potential = {
+		owner.overlord = {
+			OR = {
+				has_country_flag = decision_tree_of_life
+				has_origin = origin_tree_of_life
+			}
+		}
+		NOR = {
+			owner = {
+				has_origin = origin_tree_of_life
+				has_country_flag = decision_tree_of_life
+				country_uses_food = no
+			}
+		}
+		NOR = {
+			is_planet_class = pc_city
+			is_planet_class = pc_machine
+			is_planet_class = pc_relic
+		}
+		is_artificial = no
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = no_tree_of_life_sapling_wilderness
+			owner = { is_wilderness_empire = no }
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			is_planet_class = pc_city
+			is_planet_class = pc_machine
+			is_planet_class = pc_relic
+		}
+	}
+
+	planet_modifier = {
+		monthly_loyalty = 1
+		pop_environment_tolerance = 0.1
+		planet_farmers_food_produces_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = no }
+		}
+		job_overlord_arborist_add = 100
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = yes }
+		}
+		job_overlord_arborist_drone_add = 100
+	}
+}
+
+holding_knight_commandery = {
+	base_buildtime = @b1_time
+	owner_type = subject_holding
+	icon = building_order_holding
+	planet_limit = 1
+
+	category = government
+
+	resources = {
+		category = planet_holdings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	potential = {
+		owner = {
+			is_wilderness_empire = no # implied by lack of Pops, but neater if made explicit
+			overlord = {
+				OR = {
+					has_origin = origin_toxic_knights
+					has_country_flag = decision_toxic_knights
+				}
+				NOT = { has_country_flag = quest_abandoned }
+			}
+		}
+	}
+
+	allow = {
+		exists = planet
+		planet = {
+			is_capital = yes
+			pop_amount >= 5000
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			NOT = { exists = owner.overlord }
+			owner.overlord = {
+				NOR = {
+					has_origin = origin_toxic_knights
+					has_country_flag = decision_toxic_knights
+				}
+			}
+		}
+	}
+
+	planet_modifier = {
+		monthly_loyalty = -0.5
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = no }
+		}
+		job_overlord_knight_add = 100
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = yes }
+		}
+		job_overlord_knight_drone_add = 100
+	}
+
+	country_modifier = {
+		country_naval_cap_add = 2
+		knight_quest_progress_add = 0.025
+	}
+}
+
+holding_tree_of_life_sapling = {
+	base_buildtime = @b1_time
+	owner_type = subject_holding
+	icon = holding_tree_of_life_sapling
+	planet_limit = 1
+
+	category = resource
+
+	resources = {
+		category = planet_holdings
+		cost = {
+			food = 1000
+		}
+	}
+
+	potential = {
+		owner.overlord = {
+			OR = {
+				has_country_flag = decision_tree_of_life
+				has_origin = origin_tree_of_life
+			}
+		}
+		NOR = {
+			owner = {
+				OR = {
+					has_country_flag = decision_tree_of_life
+					has_origin = origin_tree_of_life
+				}
+				country_uses_food = no
+			}
+		}
+		NOR = {
+			is_planet_class = pc_city
+			is_planet_class = pc_machine
+			is_planet_class = pc_relic
+		}
+		is_artificial = no
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = no_tree_of_life_sapling_wilderness
+			owner = { is_wilderness_empire = no }
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			is_planet_class = pc_city
+			is_planet_class = pc_machine
+			is_planet_class = pc_relic
+		}
+	}
+
+	planet_modifier = {
+		monthly_loyalty = 1
+		pop_environment_tolerance = 0.1
+		planet_farmers_food_produces_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = no }
+		}
+		job_overlord_arborist_add = 100
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = yes }
+		}
+		job_overlord_arborist_drone_add = 100
+	}
+}
+
+holding_experimental_crater = {
+	base_buildtime = @b2_time
+	owner_type = subject_holding
+	icon = holding_experimental_crater
+	planet_limit = 1
+
+	category = research
+
+	resources = {
+		category = planet_holdings
+		produces = {
+			engineering_research = 8
+			physics_research = 4
+		}
+	}
+
+	potential = {
+		owner.overlord = {
+			OR = {
+				has_country_flag = decision_lithoid
+				has_origin = origin_lithoid
+			}
+		}
+	}
+
+	planet_modifier = {
+		monthly_loyalty = -1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = no }
+		}
+		job_miner_add = 300
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = planet.owner
+			planet.owner = { is_gestalt = yes }
+		}
+		job_mining_drone_add = 300
+	}
+
+	on_built = {
+		planet = {
+			carrier_event = { id = subject.5005 days = 360 }
+		}
+	}
+
+	triggered_desc = {
+		text = holding_experimental_crater_effect
+	}
+}

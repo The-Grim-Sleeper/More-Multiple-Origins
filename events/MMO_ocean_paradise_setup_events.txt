@@ -1,0 +1,92 @@
+namespace = mmo_ocean_paradise
+
+
+event = {
+	id = mmo_ocean_paradise.1
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_country_flag = decision_ocean_paradise
+	}
+
+	immediate = {
+		from = {
+			every_owned_species = {
+				if = {
+					limit = {
+						OR = {
+							is_archetype = MACHINE
+							is_archetype = ROBOT
+						}
+					}
+					set_habitability_trait = { trait = trait_wet_planet_preference }
+					change_species_characteristics = {
+						add_trait = trait_robot_aquatic
+						add_traits_at_start_of_list = yes
+					}
+				}
+				else = {
+					set_habitability_trait = { trait = trait_pc_ocean_preference }
+					change_species_characteristics = {
+						add_trait = trait_aquatic
+						add_traits_at_start_of_list = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+# Change starting colonisables into Frozen Worlds and nearby asteroids into Ice Asteroids
+# UNUSED
+country_event = {
+	id = mmo_ocean_paradise.2
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_country_flag = decision_ocean_paradise
+	}
+
+	immediate = {
+		capital_scope.solar_system = {
+			closest_system = {
+				limit = { has_star_flag = neighbor_t1_first_colony }
+				max_steps = 3
+				random_system_planet = {
+					limit = {
+						is_colonizable = yes
+						is_colony = no
+						has_carrier_flag = prescripted_ideal
+					}
+					change_pc = pc_frozen
+				}
+				random_system_planet = {
+					limit = {
+						is_asteroid = yes
+					}
+					change_pc = pc_ice_asteroid
+				}
+			}
+			closest_system = {
+				limit = { has_star_flag = neighbor_t2_second_colony }
+				max_steps = 6
+				random_system_planet = {
+					limit = {
+						is_colonizable = yes
+						is_colony = no
+						has_carrier_flag = prescripted_ideal
+					}
+					change_pc = pc_frozen
+				}
+				random_system_planet = {
+					limit = {
+						is_asteroid = yes
+					}
+					change_pc = pc_ice_asteroid
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,118 @@
+
+namespace = story
+
+# Pacification project complete
+country_event = {
+    id = story.107
+    title = story.107.name
+    desc = {
+        trigger = {
+            text = story.107.desc
+            text = newline
+            success_text = {
+                text = story.107.fruitful.desc
+                hidden:root = { has_fruitful_origin = yes }
+            }
+        }
+    }
+    picture = GFX_evt_fleet_neutral
+    show_sound = event_space_amoeba
+    location = from
+
+    is_triggered_only = yes
+
+    immediate = {
+        every_country = {
+            limit = {
+                is_amoeba_country_type = yes
+            }
+            set_faction_hostility = {
+                set_hostile = no
+                set_neutral = yes
+                target = root
+            }
+        }
+    }
+
+    option = {
+        name = story.107.a
+        custom_tooltip = story.107.a.tooltip
+        if = {
+            limit = {
+                has_fruitful_origin = yes
+            }
+            set_country_flag = pacified_amoebas
+            custom_tooltip = story.107.a.fruitful.tooltip
+        }
+        hidden_effect = {
+            add_modifier = {
+                modifier = pacified_amoebas # friendly amoebas
+                days = -1
+            }
+        }
+        add_research_option = tech_amoeba_strike_craft_1
+        IF = {
+            limit = {
+                NOR = {
+                    has_tech_option = tech_regenerative_hull_tissue
+                    has_technology = tech_regenerative_hull_tissue
+                }
+            }
+            add_research_option = tech_regenerative_hull_tissue
+        }
+    }
+}
+
+# Pacification Project complete
+country_event = {
+    id = story.207
+    title = story.207.name
+    desc = {
+        trigger = {
+            text = story.207.desc
+            text = newline
+            success_text = {
+                text = story.207.fruitful.desc
+                hidden:root = { has_fruitful_origin = yes }
+            }
+        }
+    }
+    picture = GFX_evt_fleet_evil
+    show_sound = event_crystal_ship
+    location = from
+
+    is_triggered_only = yes
+
+    immediate = {
+        set_country_flag = crystal_nonhostile_approach
+        every_country = {
+            limit = {
+                is_crystal_country_type = yes
+            }
+            set_faction_hostility = {
+                set_hostile = no
+                set_neutral = yes
+                target = root
+            }
+        }
+    }
+
+    option = {
+        name = story.207.a
+        custom_tooltip = story.207.a.tooltip
+        if = {
+            limit = {
+                has_origin = has_fruitful_origin = yes
+            }
+            set_country_flag = pacified_crystals
+            custom_tooltip = story.207.a.fruitful.tooltip
+        }
+        hidden_effect = {
+            add_modifier = {
+                modifier = pacified_crystals # friendly crystals
+                days = -1
+            }
+        }
+        add_research_option = tech_crystal_armor_1
+    }
+}

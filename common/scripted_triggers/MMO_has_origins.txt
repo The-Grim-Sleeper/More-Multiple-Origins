@@ -1,0 +1,35 @@
+has_shoulders_of_giants_origin = {
+    OR = {
+        has_country_flag = decision_shoulders_of_giants
+        has_origin = origin_shoulders_of_giants
+    }
+}
+
+has_default_nomads_origin = {
+    OR = {
+        has_country_flag = decision_default_nomads
+        has_origin = origin_default_nomads
+    }
+}
+
+has_fruitful_origin = {
+    OR = {
+        has_country_flag = decision_fruitful
+        has_origin = origin_fruitful
+    }
+}
+
+has_unplugged_origin = {
+    OR = {
+        has_country_flag = decision_unplugged
+        has_origin = origin_unplugged
+    }
+}
+
+has_shroudwalker_apprentice_origin = {
+    OR = {
+        has_country_flag = decision_origins_shroudwalker_apprentice
+        has_country_flag = decision_shroudwalker_apprentice
+        has_origin = origin_shroudwalker_apprentice
+    }
+}

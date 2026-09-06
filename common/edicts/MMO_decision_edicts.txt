@@ -1,0 +1,1878 @@
+@yearsBeforeDeadline = 1
+
+# Storm Chasers
+storm_chasers_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOR = {
+				has_country_flag = decision_storm_chasers
+				has_origin = origin_storm_chasers
+			}
+
+			has_cosmic_storms_dlc = yes
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_storm_chasers
+			give_technology = { message = no tech = tech_storm_prediction_1 }
+			owner_main_species = {
+				change_species_characteristics = {
+					add_trait = trait_storm_touched
+					add_traits_at_start_of_list = yes
+				}
+			}
+			add_modifier = { modifier = storm_chaser_county_modifier }
+			country_event = { id = cstorms.3101 days = 1 }
+			country_event = { id = timeline_MMO.01 days = 4}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Syncretic Evolution
+syncretic_evolution_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOR = {
+				has_country_flag = decision_syncretic_evolution
+				has_origin = origin_syncretic_evolution
+				#has_country_flag = decision_origins_syncretic_evolution #From xhk_decision_origins
+			}
+			#has_utopia = yes
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_syncretic_evolution
+			country_event = { id = timeline_MMO.02 days = 4}
+			capital_scope = {
+				create_species = {
+					name = random
+					class = random_non_machine
+					portrait = random
+					homeworld = this
+					traits = {
+						trait = trait_organic
+						trait = trait_syncretic_proles
+						trait = trait_rapid_breeders
+						trait = trait_repugnant
+						trait = trait_adaptive
+						trait = trait_deviants
+					}
+				}
+				create_pop_group = {
+					species = last_created_species
+					size = 1200
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					capital_scope = { is_planet_class = pc_machine }
+					is_gestalt = yes
+				}
+			}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Synthetic Dawn - Resource_Consolidation
+resource_consolidation_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOT = {
+				OR = {
+					has_country_flag = decision_resource_consolidation
+					has_origin = origin_machine
+					#has_country_flag = decision_origins_resource_consolidation #From xhk_decision_origins
+				}
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = { any_owned_species = { has_trait = trait_organic}}
+			country_event = { id = warning_event.01 }
+		}
+		hidden_effect = {
+			set_country_flag = decision_resource_consolidation
+			country_event = { id = timeline_MMO.03 days = 4}
+
+			capital_scope = {
+				change_pc = pc_machine
+				add_deposit = d_machine_prototype_pc_machine
+				add_deposit = d_machine_ongoing_construction
+				add_deposit = d_machine_ongoing_construction
+				if = { #Assimilators
+					limit = { owner = { has_civic = civic_machine_assimilator } }
+					add_deposit = d_organic_slurry
+				}
+
+				add_zone = {
+					district = district_nexus_1
+					zone = zone_energy_nexus
+				}
+				add_zone = {
+					district = district_nexus_2
+					zone = zone_minerals_nexus
+				}
+			}
+			owner = {
+				capital_scope = {
+					add_deposit = d_machine_minerals
+					solar_system = {
+						every_system_planet = {
+							limit = {
+								colonizable_planet = no
+								is_star = no
+							}
+							clear_deposits = yes
+						}
+						every_system_planet = {
+							limit = {
+								is_asteroid = yes
+							}
+							remove_planet = yes
+						}
+						every_system_planet = {
+							limit = {
+								colonizable_planet = no
+								is_star = no
+								is_asteroid = no
+								NOT = { is_planet_class = pc_gas_giant }
+							}
+							change_pc = pc_broken
+						}
+						every_system_planet = {
+							limit = {
+								colonizable_planet = no
+								is_star = no
+								is_planet_class = pc_gas_giant
+							}
+							change_pc = pc_molten
+							add_modifier = { modifier = chthonian_planet }
+							every_moon = {
+								limit = {
+									colonizable_planet = no
+								}
+								remove_planet = yes
+							}
+							while = {
+								limit = {
+									planet_size >= 20
+								}
+								change_planet_size = -6
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Machine Age - Arc Welders
+arc_welders_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOT = {
+				OR = {
+					has_country_flag = decision_arc_welders
+					has_origin = origin_arc_welders
+				}
+			}
+			has_machine_age_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_arc_welders
+			add_modifier = { modifier = arc_welders_county_modifier }
+			country_event = { id = mmo_arc_welders.01}
+			country_event = { id = timeline_MMO.04 days = 4}
+		}
+		if = {
+			limit = { owner.capital_scope = {carrier_is_type = ship}}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+toxic_knight_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOR = {
+				has_country_flag = decision_toxic_knights
+				has_origin = origin_toxic_knights
+				#has_country_flag = decision_toxic_knights #From xhk_decision_origins
+			}
+			has_toxoids = yes
+			is_nomadic = no
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			capital_scope = {
+				set_carrier_flag = toxic_knights_homeworld
+				add_deposit = d_toxic_god_blight_upon_the_land
+				add_deposit = d_toxic_god_deitys_swarms
+				add_deposit = d_toxic_god_pools_most_venemous
+				add_deposit = d_toxic_god_pestilential_wasteland
+				add_deposit = d_toxic_god_envenomed_seas
+			}
+			set_country_flag = decision_toxic_knights
+			country_event = { id = toxoids.7000 }
+			country_event = { id = mmo_kottg.1 }
+			country_event = { id = mmo_kottg.2 days = 1}
+			country_event = { id = timeline_MMO.05 days = 4}
+
+			every_country = { # is this really needed? Will the game break if there are two empires hunting down the Toxic God?
+				limit = { has_origin = origin_toxic_knights }
+				set_origin = origin_default
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}
+
+necrophage_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOT = {
+				OR = {
+					has_country_flag = decision_necrophage
+					has_origin = origin_necrophage
+					#has_country_flag = decision_origins_necrophage #From xhk_decision_origins
+				}
+			}
+			has_necroids = yes
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_necrophage
+			owner_main_species = {
+				change_species_characteristics = {
+					add_trait = trait_necrophage
+					add_traits_at_start_of_list = yes
+				}
+			}
+			country_event = { id = necroids.2 days = 3420 }
+			country_event = { id = necroids.255 days = 3 }
+			country_event = { id = necroids.4 days = 2 }
+			country_event = { id = timeline_MMO.06 days = 4 }
+			capital_scope = {
+				create_species = {
+					name = random
+					class = HUM
+					portrait = random
+					homeworld = this
+					traits = {
+						trait = trait_organic
+						trait = trait_charismatic
+						trait = trait_incubator
+						trait = trait_fleeting
+						trait = trait_slow_learners
+						trait = trait_humanoid_jinxed
+					}
+				}
+				create_pop_group = {
+					species = last_created_species
+					size = 1200
+				}
+				add_building = building_necrophage_elevation_chamber
+			}
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = decision_necrophage
+						has_origin = origin_necrophage
+					}
+					is_ai = yes
+				}
+				country_event = { id = necroids.6 days = 1800 }
+				country_event = { id = necroids.6 days = 3600 }
+				country_event = { id = necroids.6 days = 5400 }
+				country_event = { id = necroids.6 days = 7200 }
+			}
+		}
+		if = {
+			limit = { owner_main_species = { is_robotic = yes } }
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+subterranean_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOT = {
+				OR = {
+					has_country_flag = decision_subterranean
+					has_origin = origin_subterranean
+					has_origin = origin_subterranean_machines
+					#has_country_flag = decision_origins_subterranean #From xhk_decision_origins
+				}
+			}
+			has_aquatics = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet_subterranean"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_subterranean
+			add_modifier = {
+				modifier = subterranean_country_modifier
+			}
+			capital_scope = {
+				set_carrier_flag = uncapped_mining
+				add_zone = {
+					district = district_mining
+					zone = zone_subterranean_urban
+				}
+			}
+			country_event = { id = timeline_MMO.07 days = 4}
+			owner_main_species = {
+				if = {
+					limit = {
+						has_trait = trait_machine_unit
+					}
+					change_species_characteristics = {
+						add_trait = trait_robot_cave_dweller
+						add_traits_at_start_of_list = yes
+					}
+				}
+				else = {
+					change_species_characteristics = {
+						add_trait = trait_cave_dweller
+						add_traits_at_start_of_list = yes
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Treasure Hunters
+treasure_hunters_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < @yearsBeforeDeadline
+			NOR = {
+				has_country_flag = decision_treasure_hunters
+				has_origin = origin_treasure_hunters
+			}
+			has_grand_archive_dlc = yes
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_treasure_hunters
+			add_relic = r_celestial_chart_0
+			country_event = { id = timeline_MMO.08 days = 4 }
+			country_event = { id = grand_archive.8000 days = 1 } # start story event chain
+
+
+
+			every_country = {
+				limit = { has_origin = origin_treasure_hunters }
+				set_origin = origin_default
+				remove_relic = r_celestial_chart_0
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Mechanists
+mechanists_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_mechanists
+					has_origin = origin_mechanists
+					#has_country_flag = decision_origins_mechanist #From xhk_decision_origins
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_mechanists
+			country_event = { id = timeline_MMO.09 days = 4}
+			give_technology = { message = no tech = tech_powered_exoskeletons }
+			give_technology = { message = no tech = tech_robotic_workers }
+			add_research_option = tech_robomodding
+			create_built_robot_species = yes
+			last_created_species = {
+				change_species_characteristics = {
+					add_trait = trait_auto_mod_robotic
+				}
+			}
+			capital_scope = {
+				add_building = building_robot_assembly_plant
+				create_pop_group = {
+					size = 800
+					species = last_created_species
+				}
+			}
+			add_modifier = {
+				modifier = mechanist_country_modifier
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Overtuned
+overtuned_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_overtuned
+					has_origin = origin_overtuned
+					#has_country_flag = decision_origins_overtuned #From xhk_decision_origins
+				}
+			}
+			has_toxoids = yes
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			add_modifier = {
+				modifier = overtuned_country_modifier
+			}
+			add_modifier = {
+				modifier = biological_species_trait_picks_modifier
+			}
+			set_country_flag = decision_overtuned
+			give_technology = { message = no tech = tech_gene_tailoring }
+			country_event = { id = tutorial.64 }
+			country_event = { id = timeline_MMO.10 days = 4}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Galactic Doorstep
+galactic_doorstep_quest = {
+	length = 0
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_galactic_doorstep
+					has_origin = origin_galactic_doorstep
+					#has_country_flag = decision_origins_galactic_doorstep #From xhk_decision_origins
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_galactic_doorstep
+			country_event = { id = MMO_origin.1001 }
+			country_event = { id = timeline_MMO.11 }
+		}
+		if = {
+			limit = { owner.capital_scope = { carrier_is_type = ship } }
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Ocean Paradise
+ocean_paradise_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_ocean_paradise
+					has_origin = origin_ocean_paradise
+					has_origin = origin_ocean_machines
+					#has_country_flag = decision_origins_ocean_paradise #From xhk_decision_origins
+				}
+			}
+			has_aquatics = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_ocean_paradise
+			country_event = { id = mmo_ocean_paradise.1 } # set preference to pc_ocean and add aquatics traits
+			#country_event = { id = mmo_ocean_paradise.2 days = 4}
+			# MMO doesn't bother with this event. Find your own ice
+			country_event = { id = timeline_MMO.12 days = 4}
+
+			capital_scope = {
+				set_carrier_flag = uncapped_farming
+				change_pc = pc_ocean
+				set_planet_size = 30
+				if = {
+					limit = {
+						exists = owner
+						owner = { is_hive_empire = yes }
+					}
+					add_modifier = { modifier = ocean_paradise_hive }
+				}
+				else = {
+					add_modifier = { modifier = ocean_paradise }
+				}
+				# Food
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+				add_deposit = d_teeming_reef
+
+				# Minerals
+				add_deposit = d_submerged_ore_veins
+				add_deposit = d_submerged_ore_veins
+				add_deposit = d_submerged_ore_veins
+
+				# Energy
+				add_deposit = d_underwater_vent
+				add_deposit = d_underwater_vent
+				add_deposit = d_underwater_vent
+
+				# Bonus
+				add_deposit = d_crystal_reef
+				random_list = {
+					50 = { add_deposit = d_submerged_ore_veins }
+					50 = { add_deposit = d_underwater_vent }
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Remnants
+remnants_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_origin = origin_remnants
+					has_country_flag = decision_remnants
+					#has_country_flag = decision_origins_remnants #From xhk_decision_origins
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_remnants
+			give_technology = {
+				tech = tech_archaeostudies
+				message = no
+			}
+			country_event = { id = timeline_MMO.13 days = 4}
+			country_event = { id = leader.110 days = 1}
+			capital_scope = {
+				change_pc = pc_relic
+				set_planet_size = 22
+				add_deposit = d_ruined_arcology
+				add_deposit = d_ruined_arcology
+				add_deposit = d_ruined_arcology
+				add_deposit = d_ruined_arcology
+				add_deposit = d_ruined_arcology
+				add_deposit = d_ruined_arcology
+ 				add_building = {
+					zone = zone_research_unity
+					building = building_archaeostudies_faculty
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Tree of Life
+tree_of_life_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_tree_of_life
+					has_origin = origin_tree_of_life
+					#has_country_flag = decision_origins_tree_of_life #From xhk_decision_origins
+				}
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			add_modifier = {
+				modifier = tree_of_life_country_modifier
+			}
+			set_country_flag = decision_tree_of_life
+			country_event = { id = timeline_MMO.14 days = 4}
+			capital_scope = {
+				add_deposit = d_tree_of_life_home
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Post-Apocalyptic
+post_apocalyptic_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_post_apocalyptic
+					has_origin = origin_post_apocalyptic
+					#has_country_flag = decision_origins_post_apocalyptic #From xhk_decision_origins
+				}
+			}
+			has_apocalypse_dlc = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_post_apocalyptic
+			country_event = { id = timeline_MMO.15 days = 4 }
+			country_event = { id = mmo_post_apocalyptic.1 }
+			capital_scope = {
+				change_pc = pc_nuked
+				add_deposit = d_tomb_world_ruins
+				add_deposit = d_tomb_world_wasteland
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+void_dwellers_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_void_dwellers
+					has_origin = origin_void_dwellers
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			add_research_option = tech_habitat_2
+			add_modifier = {
+				modifier = void_dwellers_country_modifier
+			}
+			set_country_flag = decision_void_dwellers
+			country_event = { id = timeline_MMO.16 days = 4 }
+			country_event = { id = mmo_void_dwellers.1 } # Add preference pc_habitat & trait & give techs
+			capital_scope = {
+				set_carrier_flag = void_dwellers_homeworld
+			}
+			country_event = { id = mmo_void_dwellers.2 days = 1 } # change homeworld to habitat
+			country_event = { id = mmo_void_dwellers.3 days = 2 } # add habitat districts
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+void_dwellers_no_habitat_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_void_dwellers
+					has_origin = origin_void_dwellers
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			add_modifier = {
+				modifier = void_dwellers_country_modifier
+			}
+			set_country_flag = decision_void_dwellers
+			country_event = { id = timeline_MMO.16 days = 4 }
+			country_event = { id = mmo_void_dwellers.1 } # Add preference pc_habitat & trait & give techs
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Life Seeded
+life_seeded_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_life_seeded
+					has_origin = origin_life_seeded
+					#has_country_flag = decision_origins_life_seeded #From xhk_decision_origins
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+	
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_home_planet"
+			is_nomadic = no
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_life_seeded
+			country_event = { id = timeline_MMO.17 days = 4}
+			country_event = { id = mmo_life_seeded.1} # Add preference pc_gaia
+
+			capital_scope = {
+				change_pc = pc_gaia
+				set_planet_size = 30
+				add_deposit = d_dust_caverns
+				add_deposit = d_bubbling_swamp
+				add_deposit = d_crystalline_caverns
+
+				#Normal planets should already have a healthy set of deposits, but just in case, a few extra's won't hurt
+				random_list = {
+					33 = { add_deposit = d_searing_desert add_deposit = d_underwater_vent }
+					33 = { add_deposit = d_underwater_vent add_deposit = d_tempestous_mountain }
+					33 = { add_deposit = d_tempestous_mountain add_deposit = d_searing_desert }
+				}
+				random_list = {
+					33 = { add_deposit = d_ore_rich_caverns add_deposit = d_prosperous_mesa add_deposit = d_mineral_fields }
+					33 = { add_deposit = d_prosperous_mesa add_deposit = d_submerged_ore_veins }
+					33 = { add_deposit = d_submerged_ore_veins add_deposit = d_ore_rich_caverns }
+				}
+				random_list = {
+					50 = { add_deposit = d_lush_jungle add_deposit = d_black_soil add_deposit = d_green_hills }
+					50 = { add_deposit = d_teeming_reef add_deposit = d_tropical_island }
+				}
+
+				random_list = {
+					33 = { add_deposit = d_frozen_gas_lake }
+					33 = { add_deposit = d_prosperous_mesa }
+					33 = { add_deposit = d_fertile_lands }
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Primal Calling
+primal_calling_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_origin = origin_primal_calling
+					has_country_flag = decision_primal_calling
+				}
+			}
+			has_grand_archive_dlc = yes
+		}
+	}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_primal_calling
+
+			capital_scope = {
+				add_building = wildlife_ranch
+			}
+			give_technology = { message = no tech = tech_genome_mapping }
+			country_event = { id = mmo_primal_calling.1 }
+			country_event = { id = timeline_MMO.18 days = 4}
+			add_modifier = {
+				modifier = primal_calling_country_modifier
+			}
+		}
+	}
+}
+
+# Astral riftworld
+riftworld_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_riftworld
+					has_origin = origin_riftworld
+					has_country_flag = decision_origins_riftworld #From xhk_decision_origins
+				}
+			}
+			has_astral_planes_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			add_modifier = {
+				modifier = riftworld_country_modifier
+			}
+			set_country_flag = decision_riftworld
+			country_event = { id = astral_planes.2100 }
+			country_event = { id = timeline_MMO.18 days = 4}
+		}
+		if = {
+			limit = { owner.capital_scope = {carrier_is_type = ship}}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Here Be Dragons
+here_be_dragons_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_here_be_dragons
+					has_origin = origin_here_be_dragons
+					has_country_flag = decision_origins_here_be_dragons #From xhk_decision_origins
+				}
+			}
+			has_aquatics = yes
+			# is_nomadic = no # so does the dragon follow your capital Arkship around?
+			# if game-breaking restore all 'here_be_dragons_system' calls
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_here_be_dragons
+			country_event = { id = aquatics.100 }
+			country_event = { id = timeline_MMO.20 days = 4}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Shroud-Forged 
+shroud_forged_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_shroud_forged
+					has_origin = origin_shroud_forged
+				}
+			}
+			has_shroud_dlc = yes
+		}
+	}
+
+	#allow = {
+	#	custom_tooltip = {
+	#		fail_text = "requires_machine_intelligence"
+	#	}
+	#}
+	
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_shroud_forged
+			add_modifier = {
+				modifier = shroud_forged_country_modifier
+			}
+
+			give_technology = { message = no tech = tech_mine_zro }
+			add_resource = { sr_zro = 50 }
+			capital_scope = {
+				add_building = building_shroud_observatory_1
+			}
+			country_event = { id = shroud_forged.1 }
+			country_event = { id = timeline_MMO.21 days = 4}
+
+			owner_main_species = {
+				drone_conversion_new_species_effect = yes
+				set_species_flag = original_main_species # After conversion effect, so it's the only species with the flag
+			}
+			while = {
+				capital_scope = {
+					create_pop_group = {
+						size = 500
+						species = event_target:secondary_main_species
+						category = complex_drone
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					owner.capital_scope = {carrier_is_type = ship}
+					is_machine_empire = no
+				}
+			}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Evolutionary Predators
+evolutionary_predators_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_evolutionary_predators
+					has_origin = origin_evolutionary_predators
+				}
+			}
+			has_biogenesis_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_evolutionary_predators
+			owner_main_species = {
+				change_species_characteristics = {
+					add_trait = trait_malleable_genes
+					add_traits_at_start_of_list = yes
+				}
+			}
+			add_modifier = {
+				modifier = biological_species_trait_picks_modifier
+			}
+			country_event = { id = timeline_MMO.22 days = 4}
+			country_event = { id = bio.1000}
+		}
+		if = {
+			limit = { owner_main_species = { is_robotic = yes }}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Common Ground
+common_ground_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_common_ground
+					has_origin = origin_common_ground
+					has_country_flag = decision_hegemon
+					has_origin = origin_hegemon
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_common_ground
+			country_event = { id = full_cheese_is_go.1 }
+			country_event = { id = timeline_MMO.23 days = 4}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Hegemon
+hegemon_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_common_ground
+					has_origin = origin_common_ground
+					has_country_flag = decision_hegemon
+					has_origin = origin_hegemon
+				}
+			}
+			has_federations_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_hegemon
+			country_event = { id = full_cheese_is_go.1 }
+			country_event = { id = timeline_MMO.24 days = 4 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# On the Shoulders of Giants
+shoulders_of_giants_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				has_shoulders_of_giants_origin = yes
+			}
+			has_federations_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_shoulders_of_giants
+			country_event = { id = origin.1199 }
+			country_event = { id = timeline_MMO.26 days = 4}
+		}
+		if = {
+			limit = { owner.capital_scope = {carrier_is_type = ship}}
+			country_event = { id = warning_event.01 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Void Farers
+default_nomads_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				has_default_nomads_origin = yes
+			}
+			has_federations_dlc = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_default_nomads
+			add_modifier = {
+				modifier = origin_default_nomads_modifier
+			}
+			country_event = { id = timeline_MMO.27 days = 4}
+			if = {
+				limit = { is_nomadic = yes }
+
+				create_fleet = {
+					effect = {
+						set_owner = prev
+
+						create_ship = {
+							name = random
+							random_existing_design = nomads_constructor
+						}
+
+						set_fleet_stance = evasive
+						set_location = prev.capital_star
+					}
+				}
+			}
+
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Fruitful Partnership
+fruitful_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				has_fruitful_origin = yes
+			}
+			has_plantoids = yes
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "no_fruitful_for_nomads"
+			is_nomadic = no
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_fruitful
+			fruitful_start_effect = yes
+			country_event = { id = timeline_MMO.28 days = 4}
+
+			give_technology = { message = no tech = tech_critter_feeder }
+			capital_scope.solar_system = {
+				if = {
+					limit = {
+						exists = starbase
+						owner = { is_nomadic = no }
+					}
+					starbase = {
+						remove_starbase_building = { slot = 1 building = all }
+						set_starbase_building = {
+							slot = 1
+							building = feeder
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Lost Colony
+lost_colony_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				OR = {
+					has_country_flag = decision_lost_colony
+					has_origin = origin_lost_colony
+				}
+			}
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_lost_colony
+			country_event = { id = timeline_MMO.29 days = 4}
+			capital_scope = {
+				add_modifier = { modifier = colonial_spirit_mod }
+			}
+			country_event = { id = mmo_lost_colony.1 }
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Hard Reset
+unplugged_quest = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	resources = {
+		category = edicts
+	}
+	potential = {
+		AND = {
+			is_ai = no
+			years_passed < 1
+			NOT = {
+				has_unplugged_origin = yes
+			}
+		}
+	}
+	TODO: Alter events
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_no_machine_intelligence"
+			is_gestalt = no
+		}
+		custom_tooltip = {
+			text = graphical_culture_tooltip_not_biological
+			country_uses_bio_ships = no
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_unplugged
+			country_event = { id = timeline_MMO.30 days = 4 }
+			owner_main_species = {
+				change_species_characteristics = {
+					add_trait = trait_unplugged_cybernetic_positives_3
+					add_trait = trait_unplugged_cybernetic_negatives_3
+					add_traits_at_start_of_list = yes
+				}
+			}
+			capital_scope = {
+				add_deposit = d_decrepit_dwellings
+				add_deposit = d_strip_mine
+				add_deposit = d_former_battlefield
+				set_carrier_flag = unplugged_homeworld
+				add_modifier = {
+					modifier = unplugged_battlefield
+					days = 3600
+				}
+
+				solar_system = {
+					spawn_planet = {
+						class = pc_nuked
+						orbit_distance = 15
+						orbit_angle = { min = 90 max = 270 }
+						size = 12
+						flags = {
+							unplugged_pre_ftl_carrier_flag
+						}
+						init_effect = {
+							set_carrier_flag = unplugged_pre_ftl_carrier_flag
+							set_carrier_flag = nuked_planet_anomalies_disabled
+							add_planet_devastation = 100
+							add_deposit = d_ruined_district
+							add_deposit = d_ruined_district
+							create_ambient_object = {
+								type = abandoned_observation_outpost_generic
+							}
+							create_ambient_object = {
+								type = abandoned_ship_2_object
+								entity_offset = { min = 1 max = 10 }
+								entity_offset_height = -20
+							}
+							add_blocker = { type = d_city_ruins }
+							add_blocker = { type = d_bomb_crater }
+						}
+					}
+				}
+			}
+			country_event = { id = mmo_unplugged.1 } # create origin_unplugged_assimilator_empire if none exists
+			country_event = { id = mmo_unplugged.2  days = 1 } # link to player
+		}
+		if = {
+			limit = {
+				OR = {
+					owner_main_species = { has_trait = trait_mechanical}
+					owner.capital_scope = {carrier_is_type = ship}
+				}
+			}
+			country_event = { id = warning_event.01 }
+		}
+
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+#
+# Shattered Ring
+# Synthetic Fertility
+# Teachers of the Shroud (Shroudwalker Apprentice)
+# Starlit Citadel
+# Clone Army
+# Calamitous Birth
+# Cosmic Dawn
+# Slingshot to the Stars
+#
+# origin_wilderness
+# wilderness_quest
+#
+#OR = {
+#	has_country_flag = decision_wilderness
+#	has_origin = origin_wilderness
+#}
+#
+#
+#
+##Doomsday
+#doomsday_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_doomsday
+#					has_origin = origin_doomsday
+#				}
+#			}
+#			has_federations_dlc = yes
+#		}
+#	}
+#	effect = {
+#		set_country_flag = decision_doomsday
+#		country_event = { id = origin.60 }
+#		country_event = { id = timeline_mulori.7 days = 4}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+#
+#
+#
+#
+#legendary_leader_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#
+#	resources = {
+#		category = edicts
+#	}
+#
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_legendary_leader
+#					has_origin = origin_legendary_leader
+#				}
+#			}
+#			host_has_dlc = "Galactic Paragons"
+#		}
+#	}
+#
+#	effect = {
+#		set_country_flag = decision_legendary_leader
+#		country_event = { id = mulori.8 days = 1 }
+#		country_event = { id = timeline_mulori.22 days = 4}
+#		owner_main_species = {
+#			change_species_characteristics = {
+#				add_trait = trait_perfected_genes
+#				add_traits_at_start_of_list = yes
+#			}
+#		}
+#	}
+#
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+##Lithoids
+#lithoids_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_lithoid
+#					has_origin = origin_lithoid
+#				}
+#			}
+#			has_lithoids = yes
+#		}
+#	}
+#	effect = {
+#		set_country_flag = decision_lithoid
+#		country_event = { id = timeline_mulori.8 days = 4}
+#		capital_scope = {
+#			add_deposit = d_lithoid_crater
+#			add_deposit = d_buried_lithoids
+#			add_deposit = d_buried_lithoids
+#			add_deposit = d_buried_lithoids
+#			add_deposit = d_buried_lithoids
+#			add_modifier = { modifier = lithoid_crater }
+#		}
+#		if = {
+#			limit = { owner_main_species = { NOR = {has_trait = trait_lithoid has_trait = trait_machine_unit has_trait = trait_mechanical}}}
+#			country_event = { id = warning_event.01 }
+#		}
+#
+#		#owner_main_species = {
+#		#	change_species_characteristics = {
+#		#		add_trait = trait_lithoid
+#		#		add_traits_at_start_of_list = yes
+#		#	}
+#		#}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+##Slingshot to the Stars
+#slingshot_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_star_slingshot
+#					has_origin = origin_star_slingshot
+#				}
+#			}
+#			has_overlord_dlc = yes
+#		}
+#	}
+#	effect = {
+#		add_modifier = {
+#			modifier = slingshot_country_modifier
+#		}
+#		set_country_flag = decision_star_slingshot
+#		country_event = { id = origin.3500 }
+#		country_event = { id = timeline_mulori.6 days = 4}
+#	}
+#
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+##Teachers of the shroud
+#shroudwalker_apprentice_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_shroudwalker_apprentice
+#					has_origin = origin_shroudwalker_apprentice
+#				}
+#			}
+#			has_overlord_dlc = yes
+#		}
+#	}
+#	effect = {
+#		owner_main_species = {
+#			change_species_characteristics = {
+#				add_trait = trait_latent_psionic
+#				add_traits_at_start_of_list = yes
+#			}
+#		}
+#		set_country_flag = decision_shroudwalker_apprentice
+#		country_event = { id = timeline_mulori.14 days = 4}
+#		country_event = { id = origin.5600 }
+#		country_event = { id = origin.5605 days = 1 }
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+##Scion
+#scion_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_scion
+#					has_origin = origin_scion
+#				}
+#			}
+#			has_federations_dlc = yes
+#		}
+#	}
+#	effect = {
+#		add_research_option = tech_xeno_linguistics
+#		add_tech_progress = {
+#			tech = tech_xeno_linguistics
+#			progress = 0.50
+#		}
+#		set_country_flag = decision_scion
+#		country_event = { id = origin.5 }
+#		country_event = { id = timeline_mulori.15 days = 4}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+##Starlit Citadel
+#starlit_citadel_quest = {
+#	length = 1
+#	icon = "GFX_edict_type_policy"
+#	resources = {
+#		category = edicts
+#	}
+#	potential = {
+#		AND = {
+#			is_ai = no
+#			years_passed < 1
+#			NOT = {
+#				OR = {
+#					has_country_flag = decision_starlit_citadel
+#					has_origin = origin_starlit_citadel
+#				}
+#			}
+#			has_biogenesis_dlc = yes
+#		}
+#	}
+#	effect = {
+#		add_modifier = {
+#			modifier = starlit_citadel_country_modifier
+#		}
+#		set_country_flag = decision_starlit_citadel
+#		country_event = { id = timeline_mulori.20 days = 4}
+#		country_event = { id = mulori.7 days = 1}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+#
+# Mindwarden
+# Synthetic Fertility
+#				OR = {
+#					has_country_flag = decision_clone_army
+#					has_origin = origin_clone_army
+#				}
+#
+#					has_country_flag = decision_cosmic_dawn

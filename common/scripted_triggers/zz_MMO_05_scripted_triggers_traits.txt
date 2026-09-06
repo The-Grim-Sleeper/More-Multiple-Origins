@@ -1,0 +1,57 @@
+
+#this = species, from = country
+can_add_overtuned_traits = {
+	hidden_trigger = { exists = from }
+	from = { 
+		OR = {
+			has_country_flag = decision_overtuned
+			has_origin = origin_overtuned
+		}
+	}
+}
+
+#this = species, from = country
+can_remove_overtuned_traits = {
+	hidden_trigger = { exists = from }
+	from = {
+		OR = {
+			has_country_flag = decision_overtuned
+			has_origin = origin_overtuned
+			if = {
+				limit = {
+					OR = {
+						has_biogenesis_dlc = no
+						has_tradition = tr_genetics_adopt
+					}
+				}
+				has_tradition = tr_genetics_resequencing
+			}
+			else = {
+				has_tradition = tr_purity_genotype_regeneration
+			}
+		}
+	}
+}
+
+#this = species, from = country
+can_add_unplugged_traits = {
+	hidden_trigger = { exists = from }
+	OR = {
+		has_trait = trait_unplugged_cybernetic_positives_3
+		has_trait = trait_unplugged_cybernetic_positives_2
+		has_trait = trait_unplugged_cybernetic_positives_1
+	}
+	from = {
+		has_unplugged_origin = yes
+	}
+}
+
+#this = species, from = country
+can_remove_unplugged_traits = {
+	hidden_trigger = { exists = from }
+	custom_tooltip = {
+		from = {
+			has_unplugged_origin = yes
+		}
+	}
+}

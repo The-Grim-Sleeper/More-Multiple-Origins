@@ -1,0 +1,481 @@
+namespace = timeline_MMO
+
+country_event = {
+	id = timeline_MMO.01
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_storm_chasers_desc"
+			override_text = { "text:storm_chasers" }
+			override_texture = { "background:GFX_storm_chasers" }
+			override_id = timeline_origin_storm_chasers
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.02
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_syncretic_evolution_desc"
+			override_text = { "text:syncretic_evolution" }
+			override_texture = { "background:GFX_syncretic_evolution" }
+			override_id = timeline_origin_syncretic_evolution
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.03
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_machine_desc"
+			override_text = { "text:origin_machine" }
+			override_texture = { "background:GFX_origin_resource_consolidation" }
+			override_id = timeline_origin_machine
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.04
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_arc_welders_desc"
+			override_text = { "text:origin_arc_welders" }
+			override_texture = { "background:GFX_origin_arc_welders" }
+			override_id = timeline_origin_arc_welders
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.05
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_toxic_knights_desc"
+			override_text = { "text:origin_toxic_knights" }
+			override_texture = { "background:GFX_origin_toxic_knights" }
+			override_id = timeline_origin_toxic_knights
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.06
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_necrophage_desc"
+			override_text = { "text:origin_necrophage" }
+			override_texture = { "background:GFX_origin_necrophage" }
+			override_id = timeline_origin_necrophage_custom
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.07
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_subterranean_desc"
+			override_text = { "text:origin_subterranean" }
+			override_texture = { "background:GFX_origin_subterranean" }
+			override_id = timeline_origin_subterranean
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.08
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_treasure_hunters_desc"
+			override_text = { "text:origin_treasure_hunters" }
+			override_texture = { "background:GFX_origin_treasure_hunters" }
+			override_id = timeline_origin_treasure_hunters
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.09
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_mechanists_desc"
+			override_text = { "text:origin_mechanists" }
+			override_texture = { "background:GFX_origin_mechanist" }
+			override_id = timeline_origin_mechanists
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.10
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_overtuned_desc"
+			override_text = { "text:origin_overtuned" }
+			override_texture = { "background:GFX_origin_overtuned" }
+			override_id = timeline_origin_overtuned
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.11
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_galactic_doorstep_desc"
+			override_text = { "text:origin_galactic_doorstep" }
+			override_texture = { "background:GFX_origin_galactic_doorstep" }
+			override_id = timeline_origin_galactic_doorstep
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.12
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_ocean_paradise_desc"
+			override_text = { "text:origin_ocean_paradise" }
+			override_texture = { "background:GFX_origin_ocean_paradise" }
+			override_id = timeline_origin_ocean_paradise
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.13
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_remnants_desc"
+			override_text = { "text:origin_remnants" }
+			override_texture = { "background:GFX_origin_remnants" }
+			override_id = timeline_origin_remnants
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.14
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_tree_of_life_desc"
+			override_text = { "text:origin_tree_of_life" }
+			override_texture = { "background:GFX_origin_tree" }
+			override_id = timeline_origin_tree_of_life
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.15
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_post_apocalyptic_desc"
+			override_text = { "text:origin_post_apocalyptic" }
+			override_texture = { "background:GFX_origin_post_apocalyptic" }
+			override_id = timeline_origin_post_apocalyptic
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.16
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_void_dwellers_desc"
+			override_text = { "text:origin_void_dwellers" }
+			override_texture = { "background:GFX_origin_void_dwellers" }
+			override_id = timeline_origin_void_dwellers
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.17
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_life_seeded_desc"
+			override_text = { "text:origin_life_seeded" }
+			override_texture = { "background:GFX_origin_life_seeded"}
+			override_id = timeline_origin_life_seeded
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.18
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_primal_calling_desc"
+			override_text = { "text:origin_primal_calling" }
+			override_texture = { "background:GFX_origin_primal_calling" }
+			override_id = timeline_origin_primal_calling
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.19
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_riftworld_desc"
+			override_text = { "text:origin_riftworld" }
+			override_texture = { "background:GFX_origin_riftworld" }
+			override_id = timeline_origin_riftworld
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.20
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_here_be_dragons_desc"
+			override_text = { "text:origin_here_be_dragons" }
+			override_texture = { "background:GFX_origin_here_be_dragons" }
+			override_id = timeline_origin_here_be_dragons
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.21
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_shroud_forged_desc"
+			override_text = { "text:origin_shroud_forged" }
+			override_texture = { "background:GFX_origin_shroud_forged_zoom_1" }
+			override_id = timeline_origin_shroud_forged
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.22
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_evolutionary_predators_desc"
+			override_text = { "text:origin_evolutionary_predators" }
+			override_texture = { "background:GFX_origin_evolutionary_predators" }
+			override_id = timeline_origin_evolutionary_predators
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.23
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_common_ground_desc"
+			override_text = { "text:origin_common_ground" }
+			override_texture = { "background:GFX_origin_common_ground" }
+			override_id = timeline_origin_common_ground
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.24
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_hegemon_desc"
+			override_text = { "text:origin_hegemon" }
+			override_texture = { "background:GFX_origin_hegemon" }
+			override_id = timeline_origin_hegemon
+		}
+	}
+}
+
+#country_event = {
+#	id = timeline_MMO.25
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		add_timeline_event = {
+#			type = timeline_origin
+#			override_tooltip = "origin_legendary_leader_desc"
+#			override_text = { "text:origin_legendary_leader" }
+#			override_texture = { "background:GFX_origin_legendary_leader" }
+#			override_id = timeline_origin_legendary_leader
+#		}
+#	}
+#}
+
+country_event = {
+	id = timeline_MMO.26
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_shoulders_of_giants_desc"
+			override_text = { "text:origin_shoulders_of_giants" }
+			override_texture = { "background:GFX_origin_shoulders" }
+			override_id = timeline_origin_shoulders_of_giants
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.27
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_default_nomads_desc"
+			override_text = { "text:origin_default_nomads" }
+			override_texture = { "background:GFX_origin_nomad_default" }
+			override_id = timeline_origin_default_nomads
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.28
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_fruitful_desc"
+			override_text = { "text:origin_fruitful" }
+			override_texture = { "background:GFX_origin_fruitful" }
+			override_id = timeline_origin_fruitful
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.29
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_lost_colony_desc"
+			override_text = { "text:origin_lost_colony" }
+			override_texture = { "background:GFX_origin_lost_colony" }
+			override_id = timeline_origin_lost_colony
+		}
+	}
+}
+
+country_event = {
+	id = timeline_MMO.30
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_timeline_event = {
+			type = timeline_origin
+			override_tooltip = "origin_unplugged_desc"
+			override_text = { "text:origin_unplugged" }
+			override_texture = { "background:GFX_origin_unplugged" }
+			override_id = timeline_origin_unplugged
+		}
+	}
+}

@@ -1,0 +1,118 @@
+###################
+# Specialist Jobs
+###################
+
+necro_apprentice = {
+	category = specialist
+	exempt_from_ai_amenity_prioritization = yes
+	can_be_automated = no
+
+	swappable_data = {
+		default = {
+			condition_string = NECRO_APPRENTICE_JOB_TRIGGER
+			building_icon = building_chamber_of_elevation_1
+		}
+
+		swap_type = {
+			desc = job_necro_apprentice_desc_hive
+			trigger = {
+				owner? = { is_hive_empire = yes }
+			}
+			weight = 1
+		}
+	}
+
+	tags = { unity }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible = { #deliberately allows slaves!
+		species = { species_can_be_necrophaged = yes }
+		owner = {
+			has_trait = trait_necrophage
+			OR = {
+				has_country_flag = decision_necrophage
+				has_origin = origin_necrophage
+			}
+		}
+	}
+
+	resources = {
+		category = planet_necro_apprentices
+		produces = {
+			unity = 0.75
+		}
+		upkeep = {
+			trigger = {
+				owner? = { is_hive_empire = no }
+			}
+			consumer_goods = 1
+		}
+
+		upkeep = {
+			trigger = {
+				owner? = { is_hive_empire = yes }
+			}
+			minerals = @living_standard_food_normal
+		}
+	}
+
+	triggered_planet_pop_group_modifier_for_species = {
+		potential = {
+			NOT = {
+				has_trait = trait_necrophage
+			}
+		}
+		bonus_pop_growth = 0.5
+	}
+
+	triggered_planet_modifier = {
+		fake_pop_growth_mod = 0.5
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 500
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @ruler_job_weight #deliberate
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.75
+			is_enslaved = yes #willing apprentices first, please
+		}
+		modifier = {
+			factor = 0.75
+			pop_has_happiness = no
+		}
+
+		modifier = {
+			factor = 0.1
+			owner? = { is_ai = yes }
+			colony? = {
+				NOT = {
+					any_owned_pop_group = {
+						NOT = { is_same_value = root }
+						species = { species_can_be_necrophaged = yes }
+					}
+				}
+				num_assigned_jobs = {
+					job = necro_apprentice
+					value > 1
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_unity"
+	
+}

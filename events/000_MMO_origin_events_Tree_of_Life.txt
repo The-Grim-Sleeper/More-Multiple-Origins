@@ -1,0 +1,83 @@
+namespace = origin
+
+#Add ToL to new colonies
+carrier_event = {
+	id = origin.3001
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			OR = {
+				has_origin = origin_tree_of_life
+				has_country_flag = decision_tree_of_life
+			}
+		}
+	}
+
+	immediate = {
+		add_deposit = d_tree_of_life_colony
+		remove_modifier = no_lifetree #as the planet transfer events fire before this
+	}
+}
+
+#modify the modifier for lacking Tree
+carrier_event = {
+	id = origin.3004
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { days_passed < 1 }
+		OR = {
+			AND = {
+				owner = {
+					OR = {
+						has_origin = origin_tree_of_life
+						has_country_flag = decision_tree_of_life
+					}
+				}
+				NOR = {
+					planet = { has_deposit = d_tree_of_life_colony }
+					planet = { has_deposit = d_tree_of_life_home }
+					has_modifier = no_lifetree
+				}
+			}
+			AND = {
+				owner = { NOT = { has_origin = origin_tree_of_life } }
+				has_modifier = no_lifetree
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				owner = {
+					OR = {
+						has_origin = origin_tree_of_life
+						has_country_flag = decision_tree_of_life
+					}
+				}
+				NOT = {
+					planet = { has_deposit = d_tree_of_life_colony }
+					planet = { has_deposit = d_tree_of_life_home }
+				}
+			}
+			add_modifier = { modifier = no_lifetree }
+		}
+		if = {
+			limit = {
+				owner = {
+					NOR = {
+						has_origin = origin_tree_of_life
+						has_country_flag = decision_tree_of_life
+					}
+				}
+			}
+			remove_modifier = no_lifetree
+		}
+	}
+}

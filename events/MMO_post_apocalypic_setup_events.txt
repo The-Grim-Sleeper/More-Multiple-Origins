@@ -1,0 +1,39 @@
+namespace = mmo_post_apocalyptic
+
+
+country_event = {
+	id = mmo_post_apocalyptic.1
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_country_flag = decision_post_apocalyptic
+	}
+
+	immediate = {
+		from = {
+			every_owned_species = {
+				if = {
+					limit = {
+						OR = {
+							is_archetype = MACHINE
+							is_archetype = ROBOT
+						}
+					}
+					#set_habitability_trait = { trait = trait_machine_pc_nuked_preference }
+					change_species_characteristics = {
+						add_trait = trait_robot_survivor
+						add_traits_at_start_of_list = yes
+					}
+				}
+				else = {
+					#set_habitability_trait = { trait = trait_pc_nuked_preference }
+					change_species_characteristics = {
+						add_trait = trait_survivor
+						add_traits_at_start_of_list = yes
+					}
+				}
+			}
+		}
+	}
+}

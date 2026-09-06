@@ -1,0 +1,1671 @@
+
+namespace = bio
+
+##################################################################
+# Evolutionary Predators Events - Namespace: bio.1000 - bio.1999 #
+##################################################################
+
+
+situation_event = {
+	id = bio.1005
+	title = bio.1005.name
+	desc = bio.1005.desc
+	picture = GFX_evt_evolutionary_predators
+	show_sound = event_dangerous_animals
+	situation = this
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_evopred_flags = yes
+			while = {
+				count = 3
+				generate_evolutionary_predator_choices = yes
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = pop_growth_evopred } }
+		name = bio.1005.pop_growth
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = pop_growth }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = pop_output_evopred } }
+		name = bio.1005.pop_output
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = pop_output }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = leader_evopred } }
+		name = bio.1005.leader
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = leader }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = habitability_evopred } }
+		name = bio.1005.habitability
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = habitability }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = upkeep_evopred } }
+		name = bio.1005.upkeep
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = upkeep }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = humanoid_evopred } }
+		name = bio.1005.humanoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = humanoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = mammalian_evopred } }
+		name = bio.1005.mammalian
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = mammalian SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = reptilian_evopred } }
+		name = bio.1005.reptilian
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = reptilian SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = avian_evopred } }
+		name = bio.1005.avian
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = avian SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = arthropoid_evopred } }
+		name = bio.1005.arthropoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = arthropoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = molluscoid_evopred } }
+		name = bio.1005.molluscoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = molluscoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = fungoid_evopred } }
+		name = bio.1005.fungoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = fungoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = plantoid_evopred } }
+		name = bio.1005.plantoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = plantoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = lithoid_evopred } }
+		name = bio.1005.lithoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = lithoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = necroid_evopred } }
+		name = bio.1005.necroid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = necroid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = aquatic_evopred } }
+		name = bio.1005.aquatic
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = aquatic SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = toxoid_evopred } }
+		name = bio.1005.toxoid
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = toxoid SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = infernal_evopred } }
+		name = bio.1005.infernal
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = infernal SPECIES = yes }
+				country_event = {
+					id = timeline.90
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = plasmic_evopred } }
+		name = bio.1005.plasmic
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				modify_species = {
+					species = species
+					add_trait = trait_plasmic
+					effect = { save_event_target_as = target_species }
+				}
+				set_country_flag = gained_plasmic_trait
+				create_message = {
+					type = PLASMIC_TRAIT_ADDED
+					localization = MESSAGE_PLASMIC_TRAIT_ADDED
+					days = 30
+					variable = {
+						type = name
+						localization = SPECIES
+						scope = species
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = psionic_evopred } }
+		name = bio.1005.psionic
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				add_random_trait_evopred = { TAG = psionic SPECIES = yes }
+			}
+		}
+	}
+
+	option = {
+		trigger = { owner = { has_country_flag = leviathan_evo_pred } }
+		name = bio.1005.leviathan
+		custom_tooltip = bio.1005.tt
+
+		icon = {
+			icon = GFX_tradition_category_icon_tradition_mutation
+			text = has_tr_mutation_nucleotide_isolation_evo_pred_tt
+		}
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				random_list = {
+					0 = {
+						modifier = {
+							add = 10
+							has_country_flag = harvested_dragon_dna
+							NOT = { has_country_flag = gained_dragon_trait }
+						}
+						modify_species = {
+							species = species
+							add_trait = trait_drake_scaled
+							effect = { save_event_target_as = target_species }
+						}
+						set_country_flag = gained_dragon_trait
+						create_message = {
+							type = LEVIATHAN_TRAIT_ADDED
+							localization = MESSAGE_DRAGON_TRAIT_ADDED
+							days = 30
+							variable = {
+								type = name
+								localization = SPECIES
+								scope = species
+							}
+						}
+					}
+					0 = {
+						modifier = {
+							add = 10
+							has_country_flag = harvested_voidspawn_dna
+							NOT = { has_country_flag = gained_voidspawn_trait }
+						}
+						modify_species = {
+							species = species
+							add_trait = trait_voidling
+							effect = { save_event_target_as = target_species }
+						}
+						set_country_flag = gained_voidspawn_trait
+						create_message = {
+							type = LEVIATHAN_TRAIT_ADDED
+							localization = MESSAGE_VOIDSPAWN_TRAIT_ADDED
+							days = 30
+							variable = {
+								type = name
+								localization = SPECIES
+								scope = species
+							}
+						}
+					}
+					0 = {
+						modifier = {
+							add = 10
+							has_country_flag = harvested_tiyanki_dna
+							NOT = { has_country_flag = gained_tiyanki_trait }
+						}
+						modify_species = {
+							species = species
+							add_trait = trait_tiyanki
+							effect = { save_event_target_as = target_species }
+						}
+						set_country_flag = gained_tiyanki_trait
+						create_message = {
+							type = LEVIATHAN_TRAIT_ADDED
+							localization = MESSAGE_TIYANKI_TRAIT_ADDED
+							days = 30
+							variable = {
+								type = name
+								localization = SPECIES
+								scope = species
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			owner = {
+				species = {
+					any_trait_available_for_species = {
+						trait_has_all_tags = { organic positive }
+						NOT = { trait_has_any_tag = { special species cybernetic presapient drawbacks } }
+						OR = {
+							NOT = { trait_has_any_tag = { genetic_ascension } }
+							root.owner = { has_tradition = tr_genetics_resequencing }
+						}
+						OR = {
+							NOT = { trait_has_any_tag = { individual } }
+							root.owner = { is_gestalt = no }
+						}
+					}
+				}
+			}
+		}
+		name = bio.1005.random
+		custom_tooltip = bio.1005.tt
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				modify_species = {
+					species = species
+					add_random_species_trait = {
+						trait_has_all_tags = { organic positive }
+						NOT = { trait_has_any_tag = { special species cybernetic presapient drawbacks } }
+						OR = {
+							NOT = { trait_has_any_tag = { genetic_ascension } }
+							root = {
+								owner_can_do_advanced_gene_modding = yes
+							}
+						}
+						OR = {
+							NOT = { trait_has_any_tag = { individual } }
+							root.owner = { is_gestalt = no }
+						}
+					}
+					effect = { save_event_target_as = target_species }
+					on_random_trait_added = { # Trait is the current scope, species is From, prev is owner
+						prev = {
+							create_message = {
+								type = RANDOM_TRAIT_ADDED
+								localization = MESSAGE_RANDOM_TRAIT_ADDED
+								days = 30
+								variable = {
+									type = name
+									localization = TRAIT
+									scope = prev
+								}
+								variable = {
+									type = name
+									localization = SPECIES
+									scope = species
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			owner = {
+				has_active_tradition = tr_mutation_unnatural_selection_evo_pred
+				species = {
+					any_trait_available_for_species = {
+						trait_has_all_tags = { organic positive species }
+						NOT = { trait_has_any_tag = { special cybernetic presapient drawbacks } }
+						OR = {
+							NOT = { trait_has_any_tag = { genetic_ascension } }
+							root.owner = { has_tradition = tr_genetics_resequencing }
+						}
+						OR = {
+							NOT = { trait_has_any_tag = { individual } }
+							root.owner = { is_gestalt = no }
+						}
+					}
+				}
+			}
+		}
+		name = bio.1005.unnatural_selection
+		custom_tooltip = bio.1005.tt
+		icon = {
+			icon = GFX_tradition_category_icon_tradition_mutation
+			text = has_tr_mutation_unnatural_selection_evo_pred_tt
+		}
+
+		owner = {
+			if = {
+				limit = {
+					OR ={
+						has_active_tradition = tr_mutation_adopt_evo_pred
+						has_active_tradition = tr_mutation_adopt
+					}
+				}
+				add_monthly_resource_mult = {
+					resource = society_research
+					value = @tier3researchreward
+					min = @tier3researchmin
+					max = @tier3researchmax
+				}
+			}
+		}
+
+		hidden_effect = {
+			owner = {
+				modify_species = {
+					species = species
+					add_random_species_trait = {
+						trait_has_all_tags = { organic positive species }
+						NOT = { trait_has_any_tag = { special cybernetic presapient drawbacks } }
+						OR = {
+							NOT = { trait_has_any_tag = { genetic_ascension } }
+							root = {
+								owner_can_do_advanced_gene_modding = yes
+							}
+						}
+						OR = {
+							NOT = { trait_has_any_tag = { individual } }
+							root.owner = { is_gestalt = no }
+						}
+					}
+					effect = { save_event_target_as = target_species }
+					on_random_trait_added = { # Trait is the current scope, species is From, prev is owner
+						prev = {
+							create_message = {
+								type = RANDOM_TRAIT_ADDED
+								localization = MESSAGE_RANDOM_TRAIT_ADDED
+								days = 30
+								variable = {
+									type = name
+									localization = TRAIT
+									scope = prev
+								}
+								variable = {
+									type = name
+									localization = SPECIES
+									scope = species
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = bio.1005.no_reward
+		hidden_effect = {
+			set_situation_flag = no_choice_evopred
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier4researchreward
+				min = @tier4researchmin
+				max = @tier4researchmax
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_situation_flag = no_choice_evopred }
+				}
+				owner = {
+					change_dominant_species = { species = event_target:target_species change_all = yes }
+					unify_evopred_species = yes
+					every_controlled_ship = {
+						limit = {
+							is_ship_class = shipclass_colonizer
+							species = {
+								is_same_species = prev.species
+							}
+						}
+						change_species = event_target:target_species
+					}
+					every_pool_leader = {
+						limit = {
+							is_same_species = prev.species
+						}
+						change_species = event_target:target_species
+					}
+					update_node_portraits_if_gestalt_effect = yes
+				}
+			}
+			owner = {
+				remove_country_flag = toxoid_evopred
+				remove_country_flag = infernal_evopred
+				remove_country_flag = aquatic_evopred
+				remove_country_flag = necroid_evopred
+				remove_country_flag = lithoid_evopred
+				remove_country_flag = plantoid_evopred
+				remove_country_flag = fungoid_evopred
+				remove_country_flag = molluscoid_evopred
+				remove_country_flag = arthropoid_evopred
+				remove_country_flag = avian_evopred
+				remove_country_flag = reptilian_evopred
+				remove_country_flag = mammalian_evopred
+				remove_country_flag = humanoid_evopred
+				remove_country_flag = upkeep_evopred
+				remove_country_flag = habitability_evopred
+				remove_country_flag = leader_evopred
+				remove_country_flag = pop_output_evopred
+				remove_country_flag = pop_growth_evopred
+				remove_country_flag = plasmic_evopred
+				remove_country_flag = psionic_evopred
+				remove_country_flag = leviathan_evo_pred
+				change_variable = {
+					which = num_evopred_situations_ran
+					value = 1
+				}
+				start_situation = {
+					type = evolutionary_predators_situation
+					target = this
+				}
+				if = {
+					limit = {
+						is_mutation_authority = yes
+					}
+					species = { set_species_traits_evopred_count_variable = yes }
+				}
+				every_owned_leader = {
+					limit = {
+						is_exact_same_species = owner.species
+					}
+					update_leader_after_modification = yes
+				}
+				every_pool_leader = {
+					limit = {
+						is_exact_same_species = owner.species
+					}
+					update_leader_after_modification = yes
+				}
+			}
+			destroy_situation = this
+		}
+	}
+}
+
+# Newly colonized planets gains modifier
+carrier_event = {
+	id = bio.1010
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_global_flag = game_started
+		is_colony = yes
+		owner = {
+			OR = {
+				has_country_flag = decision_evolutionary_predators
+				has_origin = origin_evolutionary_predators
+			}
+		}
+		habitable_planet_not_urban = yes
+		NOT = { has_modifier = genetic_soup }
+	}
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_carrier_flag = evolutionary_predator_assimilate@owner } }
+			export_trigger_value_to_variable = {
+				trigger = planet_size
+				variable = days_by_planet_size
+			}
+			multiply_variable = {
+				which = days_by_planet_size
+				value = 360
+			}
+			set_carrier_flag = evolutionary_predator_assimilate@owner
+			add_modifier = {
+				modifier = fresh_biosphere
+				days = 1
+				time_multiplier = days_by_planet_size
+			}
+			carrier_event = {
+				id = bio.1020
+				days = days_by_planet_size
+				scopes = { from = owner }
+			}
+		}
+		else = {
+			add_modifier = { modifier = exhausted_biosphere }
+		}
+	}
+}
+
+carrier_event = {
+	id = bio.1015 #removes the modifier if you lose the planet
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_colony = yes
+		OR = {
+			has_modifier = fresh_biosphere
+			has_modifier = exhausted_biosphere
+			has_modifier = genetic_soup
+		}
+	}
+
+	immediate = {
+		remove_modifier = fresh_biosphere
+		remove_modifier = exhausted_biosphere
+		remove_modifier = genetic_soup
+		if = {
+			limit = {
+				from = {
+					OR = {
+						has_country_flag = decision_evolutionary_predators
+						has_origin = origin_evolutionary_predators
+					}
+				}
+				NOT = { has_carrier_flag = evolutionary_predator_assimilate@from }
+			}
+			export_trigger_value_to_variable = {
+				trigger = planet_size
+				variable = days_by_planet_size
+			}
+			multiply_variable = {
+				which = days_by_planet_size
+				value = 360
+			}
+			set_carrier_flag = evolutionary_predator_assimilate@from
+			add_modifier = { modifier = fresh_biosphere days = 1 time_multiplier = days_by_planet_size }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						has_country_flag = decision_evolutionary_predators
+						has_origin = origin_evolutionary_predators
+					}
+				}
+			}
+			add_modifier = { modifier = exhausted_biosphere }
+		}
+	}
+}
+
+# A pop has finished purging
+# This = Planet scope
+# From = Country
+# FromFrom = Pop
+carrier_event = {
+	id = bio.1070
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			OR = {
+				has_country_flag = decision_evolutionary_predators
+				has_origin = origin_evolutionary_predators
+				AND = {
+					has_origin = origin_nomadic_purger
+					overlord? = {
+						OR = {
+							has_country_flag = decision_evolutionary_predators
+							has_origin = origin_evolutionary_predators
+						}
+					}
+				}
+			}
+		}
+		fromfrom = {
+			OR = {
+				is_archetype = BIOLOGICAL
+				is_archetype = LITHOID
+				is_archetype = PRESAPIENT
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				from = {
+					has_origin = origin_nomadic_purger
+				}
+			}
+			fromfrom = {
+				switch = {
+					trigger = is_species_class
+					HUM = {
+						from.overlord = { set_evopred_flag = { TYPE = humanoid } }
+					}
+					MAM = {
+						from.overlord = { set_evopred_flag = { TYPE = mammalian } }
+					}
+					REP = {
+						from.overlord = { set_evopred_flag = { TYPE = reptilian } }
+					}
+					AVI = {
+						from.overlord = { set_evopred_flag = { TYPE = avian } }
+					}
+					ART = {
+						from.overlord = { set_evopred_flag = { TYPE = arthropoid } }
+					}
+					MOL = {
+						from.overlord = { set_evopred_flag = { TYPE = molluscoid } }
+					}
+					FUN = {
+						from.overlord = { set_evopred_flag = { TYPE = fungoid } }
+					}
+					PLANT = {
+						from.overlord = { set_evopred_flag = { TYPE = plantoid } }
+					}
+					LITHOID = {
+						from.overlord = { set_evopred_flag = { TYPE = lithoid } }
+					}
+					NECROID = {
+						from.overlord = { set_evopred_flag = { TYPE = necroid } }
+					}
+					AQUATIC = {
+						from.overlord = { set_evopred_flag = { TYPE = aquatic } }
+					}
+					TOX = {
+						from.overlord = { set_evopred_flag = { TYPE = toxoid } }
+					}
+					INF = {
+						from.overlord = { set_evopred_flag = { TYPE = infernal } }
+					}
+					PRE_MAM = {
+						from.overlord = { set_evopred_flag = { TYPE = mammalian } }
+					}
+					PRE_REP = {
+						from.overlord = { set_evopred_flag = { TYPE = reptilian } }
+					}
+					PRE_AVI = {
+						from.overlord = { set_evopred_flag = { TYPE = avian } }
+					}
+					PRE_ART = {
+						from.overlord = { set_evopred_flag = { TYPE = arthropoid } }
+					}
+					PRE_MOL = {
+						from.overlord = { set_evopred_flag = { TYPE = molluscoid } }
+					}
+					PRE_FUN = {
+						from.overlord = { set_evopred_flag = { TYPE = fungoid } }
+					}
+					PRE_PLANT = {
+						from.overlord = { set_evopred_flag = { TYPE = plantoid } }
+					}
+					PRE_LITHOID = {
+						from.overlord = { set_evopred_flag = { TYPE = lithoid } }
+					}
+					PRE_AQUATIC = {
+						from.overlord = { set_evopred_flag = { TYPE = aquatic } }
+					}
+					PRE_TOX = {
+						from.overlord = { set_evopred_flag = { TYPE = toxoid } }
+					}
+					PSIONIC = {
+						from.overlord = { set_evopred_flag = { TYPE = psionic } }
+					}
+					PRE_INF = {
+						from.overlord = { set_evopred_flag = { TYPE = infernal } }
+					}
+				}
+			}
+		}
+		else = {
+			fromfrom = {
+				switch = {
+					trigger = is_species_class
+					HUM = {
+						from = { set_evopred_flag = { TYPE = humanoid } }
+					}
+					MAM = {
+						from = { set_evopred_flag = { TYPE = mammalian } }
+					}
+					REP = {
+						from = { set_evopred_flag = { TYPE = reptilian } }
+					}
+					AVI = {
+						from = { set_evopred_flag = { TYPE = avian } }
+					}
+					ART = {
+						from = { set_evopred_flag = { TYPE = arthropoid } }
+					}
+					MOL = {
+						from = { set_evopred_flag = { TYPE = molluscoid } }
+					}
+					FUN = {
+						from = { set_evopred_flag = { TYPE = fungoid } }
+					}
+					PLANT = {
+						from = { set_evopred_flag = { TYPE = plantoid } }
+					}
+					LITHOID = {
+						from = { set_evopred_flag = { TYPE = lithoid } }
+					}
+					NECROID = {
+						from = { set_evopred_flag = { TYPE = necroid } }
+					}
+					AQUATIC = {
+						from = { set_evopred_flag = { TYPE = aquatic } }
+					}
+					TOX = {
+						from = { set_evopred_flag = { TYPE = toxoid } }
+					}
+					INF = {
+						from = { set_evopred_flag = { TYPE = infernal } }
+					}
+					PRE_MAM = {
+						from = { set_evopred_flag = { TYPE = mammalian } }
+					}
+					PRE_REP = {
+						from = { set_evopred_flag = { TYPE = reptilian } }
+					}
+					PRE_AVI = {
+						from = { set_evopred_flag = { TYPE = avian } }
+					}
+					PRE_ART = {
+						from = { set_evopred_flag = { TYPE = arthropoid } }
+					}
+					PRE_MOL = {
+						from = { set_evopred_flag = { TYPE = molluscoid } }
+					}
+					PRE_FUN = {
+						from = { set_evopred_flag = { TYPE = fungoid } }
+					}
+					PRE_PLANT = {
+						from = { set_evopred_flag = { TYPE = plantoid } }
+					}
+					PRE_LITHOID = {
+						from = { set_evopred_flag = { TYPE = lithoid } }
+					}
+					PRE_AQUATIC = {
+						from = { set_evopred_flag = { TYPE = aquatic } }
+					}
+					PRE_TOX = {
+						from = { set_evopred_flag = { TYPE = toxoid } }
+					}
+					PSIONIC = {
+						from = { set_evopred_flag = { TYPE = psionic } }
+					}
+					PRE_INF = {
+						from = { set_evopred_flag = { TYPE = infernal } }
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = bio.1075
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_democratic_authority = yes
+		is_mutation_authority = yes
+	}
+
+	immediate = {
+		remove_country_flag = imperialist_leading
+		remove_country_flag = isolationist_leading
+		remove_country_flag = progressive_leading
+		remove_country_flag = prosperity_leading
+		remove_country_flag = supremacist_leading
+		remove_country_flag = technologist_leading
+		remove_country_flag = totalitarian_leading
+		remove_country_flag = traditionalist_leading
+		remove_country_flag = xenoist_leading
+		remove_country_flag = manifesti_leading
+		ordered_pop_faction = {
+			position = 0
+			order_by = trigger:pop_amount
+			switch = {
+				trigger = is_pop_faction_type
+				imperialist = {
+					root = { set_country_flag = imperialist_leading }
+				}
+				isolationist = {
+					root = { set_country_flag = isolationist_leading }
+				}
+				progressive = {
+					root = { set_country_flag = progressive_leading }
+				}
+				prosperity = {
+					root = { set_country_flag = prosperity_leading }
+				}
+				supremacist = {
+					root = { set_country_flag = supremacist_leading }
+				}
+				technologist = {
+					root = { set_country_flag = technologist_leading }
+				}
+				totalitarian = {
+					root = { set_country_flag = totalitarian_leading }
+				}
+				traditionalist = {
+					root = { set_country_flag = traditionalist_leading }
+				}
+				xenoist = {
+					root = { set_country_flag = xenoist_leading }
+				}
+				manifesti = {
+					root = { set_country_flag = manifesti_leading }
+				}
+			}
+		}
+	}
+}
+
+# A war has been won
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
+country_event = {
+	id = bio.1080
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_mutation_authority = yes
+		is_dictatorial_authority = yes
+	}
+
+	immediate = {
+		from.species = {
+			apex_predator_switch = {
+				COUNTRY = root
+			}
+		}
+	}
+}
+
+# A galcom resolution failed to pass
+# this/root = proposer
+# from = target if valid
+country_event = {
+	id = bio.1085
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_playable_country = {
+			OR = {
+				has_country_flag = decision_evolutionary_predators
+				has_origin = origin_evolutionary_predators
+			}
+			is_mutation_authority = yes
+			is_dictatorial_authority = yes
+			position_on_last_resolution = oppose
+		}
+	}
+
+	immediate = {
+		every_playable_country = {
+			limit = {
+				OR = {
+					has_country_flag = decision_evolutionary_predators
+					has_origin = origin_evolutionary_predators
+				}
+				is_mutation_authority = yes
+				is_dictatorial_authority = yes
+				position_on_last_resolution = oppose
+			}
+			root.species = {
+				apex_predator_switch = {
+					COUNTRY = prev
+				}
+			}
+		}
+	}
+}
+
+# This = subject
+# From = subject's overlord
+country_event = {
+	id = bio.1090
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			OR = {
+				has_country_flag = decision_evolutionary_predators
+				has_origin = origin_evolutionary_predators
+			}
+			is_mutation_authority = yes
+			is_dictatorial_authority = yes
+		}
+	}
+
+	immediate = {
+		species = {
+			apex_predator_switch = {
+				COUNTRY = from
+			}
+		}
+	}
+}
+
+# Executed when a ruler is created. Called after the leader is set as ruler of the country
+# This = Country
+# FROM = Leader
+country_event = {
+	id = bio.1095
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_mutation_authority = yes
+		is_dictatorial_authority = yes
+		ruler = {
+			NOT = { has_trait = trait_ruler_apex_predator }
+		}
+	}
+
+	immediate = {
+		ruler = {
+			add_trait = {
+				trait = trait_ruler_apex_predator
+			}
+		}
+		if = {
+			limit = {
+				is_overlord = yes
+			}
+			every_subject = {
+				country_event = {
+					id = bio.1090
+					days = 5
+					scopes = {
+						from = root
+					}
+				}
+			}
+		}
+	}
+}
+
+# Executed just as country is changing its government, after the new one is applied
+# THIS = country
+country_event = {
+	id = bio.1100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_mutation_authority = yes
+		is_dictatorial_authority = no
+		any_owned_leader = {
+			has_trait = trait_ruler_apex_predator
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				has_trait = trait_ruler_apex_predator
+			}
+			remove_trait = trait_ruler_apex_predator
+		}
+	}
+}
+
+
+# Scope: Leader (after assignment)
+leader_event = {
+	id = bio.1115
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_councilor = yes
+		is_immortal = no
+		is_organic_species = yes
+		owner = {
+			OR = {
+				has_country_flag = decision_evolutionary_predators
+				has_origin = origin_evolutionary_predators
+			}
+			is_mutation_authority = yes
+			is_oligarchic_authority = yes
+		}
+	}
+
+	immediate = {
+		set_immortal = yes
+		set_leader_flag = evopred_oligarch_immortal
+	}
+}
+
+# Executed just as country is changing its government, after the new one is applied
+# THIS = country
+country_event = {
+	id = bio.1130
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_mutation_authority = yes
+		is_oligarchic_authority = no
+		any_owned_leader = {
+			has_leader_flag = evopred_oligarch_immortal
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				has_leader_flag = evopred_oligarch_immortal
+			}
+			set_immortal = no
+			remove_leader_flag = evopred_oligarch_immortal
+		}
+	}
+}
+
+country_event = {
+	id = bio.1131
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = decision_evolutionary_predators
+			has_origin = origin_evolutionary_predators
+		}
+		is_mutation_authority = yes
+		is_oligarchic_authority = yes
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				is_councilor = yes
+				is_immortal = no
+				is_organic_species = yes
+			}
+			set_immortal = yes
+			set_leader_flag = evopred_oligarch_immortal
+		}
+	}
+}

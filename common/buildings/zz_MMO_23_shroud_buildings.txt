@@ -1,0 +1,94 @@
+
+
+building_materiality_engine = {
+	base_buildtime = @b2_time
+	category = manufacturing
+	can_be_ruined = no
+	can_be_disabled = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		has_shroud_dlc = yes
+		exists = owner
+		owner = {
+			OR = {
+				has_country_flag = decision_shroud_forged
+				has_origin = origin_shroud_forged
+			}
+		}
+	}
+
+	empire_limit = {
+		base = 1
+		modifier = {
+			add = materiality_engine_available
+			check_variable = {
+				which = materiality_engine_available
+				value > 0
+			}
+		}
+	}
+
+	prerequisites = {
+		"tech_materiality_engine"
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = volatile_motes
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			sr_zro = @b1_rare_cost
+		}
+		produces = {
+			alloys = 6
+			minerals = 12
+		}
+		upkeep = {
+			sr_zro = @b2_rare_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/physicists_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	country_modifier = {
+		damage_vs_psionic_empires_mult = 0.05
+	}
+
+	triggered_desc = {
+		text = physics_unit_is_extradimensional_research_unit_tt
+	}
+	triggered_desc = {
+		text = NEW_LINE
+	}
+	triggered_desc = {
+		text = building_materiality_engine_tt
+	}
+
+	on_built = {
+		materiality_engine_on_built_effect = yes
+	}
+	on_destroy = {
+		if = {
+			limit = { exists = event_target:mindwarden_enclave_country }
+			event_target:mindwarden_enclave_country = {
+				add_trust = {
+					who = root.owner
+					amount = @mindwarden_opinion_lost_materiality_engine
+				}
+			}
+		}
+	}
+}

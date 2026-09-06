@@ -1,0 +1,32 @@
+namespace = mmo_life_seeded
+
+
+country_event = {
+    id = mmo_life_seeded.1
+    hide_window = yes
+    is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = decision_life_seeded
+	}
+	
+    immediate = {
+		owner_main_species = {
+			if = {
+				limit = {
+					OR = {
+						is_archetype = MACHINE
+						is_archetype = ROBOT
+					}
+				}
+				set_habitability_trait = { trait = trait_machine_pc_gaia_preference }
+			}
+			else = {
+				set_habitability_trait = { trait = trait_pc_gaia_preference }
+			}
+			#change_species_characteristics = {
+			#	add_trait = trait_unplugged_neurocalmed
+			#}
+		}
+	}
+}
