@@ -65,7 +65,9 @@
  edict_fruitful_quest_desc:0 "Go out and sow your wild oats!"
  edict_lost_colony_quest:0 "More Multiple Origins - Lost Colony"
  edict_lost_colony_quest_desc:0 "Try remembering the last time you had your homeworld."
- 
+ edict_unplugged_quest:0 "More Multiple Origins - Hard Reset"
+ edict_unplugged_quest_desc:0 "Press any key to continue."
+
  storm_chaser_county_modifier:0 "Storm Chasers"
  storm_chaser_county_modifier_desc:0 "Cowabunga!"
  arc_welders_county_modifier:0 "Arc Welders"

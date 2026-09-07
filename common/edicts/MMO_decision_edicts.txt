@@ -1539,35 +1539,6 @@ unplugged_quest = {
 					modifier = unplugged_battlefield
 					days = 3600
 				}
-
-				solar_system = {
-					spawn_planet = {
-						class = pc_nuked
-						orbit_distance = 70
-						orbit_angle = { min = 90 max = 270 }
-						size = 12
-						flags = {
-							unplugged_pre_ftl_carrier_flag
-						}
-						init_effect = {
-							set_carrier_flag = unplugged_pre_ftl_carrier_flag
-							set_carrier_flag = nuked_planet_anomalies_disabled
-							add_planet_devastation = 100
-							add_deposit = d_ruined_district
-							add_deposit = d_ruined_district
-							create_ambient_object = {
-								type = abandoned_observation_outpost_generic
-							}
-							create_ambient_object = {
-								type = abandoned_ship_2_object
-								entity_offset = { min = 1 max = 10 }
-								entity_offset_height = -20
-							}
-							add_blocker = { type = d_city_ruins }
-							add_blocker = { type = d_bomb_crater }
-						}
-					}
-				}
 			}
 			country_event = { id = mmo_unplugged.1 } # create origin_unplugged_assimilator_empire if none exists
 			country_event = { id = mmo_unplugged.2  days = 1 } # link to player

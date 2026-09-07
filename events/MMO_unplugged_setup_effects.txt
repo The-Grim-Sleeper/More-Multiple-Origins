@@ -346,6 +346,33 @@ country_event = {
                 set_star_flag = unplugged_machine_legacy_flag
                 set_star_flag = unplugged_machine_legacy_border_flag_3
             }
+            spawn_planet = {
+                class = pc_nuked
+                orbit_distance = 70
+                orbit_angle = { min = 90 max = 270 }
+                size = 12
+                generate_random_name = yes
+                flags = {
+                    unplugged_pre_ftl_carrier_flag
+                }
+                init_effect = {
+                    set_carrier_flag = unplugged_pre_ftl_carrier_flag
+                    set_carrier_flag = nuked_planet_anomalies_disabled
+                    add_planet_devastation = 100
+                    add_deposit = d_ruined_district
+                    add_deposit = d_ruined_district
+                    create_ambient_object = {
+                        type = abandoned_observation_outpost_generic
+                    }
+                    create_ambient_object = {
+                        type = abandoned_ship_2_object
+                        entity_offset = { min = 1 max = 10 }
+                        entity_offset_height = -20
+                    }
+                    add_blocker = { type = d_city_ruins }
+                    add_blocker = { type = d_bomb_crater }
+                }
+            }
         }
 
         unplugged_origin_find_available_machine_legacy_world_effect = {
@@ -354,7 +381,10 @@ country_event = {
         event_target:unplugged_homeworld = {
             save_global_event_target_as = origin_unplugged_unplugged_planet_@prev
         }
-        owner = { country_event = { id = mmo_unplugged.3 }}
+        owner = {
+            country_event = { id = unplugged.199 }
+            country_event = { id = mmo_unplugged.3 }
+        }
     }
 }
 
@@ -362,7 +392,7 @@ country_event = {
 country_event = {
     id = mmo_unplugged.3
     is_triggered_only = yes
-    picture = "GFX_origin_unplugged"
+    picture = "GFX_evt_unplugged"
 
     desc = {
         text = "START_SCREEN_UNPLUGGED"
@@ -372,7 +402,7 @@ country_event = {
         has_country_flag = decision_unplugged
     }
 
-    immediate = {
-        owner = { country_event = { id = unplugged.100 }} }
-
+    #immediate = {
+    #    owner = { country_event = { id = unplugged.100 } }
+    #}
 }
