@@ -90,6 +90,10 @@
  shroud_forged_country_modifier_desc:0 "Psy-bertronics"
  biological_species_trait_picks_modifier:0 "1 extra biological trait pick"
  biological_species_trait_picks_modifier_desc:0 "Everybody gets one. ONLY one."
+
+ edict_decision_origins_prosperous_unification: "Decision Origins: Prosperous Unification"
+ edict_decision_origins_prosperous_unification_desc: "Applies some of the effects of the Prosperous Unification origin."
+ edict_decision_origins_prosperous_unification_tt: "Adds the $prosp_uni_mod$ modifier for 20 years.\nIncreases maximum number of districts on the capital by 2."
  
  
  
