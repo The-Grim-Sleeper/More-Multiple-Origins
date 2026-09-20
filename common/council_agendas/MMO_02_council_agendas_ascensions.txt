@@ -6,34 +6,32 @@
 @ascension_agenda_weight = 100
 @ascension_agenda_pending_multiplier = 2
 
-agenda_flesh_is_weak = {
+agenda_synthetic_evolution = {
 	agenda_cost = @ascension_agenda_cost
 	agenda_cooldown = @ascension_agenda_cooldown
 	allow = {
 		OR = {
-			has_ascension_perk = ap_the_flesh_is_weak
-			OR = {
-				has_country_flag = decision_cybernetic_creed
-				has_origin = origin_cybernetic_creed
-			}
+			has_ascension_perk = ap_synthetic_evolution
+			has_synthetic_fertility_origin = yes
 		}
 	}
 	potential = {
-		is_gestalt = no
+		is_regular_empire = yes
+		is_individual_machine = no
 		NOR = {
+			has_cybernetic_ascension = yes
 			has_genetic_ascension = yes
 			has_psionic_ascension = yes
-			has_synthetic_ascension = yes
 			is_natural_design_empire = yes
-			is_individual_machine = yes
 			has_purity_ascension = yes
 			has_cloning_ascension = yes
 			has_mutation_ascension = yes
 		}
 		NAND = {
 			has_technology = tech_powered_exoskeletons
-			has_technology = tech_integrated_cybernetics
-			has_technology = tech_neuro_quantum_links
+			has_technology = tech_robotic_workers
+			has_technology = tech_droid_workers
+			has_technology = tech_synthetic_workers
 		}
 	}
 	effect = {
@@ -45,15 +43,21 @@ agenda_flesh_is_weak = {
 					progress = @agenda_award_tech_progress
 				}
 			}
-			tech_integrated_cybernetics = {
+			tech_robotic_workers = {
 				add_tech_progress = {
-					tech = tech_integrated_cybernetics
+					tech = tech_robotic_workers
 					progress = @agenda_award_tech_progress
 				}
 			}
-			tech_neuro_quantum_links = {
+			tech_droid_workers = {
 				add_tech_progress = {
-					tech = tech_neuro_quantum_links
+					tech = tech_droid_workers
+					progress = @agenda_award_tech_progress
+				}
+			}
+			tech_synthetic_workers = {
+				add_tech_progress = {
+					tech = tech_synthetic_workers
 					progress = @agenda_award_tech_progress
 				}
 			}

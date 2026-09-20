@@ -67,6 +67,12 @@
  edict_lost_colony_quest_desc:0 "Try remembering the last time you had your homeworld."
  edict_unplugged_quest:0 "More Multiple Origins - Hard Reset"
  edict_unplugged_quest_desc:0 "Press any key to continue."
+ edict_unplugged_quest_tt: "It should also link to the existing Opus Accumulator if one exists"
+ edict_decision_origins_prosperous_unification: "More Multiple Origins - Prosperous Unification"
+ edict_decision_origins_prosperous_unification_desc: "I think we can all agree, this is for the best."
+ edict_decision_origins_starlit_citadel: "More Multiple Origins - Starlit Citadel"
+ edict_decision_origins_starlit_citadel_desc: "Twinkle twinkle little battlestation,"
+ edict_decision_origins_starlit_citadel_tt: "Creates the hatchery system if it does not already exist."
 
  storm_chaser_county_modifier:0 "Storm Chasers"
  storm_chaser_county_modifier_desc:0 "Cowabunga!"
@@ -91,54 +97,38 @@
  biological_species_trait_picks_modifier:0 "1 extra biological trait pick"
  biological_species_trait_picks_modifier_desc:0 "Everybody gets one. ONLY one."
 
- edict_decision_origins_prosperous_unification: "Decision Origins: Prosperous Unification"
- edict_decision_origins_prosperous_unification_desc: "Applies some of the effects of the Prosperous Unification origin."
- edict_decision_origins_prosperous_unification_tt: "Adds the $prosp_uni_mod$ modifier for 20 years.\nIncreases maximum number of districts on the capital by 2."
- 
- 
- 
+ # From Xahkarias' xhk decision origins
+
+ edict_decision_origins_star_slingshot: "Decision Origins: Slingshot to the Stars"
+ edict_decision_origins_star_slingshot_desc: "Spawns the catapult and archaeology site in an adjacent system, and gives the ability to fix it + research the Quantum Catapult tech."
+ edict_decision_origins_star_slingshot_desc_tt: "For compatibility purposes, acts as if the Quantum Catapult Insight astral action was used."
+
+ edict_decision_origins_cosmic_dawn: "Decision Origins: Cosmic Dawn"
+ edict_decision_origins_cosmic_dawn_desc: "Begins the special project, Deep Excavation situation, and Interstellar Refugia quest chain."
+ edict_decision_origins_cosmic_dawn_desc_tt: "Flavor text may not make much sense if you aren't infernal. Restrictions on this decision origin are intentionally relaxed."
+
+ edict_decision_origins_calamitous_birth: "Decision Origins: Calamitous Birth"
+ edict_decision_origins_calamitous_birth_desc: "Gives the capital planetary feature and the new features on colonization."
+ edict_decision_origins_calamitous_birth_tt: "Does not give access to the special colony ship, but gives the normal colony ship the asteroid colonization effects."
+
+ edict_decision_origins_clone_army: "Decision Origins: Clone Army"
+ edict_decision_origins_clone_army_desc: "Gives the associated techs, building, traits, and event chain."
+
+ edict_decision_origins_synthetic_fertility: "Decision Origins: Synthetic Fertility"
+ edict_decision_origins_synthetic_fertility_desc: "Gives the situation, buildings, and pop traits of the Synthetic Fertility situation.\n$decision_origins_cache_warning$$decision_origins_modify_warning$"
+ edict_decision_origins_synthetic_fertility_tt: "Gives all species the Pathogenic Genes trait. Be careful with other things that give you extra starting pops.\n§RMAKE SURE YOU HAVE 2 FREE BUILDINGS SLOTS IN THE GOVERNMENT ZONE OF YOUR CAPITAL§!\n§RDOES NOT GIVE EXTRA DRAW CHANCE FOR THE SYNTH RELATED TECHS§!"
+
+ edict_decision_origins_shroudwalker_apprentice: "Decision Origins: Shroudwalker Apprentice"
+ edict_decision_origins_shroudwalker_apprentice_desc: "Gives contact with the Shroudwalker enclave and the Latent Psionic trait.\n$decision_origins_cache_warning$$decision_origins_modify_warning$"
+ edict_decision_origins_shroudwalker_apprentice_tt: "Does not give some of the flavor events, nor the shroud tunnel starbase building"
+
+ decision_origins_cache_warning: "§RNOTE: WHEN TAKING A DECISION ORIGIN THAT MODIFIES YOUR POPS, WAIT 1 DAY BEFORE TAKING ANOTHER ONE!\nTHIS ORIGIN IS LOCKED UNTIL 1 DAY HAS PASSED, TO ALLOW FOR GAMESETUP TO COMPLETE§!\n\n"
+ decision_origins_modify_warning: "§HNOTE: WHEN TAKING A DECISION ORIGIN THAT MODIFIES YOUR POPS, OTHER POPS OF THE SAME SPECIES IN OTHER EMPIRES WILL ALSO BE MODIFIED (NOT DEFAULT ROBOTS). FOR EXAMPLE, PRE-FTLS WITH THE BROKEN SHACKLES ORIGIN§!\n\n"
+
  ##################################################
- 
- #edict_evolutionary_predators_quest:0 "Decision Origins - Evolutionary Predators"
- #edict_evolutionary_predators_quest_desc:0 "We're hungry. We're coming. We will be ready"
- #edict_starlit_citadel_quest:0 "Decision Origins - Starlit Citadel"
- #edict_starlit_citadel_quest_desc:0 "They're hungry. They're coming. We need to be ready"
- #edict_shroudwalker_apprentice_quest:0 "Decision Origins - Teachers of the Shroud"
- #edict_shroudwalker_apprentice_quest_desc:0 "An awakening lies before us."
- #edict_life_seeded_quest:0 "Decision Origins - Life Seeded"
- #edict_life_seeded_quest_desc:0 "We have always been blessed with an ideal homeworld. May we never take this for granted."
  #edict_scion_quest:0 "Decision Origins - Scion"
  #edict_scion_quest_desc:0 "For centuries, we have been protected by our ancient master. With the guidance of their empire, we shall bring others into the fold."
- #edict_shoulders_of_giants_quest:0 "Decision Origins - On the Shoulder of Giants"
- #edict_shoulders_of_giants_quest_desc:0 "We have seen traces of our forebears before us. If we are to see further, it must be by standing on the shoulder of giants."
- #edict_lithoids_quest:0 "Decision Origins - Calamitous Birth"
- #edict_lithoids_quest_desc:0 "We are born of the stone, and will return to the stone. And we will take the galaxy with us. YOU WILL BECOME A LITHOID. I'VE WARNED YOU."
- #edict_doomsday_quest:0 "Decision Origins - Doomsday"
- #edict_doomsday_quest_desc:0 "The signs are unanimous. We do not have long. We must evacuate, before we die with our planet."
- #edict_clone_army_quest:0 "Decision Origins - Clone Army"
- #edict_clone_army_quest_desc:0 "We were cloned by our founders for some mysterious purpose. Let us discover the reason for our existence."
- #edict_slingshot_quest:0 "Decision Origins - Slingshot to the Stars"
- #edict_slingshot_quest_desc:0 "We have spied a colossal structure in a nearby system. Let us explore it."
- #edict_imperial_vassal_quest:0 "Decision Origins - Imperial Vassal"
- #edict_imperial_vassal_quest_desc:0 "Our empire has been been recently conquered by another, older entity. But we will thrive under their watchful eye."
- #edict_fear_of_the_dark_quest:0 "Decision Origins - Fear of the Dark"
- #edict_fear_of_the_dark_quest_desc:0 "Many members of our society have secluded themselves in an nearby world, hiding from the menaces that hide in the dark forest."
 
- #decision_choose_keep_hq:0 "Relocate Order's Keep"
- #decision_choose_keep_hq_desc:0 "The Knights have found a new home - we shall focus on making this new planet our own."
- #
- #
- #evolutionary_predators_country_modifier:0 "Evolutionary Predators"
- #evolutionary_predators_country_modifier_desc:0 "Meat, biomass, genetic fodder."
- #starlit_citadel_country_modifier:0 "Starlit Citadel"
- #starlit_citadel_country_modifier_desc:0 "Hold the line!"
- #slingshot_country_modifier:0 "Slingshot"
- #slingshot_country_modifier_desc:0 "To the stars!"
- 
- #edict_legendary_leader_quest:0 "More Multiple Origins - Under One Rule"
- #edict_legendary_leader_quest_desc:0 "Now this is the story all about how..."
- 
- 
  # Warning Box
  warning_event.01.name:0 "§PWarning§!"
  you_did_a_bad:0 "Ohoh, you just did something that could go very poorly. Like destroying all your farming zones while your pops need food, or altering the system where your capital Arkship just happens to be parked. And that's fine, but you can't blame me when things go wrong."

@@ -44,10 +44,7 @@ species_can_live_on_planet = {
 		limit = {
 			exists = root.owner
 			root.owner = {
-				OR = {
-					has_country_flag = decision_clone_army
-					has_origin = origin_clone_army
-				}
+				has_clone_army_origin = yes
 			}
 			OR = {
 				has_trait = trait_clone_soldier_infertile
@@ -92,10 +89,7 @@ species_can_live_on_ship = {
 			limit = {
 				exists = root.owner
 				root.owner = {
-					OR = {
-						has_country_flag = decision_clone_army
-						has_origin = origin_clone_army
-					}
+					has_clone_army_origin = yes
 				}
 				OR = {
 					has_trait = trait_clone_soldier_infertile
@@ -383,9 +377,7 @@ should_force_decline_species = {
 						exists = owner
 						owner = {
 							OR = {
-								NOR = { 
-									has_origin = origin_clone_army
-									has_country_flag = decision_clone_army }				# Can't have Vats.
+								NOT = { has_clone_army_origin = yes }					# Can't have Vats.
 								has_country_flag = clone_army_fertility_unlocked			# Can't have Vats anymore.
 								NOT = { owner_main_species = { is_same_species = root } }	# Our Vats can't build this species.
 							}
@@ -655,5 +647,27 @@ can_explore_rifts_outside_borders = {
 			is_nomadic = yes
 			has_research_agreement = from.solar_system.owner
 		}
+	}
+}
+
+has_enough_pops_for_necrophage_on_colony = {
+	owner = {
+		OR = {
+			has_country_flag = decision_necrophage
+			has_origin = origin_necrophage
+		}
+	}
+	has_available_jobs = necro_apprentice
+	if = {
+		limit = {
+			has_carrier_flag = necrophage_alert_timer
+		}
+		count_owned_species = {
+			count = 0
+			limit = { species_can_be_necrophaged = yes }
+		}
+	}
+	else = {
+		NOT = { any_owned_pop_group = { can_work_specific_job = necro_apprentice } }
 	}
 }

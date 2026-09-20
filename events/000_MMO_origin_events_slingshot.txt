@@ -1,0 +1,47 @@
+namespace = origin
+
+# On Occupy the System with Quantum Catapult (Ship Event)
+ship_event = {
+    id = origin.3505
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        owner = { has_star_slingshot_origin = yes }
+        solar_system = {
+            has_star_flag = quantum_catapult_system_flag@root.owner
+            NOT = { has_star_flag = quantum_catapult_occupied }
+        }
+    }
+
+    immediate = {
+        solar_system = {
+            set_star_flag = quantum_catapult_occupied
+        }
+        owner = {
+            country_event = {
+                id = origin.3510
+            }
+        }
+    }
+}
+
+# On Occupying the System with Quantum Catapult (Country Event)
+country_event = {
+    id = origin.3510
+    title = origin.3510.title
+    desc = origin.3510.desc
+    picture = GFX_evt_slingshot_stars
+    show_sound = evn_ove_slingshot_stars
+
+    is_triggered_only = yes
+
+    trigger = {
+        has_star_slingshot_origin = yes
+    }
+
+    option = {
+        name = origin.3510.a
+        add_resource = { influence = 150 }
+    }
+}

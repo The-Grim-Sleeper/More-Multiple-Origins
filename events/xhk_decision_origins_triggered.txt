@@ -1,0 +1,64 @@
+namespace = xhk_decision_origin_triggered
+
+#################################################################################
+# CLONE ARMY
+#################################################################################
+
+country_event = {
+    id = xhk_decision_origin_triggered.5
+    hide_window = yes
+
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = decision_origins_clone_army
+        founder_species = {
+            has_trait = trait_clone_soldier_infertile
+        }
+    }
+
+    immediate = {
+        every_owned_leader = {
+            limit = {
+                leader_class = commander
+                is_same_species_class = root.founder_species
+                #species = { has_trait = trait_clone_soldier_fertile}
+            }
+            add_trait = {
+                trait = leader_trait_clone_army_commander
+            }
+        }
+        every_pool_leader = {
+            limit = {
+                leader_class = commander
+                is_same_species_class = root.founder_species
+                #species = { has_trait = trait_clone_soldier_fertile}
+            }
+            add_trait = {
+                trait = leader_trait_clone_army_commander
+            }
+        }
+    }
+}
+
+#################################################################################
+# CALAMITOUS BIRTH
+#################################################################################
+
+planet_event = {
+    id = xhk_decision_origin_triggered.10
+    hide_window = yes
+
+    is_triggered_only = yes
+
+    trigger = {
+        owner = { has_country_flag = decision_origins_calamitous_birth}
+        NOT = { has_modifier = lithoid_crater }
+    }
+
+    immediate = {
+        add_deposit = d_buried_lithoids
+        add_deposit = d_buried_lithoids
+        add_modifier = { modifier = lithoid_crater }
+    }
+}

@@ -1550,7 +1550,7 @@ unplugged_quest = {
 			}
 			country_event = { id = warning_event.01 }
 		}
-
+		custom_tooltip = edict_unplugged_quest_tt
 	}
 	ai_weight = {
 		weight = 0
@@ -1605,6 +1605,301 @@ decision_origins_prosperous_unification = {
 
 	}
 }
+
+# Slingshot to the Stars
+decision_origins_star_slingshot = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_overlord_dlc = yes
+		is_ai = no
+		days_passed < 180
+		NOR = {
+			has_star_slingshot_origin = yes
+		}
+	}
+
+	effect = {
+		country_event = { id = origin.3500 }
+		hidden_effect = {
+			set_country_flag = decision_origins_star_slingshot
+			set_country_flag = has_quantum_catapult_insight
+
+			add_modifier = {
+				modifier = xhk_decori_star_slingshot_modifier
+			}
+		}
+		custom_tooltip = edict_decision_origins_star_slingshot_desc_tt
+	}
+}
+
+# Starlit Citadel
+decision_origins_starlit_citadel = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_biogenesis_dlc = yes
+		is_ai = no
+		days_passed < 180
+		NOR = {
+			has_starlit_citadel_origin = yes
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_origins_starlit_citadel
+
+			add_modifier = {
+				modifier = xhk_decori_starlit_citadel_modifier
+			}
+			starlit_citadel_start_effect = yes
+		}
+		custom_tooltip = "edict_decision_origins_starlit_citadel_tt"
+
+	}
+}
+
+# Synthetic Fertility
+decision_origins_synthetic_fertility= {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_machine_age_dlc = yes
+		is_ai = no
+		is_machine_empire = no
+		is_individual_machine = no
+		days_passed < 180
+		has_synthetic_fertility_origin = no
+	}
+
+	allow = {
+		days_passed > 0
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_origins_synthetic_fertility
+			#set_country_flag = synthetics_traditions_unlocked
+			# this flag causes problem if put too early
+			capital_scope = {
+				## add the genes
+				every_owned_species = {
+					limit = {
+						is_robotic = no
+					}
+					change_species_characteristics = {
+						add_trait = trait_pathogenic_genes
+					}
+				}
+
+				# remove lithoids
+				while = {
+					limit = {
+						has_deposit = d_hibernating_lithoids
+					}
+					remove_deposit = d_hibernating_lithoids
+				}
+				while = {
+					limit = {
+						has_deposit = d_decrepit_dwellings
+					}
+					remove_deposit = d_decrepit_dwellings
+				}
+				while = {
+					limit = {
+						has_deposit = d_failing_infrastructure
+					}
+					remove_deposit = d_failing_infrastructure
+				}
+			}
+			give_technology = {	tech = tech_powered_exoskeletons message = no }
+
+			# starting event
+			country_event = { id = machine_age.3100 }
+
+
+		}
+
+
+		capital_scope = {
+			# spawn pops
+			create_pop_group = {
+				size = 900
+				species = owner_main_species
+			}
+
+			# make buildings
+			add_building = {
+				zone = zone_default
+				building = building_identity_repository
+			}
+			add_building = {
+				zone = zone_default
+				building = building_abandoned_gene_clinic
+			}
+
+			set_variable = {
+				which = num_dead_identities
+				value = 300
+			}
+		}
+
+		# set_variable = {
+		# 		which = remaining_synth_fert_pops
+		# 		value = 5700
+		# 	}
+		export_trigger_value_to_variable = {
+			trigger = count_owned_pop_amount
+			parameters = {
+				limit = {
+					has_trait = trait_pathogenic_genes
+				}
+			}
+			variable = remaining_synth_fert_pops
+		}
+
+		# give techs
+		# shouldnt need to, starting event should
+		# add_tech_progress = { tech = tech_robotic_workers progress = 0.15 }
+		# add_tech_progress = { tech = tech_administrative_ai progress = 0.5 }
+		custom_tooltip = "edict_decision_origins_synthetic_fertility_tt"
+
+	}
+}
+
+# Clone Army
+decision_origins_clone_army = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		is_ai = no
+		days_passed < 180
+		is_machine_empire = no
+		is_individual_machine = no
+		#NOT = { giga_has_frameworld_origin = yes }
+		NOR = {
+			has_clone_army_origin = yes
+		}
+	}
+
+	allow = {
+		days_passed > 0
+	}
+
+	effect = {
+
+		hidden_effect = {
+			founder_species = {
+				change_species_characteristics = {
+					add_trait = trait_clone_soldier_infertile
+				}
+			}
+
+			set_country_flag = decision_origins_clone_army
+			give_technology = { tech = tech_cloning message = no }
+			give_technology = { tech = tech_gene_banks message = no}
+			country_event = { id = xhk_decision_origin_triggered.5 }
+
+			capital_scope = {
+				add_building = building_clone_army_clone_vat
+				add_building = building_clone_army_clone_vat
+				carrier_event = { id = clones.10 days = 1095 random = 720 }
+			}
+		}
+
+		custom_tooltip = edict_decision_origins_clone_army_tt
+	}
+}
+
+# Calamitous Birth
+decision_origins_calamitous_birth = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_lithoids = yes
+		is_ai = no
+		days_passed < 180
+		is_lithoid_empire = yes
+		country_uses_bio_ships = no
+		NOR = {
+			has_calamitous_birth_origin = yes
+		}
+	}
+
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_origins_calamitous_birth
+		}
+		capital_scope = {
+			add_deposit = d_lithoid_crater
+		}
+		custom_tooltip = edict_decision_origins_calamitous_birth_tt
+	}
+}
+
+# Cosmic Dawn
+decision_origins_cosmic_dawn = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_infernals = yes
+		is_ai = no
+		days_passed < 180
+		NOR = {
+			has_cosmic_dawn_origin = yes
+		}
+	}
+
+	effect = {
+		country_event = { id = infernals.2500 days = 1 }
+		capital_scope = {
+			while = {
+				count = 5
+				add_deposit = d_stasis_pods
+			}
+		}
+		hidden_effect = {
+			set_country_flag = decision_origins_cosmic_dawn
+			capital_scope = {
+				set_carrier_flag = cosmic_dawn_homeworld
+			}
+		}
+		custom_tooltip = edict_decision_origins_cosmic_dawn_desc_tt
+	}
+}
+
 #
 # Shattered Ring
 # Synthetic Fertility

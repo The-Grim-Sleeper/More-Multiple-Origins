@@ -247,12 +247,7 @@ holding_experimental_crater = {
 	}
 
 	potential = {
-		owner.overlord = {
-			OR = {
-				has_country_flag = decision_lithoid
-				has_origin = origin_lithoid
-			}
-		}
+		owner.overlord = { has_calamitous_birth_origin = yes }
 	}
 
 	planet_modifier = {

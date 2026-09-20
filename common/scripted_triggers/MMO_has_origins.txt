@@ -33,3 +33,45 @@ has_shroudwalker_apprentice_origin = {
         has_origin = origin_shroudwalker_apprentice
     }
 }
+
+has_cosmic_dawn_origin = {
+    OR = {
+        has_country_flag = decision_origins_cosmic_dawn
+        has_origin = origin_cosmic_dawn
+    }
+}
+
+has_star_slingshot_origin = {
+    OR = {
+        has_country_flag = decision_origins_star_slingshot
+        has_origin = origin_star_slingshot
+    }
+}
+
+has_synthetic_fertility_origin = {
+    OR = {
+        has_country_flag = decision_origins_synthetic_fertility
+        has_origin = origin_synthetic_fertility
+    }
+}
+
+has_clone_army_origin = {
+    OR = {
+        has_country_flag = decision_origins_clone_army
+        has_origin = origin_clone_army
+    }
+}
+
+has_starlit_citadel_origin = {
+    OR = {
+        has_country_flag = decision_origins_starlit_citadel
+        has_origin = origin_starlit_citadel
+    }
+}
+
+has_calamitous_birth_origin = {
+    OR = {
+        has_country_flag = decision_origins_calamitous_birth
+        has_origin = origin_lithoid
+    }
+}

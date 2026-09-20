@@ -1,0 +1,164 @@
+#########################
+# Synthetic Fertility	#
+#########################
+
+#Identity Repository
+building_identity_repository = {
+    base_buildtime = @b2_time
+    planet_limit = 1
+    position_priority = 100
+    can_demolish = no
+    can_be_disabled = no
+
+    category = research
+
+    building_sets = {
+        government
+        research
+        physics
+        society
+        engineering
+    }
+
+    potential = {
+        exists = owner
+        owner = {
+            has_synthetic_fertility_origin = yes
+            NOT = { has_country_flag = synthetic_fertility_no_identity_left_behind }
+        }
+    }
+
+    destroy_trigger = {
+        exists = owner
+        NOT = {
+            owner = {
+                has_synthetic_fertility_origin = yes
+            }
+        }
+    }
+
+    convert_to = {
+        building_research_lab_1
+    }
+
+    allow = {
+        owner = { has_synthetic_fertility_origin = yes }
+    }
+
+    resources = {
+        category = planet_buildings
+        inline_script = {
+            script = buildings/nomadic_cost_switcher
+            REGULAR_RESOURCE = minerals
+            NOMADIC_RESOURCE = exotic_gases
+            COST = @b4_minerals
+            NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+        }
+        upkeep = {
+            energy = 0.025
+            mult = owner.value:identity_repository_scaling_mult
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_synthetic_fertility_origin = yes }
+            }
+            physics_research = 0.008
+            society_research = 0.008
+            engineering_research = 0.008
+            unity = 0.008
+            trade = 0.008
+            mult = owner.value:identity_repository_scaling_mult
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = {
+                    has_synthetic_fertility_origin = yes
+                    has_technology = tech_administrative_ai
+                }
+            }
+            physics_research = 0.0025
+            society_research = 0.0025
+            engineering_research = 0.0025
+            unity = 0.0025
+            trade = 0.0025
+            mult = owner.value:identity_repository_scaling_mult
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = {
+                    has_synthetic_fertility_origin = yes
+                    has_technology = tech_self_aware_logic
+                }
+            }
+            physics_research = 0.0025
+            society_research = 0.0025
+            engineering_research = 0.0025
+            unity = 0.0025
+            trade = 0.0025
+            mult = owner.value:identity_repository_scaling_mult
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = {
+                    has_synthetic_fertility_origin = yes
+                    has_technology = tech_sapient_ai
+                }
+            }
+            physics_research = 0.0025
+            society_research = 0.0025
+            engineering_research = 0.0025
+            unity = 0.0025
+            trade = 0.0025
+            mult = owner.value:identity_repository_scaling_mult
+        }
+    }
+
+    triggered_planet_modifier = {
+        robotic_pop_bonus_workforce_mult = 0.000075
+        mult = owner.value:identity_repository_scaling_mult
+    }
+
+    triggered_desc = {
+        text = building_identity_repository_tt
+    }
+}
+
+building_abandoned_gene_clinic = {
+    icon = building_ancient_cryo_chamber
+    position_priority = 100
+    can_demolish = no
+    can_build = no
+
+    category = amenity
+
+    building_sets = {
+        government
+    }
+
+    potential = {
+        exists = owner
+        owner = {
+            has_synthetic_fertility_origin = yes
+        }
+    }
+
+    destroy_trigger = {
+        exists = owner
+        NOT = {
+            owner = { has_synthetic_fertility_origin = yes }
+        }
+    }
+
+    allow = {
+        owner = { has_synthetic_fertility_origin = yes }
+    }
+
+    triggered_desc = {
+        text = building_abandoned_gene_clinic_tt
+    }
+}
+
