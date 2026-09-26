@@ -1,3 +1,4 @@
+
 ### Stormfall Situation ###
 
 # Fired by: on_game_start_country
@@ -15,20 +16,50 @@ country_event = { #
 	}
 
 	immediate = {
-		owner.capital_scope = {
-			create_ambient_object = {
-				type = nebula_L3_entity
-				scale = 0.02
-				location = this
-				use_3d_location = yes
+		if = {
+			limit = { owner = { is_nomadic = yes } }
+			owner.capital_scope.solar_system = {
+				save_global_event_target_as = stormfall_anchor_system@root.owner
+				set_star_flag = stormfall_anchor@root.owner
 			}
-			last_created_ambient_object = {
-				set_ambient_object_flag = stormfall_planet_nascent
+			owner.capital_star = {
+				save_global_event_target_as = stormfall_anchor_star@root.owner
 			}
-			add_modifier = {
-				modifier = cs_storm_chasers_homeworld_storm_attraction
+			# The Stormfall storm visuals stay anchored to the start system.
+			event_target:stormfall_anchor_star@root.owner = {
+				create_ambient_object = {
+					type = nebula_L3_entity
+					scale = 0.02
+					location = this
+					use_3d_location = yes
+				}
+				last_created_ambient_object = {
+					set_ambient_object_flag = stormfall_planet_nascent
+				}
 			}
-			create_influence_field_if_needed = yes
+			owner.capital_scope = {
+				create_influence_field_if_needed = yes
+			}
+		}
+		else = {
+			owner.capital_scope = {
+				create_ambient_object = {
+					type = nebula_L3_entity
+					scale = 0.02
+					location = this
+					use_3d_location = yes
+				}
+				last_created_ambient_object = {
+					set_ambient_object_flag = stormfall_planet_nascent
+				}
+				add_modifier = {
+					modifier = cs_storm_chasers_homeworld_storm_attraction
+				}
+				create_influence_field_if_needed = yes
+			}
+			owner.capital_scope.solar_system = {
+				set_star_flag = stormfall_anchor@root.owner
+			}
 		}
 
 		start_situation = {
@@ -95,9 +126,18 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		# The Big One spawns at the fixed anchor system for nomads (matching the storm
+		# visuals), not the arkship's current system, which moves and is null mid-jump.
+		if = {
+			limit = { is_nomadic = yes }
+			event_target:stormfall_anchor_system@root.owner = { save_event_target_as = nexus_spawn_system }
+		}
+		else = {
+			capital_scope.solar_system = { save_event_target_as = nexus_spawn_system }
+		}
 		spawn_random_storm = {
 			type = "nexus_storm"
-			cosmic_storm_start_position = capital_scope.solar_system
+			cosmic_storm_start_position = event_target:nexus_spawn_system
 			immediate = yes
 		}
 		every_ambient_object = {

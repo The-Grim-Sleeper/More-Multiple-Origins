@@ -278,16 +278,10 @@ toxic_knight_quest = {
 		hidden_effect = {
 			capital_scope = {
 				set_carrier_flag = toxic_knights_homeworld
-				add_deposit = d_toxic_god_blight_upon_the_land
-				add_deposit = d_toxic_god_deitys_swarms
-				add_deposit = d_toxic_god_pools_most_venemous
-				add_deposit = d_toxic_god_pestilential_wasteland
-				add_deposit = d_toxic_god_envenomed_seas
 			}
 			set_country_flag = decision_toxic_knights
 			country_event = { id = toxoids.7000 }
 			country_event = { id = mmo_kottg.1 }
-			country_event = { id = mmo_kottg.2 days = 1}
 			country_event = { id = timeline_MMO.05 days = 4}
 
 			every_country = { # is this really needed? Will the game break if there are two empires hunting down the Toxic God?

@@ -110,6 +110,7 @@ fleet_event = { #Enter the toxic system, meet the entity
 	immediate = {
 		controller = {
 			set_country_flag = visited_toxic_god_system
+			end_event_chain = toxoid_knights_finisher_chain
 			remove_point_of_interest = toxoid_knights_finisher.poi
 		}
 	}
@@ -278,7 +279,7 @@ country_event = {
 	title = toxoids.7510.name
 	desc = toxoids.7510.desc.not_origin
 	picture = GFX_evt_toxic_god
-	location = fromfrom
+	location = event_target:toxic_god_system
 	show_sound = event_mystic_reveal
 
 	is_triggered_only = yes
@@ -293,6 +294,10 @@ country_event = {
 
 	immediate = {
 		set_global_flag = toxic_god_killed
+		random_system = {
+			limit = { has_star_flag = guardian_toxic_god_system }
+			save_event_target_as = toxic_god_system
+		}
 	}
 
 	option = {
@@ -322,14 +327,15 @@ country_event = {
 				has_country_flag = decision_toxic_knights
 				has_origin = origin_toxic_knights
 			}
+			NOT = { is_nomadic = yes }
 			NOT = {
 				has_country_flag = toxic_knights_lost_keep
 				has_country_flag = toxic_knights_destroyed_keep
 				any_owned_planet = {
-					has_carrier_flag = toxic_knights_habitat
+					has_planet_flag = toxic_knights_habitat
 				}
 				any_planet_within_border = {
-					has_carrier_flag = keep_evacuated
+					has_planet_flag = keep_evacuated
 				}
 			}
 		}
@@ -346,7 +352,7 @@ country_event = {
 					has_country_flag = toxic_knights_lost_keep
 					has_country_flag = toxic_knights_destroyed_keep
 					any_owned_planet = {
-						has_carrier_flag = toxic_knights_habitat
+						has_planet_flag = toxic_knights_habitat
 					}
 				}
 			}
@@ -371,7 +377,7 @@ carrier_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		has_carrier_flag = toxic_knights_habitat
+		has_planet_flag = toxic_knights_habitat
 		owner = {
 			OR = {
 				has_country_flag = decision_toxic_knights
@@ -407,7 +413,7 @@ country_event = {
 			has_country_flag = toxic_knights_destroyed_keep
 		}
 		any_owned_planet = {
-			has_carrier_flag = toxic_knights_habitat
+			has_planet_flag = toxic_knights_habitat
 		}
 	}
 
