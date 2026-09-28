@@ -17,8 +17,8 @@ totalitarian = {
 			trigger = {
 				owner = {
 					OR = {
-						has_civic = civic_crowdsourcing
-						has_civic = civic_corporate_crowdsourcing
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
 					}
 				}
 			}
@@ -34,8 +34,8 @@ totalitarian = {
 			trigger = {
 				owner = {
 					NOR = {
-						has_civic = civic_crowdsourcing
-						has_civic = civic_corporate_crowdsourcing
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
 					}
 				}
 			}
@@ -46,8 +46,8 @@ totalitarian = {
 			trigger = {
 				owner = {
 					OR = {
-						has_civic = civic_crowdsourcing
-						has_civic = civic_corporate_crowdsourcing
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
 					}
 				}
 			}
@@ -61,50 +61,36 @@ totalitarian = {
 		is_faction_allowed = yes
 	}
 
-	parameters = {
-		empire = {
-			type = country
-			valid_objects = {
-				is_same_value = root
-			}
-		}
-	}
-
 	can_join_pre_triggers = {
 		is_enslaved = no
 		is_being_purged = no
 	}
 
 	can_join_faction = {
-		is_shackled_robot = no
-		can_think = yes
-		is_interlink_cyborg_pop = no
+		inline_script = pop_faction_types/can_join_faction/base
+	}
+
+	inline_script = pop_faction_types/attraction/promote_suppress_tags
+	pop_attraction_tag = {
+		desc = POP_ATTRACTION_CITIZENSHIP_NEG
+		trigger = {
+			owner? = {
+				any_owned_pop_group = {
+					has_citizenship_rights = no
+				}
+			}
+		}
 	}
 
 	attraction = {
 		base = 150
 
-		modifier = {
-			factor = 1.25
-			exists = from
-			from = {
-				exists = leader
-				leader = { is_ruler = yes }
-			}
-		}
+		inline_script = pop_faction_types/attraction/promote_suppress_attraction
+		inline_script = pop_faction_types/attraction/leader_attraction
 
-		modifier = {
-			factor = 0.75
-			exists = from
-			from = {
-				NOT = { exists = leader }
-			}
-		}
-
-		# Should really check for citizenship instead
 		modifier = {
 			factor = 0.25
-			NOT = { is_same_species = owner_species }
+			has_citizenship_rights = no
 		}
 	}
 
@@ -394,17 +380,13 @@ totalitarian = {
 	}
 
 	on_destroy = {
-		if = {
-			limit = {
-				has_modifier = promoted_authoritarian
-			}
-			remove_modifier = promoted_authoritarian
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = authoritarian
 		}
-		if = {
-			limit = {
-				has_modifier = suppressed_authoritarian
-			}
-			remove_modifier = suppressed_authoritarian
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy
+			ETHIC = authoritarian
 		}
 	}
 
@@ -430,20 +412,20 @@ totalitarian = {
 			valid = {
 				custom_tooltip = {
 					fail_text = EMBRACE_FACTION_COOLDOWN
-					parameter:empire = {
+					owner = {
 						NOT = { has_modifier = embraced_faction_timer }
 					}
 				}
 				support > 0.20
-				parameter:empire = {
+				owner = {
 					NOT = { has_ethic = "ethic_fanatic_authoritarian" }
 				}
 			}
 
 			effect = {
 				add_modifier = { modifier = embraced_faction days = 3600 }
-				owner = { set_country_flag = has_embraced_faction }
-				parameter:empire = {
+				owner = {
+					set_country_flag = has_embraced_faction
 					shift_ethic = ethic_authoritarian
 					hidden_effect = {
 						add_modifier = { modifier = embraced_faction_timer days = 3600 }
@@ -455,7 +437,7 @@ totalitarian = {
 				}
 				hidden_effect = {
 					save_event_target_as = TargetFaction
-					parameter:empire = {
+					owner = {
 						every_relation = {
 							limit = {
 								is_ai = no
@@ -496,99 +478,16 @@ totalitarian = {
 				}
 			}
 		}
-		promote_faction = {
-			title = "PROMOTE_FACTION"
-			description = "PROMOTE_FACTION_DESC"
-
-			potential = {
-				exists = owner
-				parameter:empire = {
-					NOR = {
-						has_modifier = suppressed_authoritarian
-						has_modifier = promoted_authoritarian
-					}
-				}
-			}
-
-			effect = {
-				owner = { set_country_flag = has_promoted_faction }
-				parameter:empire = {
-					add_modifier = { modifier = promoted_authoritarian days = -1 }
-				}
-			}
-
-			ai_weight = {
-				base = 0
-			}
-		}
-		cancel_promote_faction = {
-			title = "CANCEL_PROMOTE_FACTION"
-			description = "CANCEL_PROMOTE_FACTION_DESC"
-
-			potential = {
-				exists = owner
-				parameter:empire = {
-					has_modifier = promoted_authoritarian
-				}
-			}
-
-			effect = {
-				parameter:empire = {
-					remove_modifier = promoted_authoritarian
-				}
-			}
-
-			ai_weight = {
-				base = 0
-			}
-		}
-		suppress_faction = {
-			title = "SUPPRESS_FACTION"
-			description = "SUPPRESS_FACTION_DESC"
-
-			potential = {
-				exists = owner
-				parameter:empire = {
-					NOR = {
-						has_modifier = suppressed_authoritarian
-						has_modifier = promoted_authoritarian
-					}
-				}
-			}
-
-			effect = {
-				add_modifier = { modifier = suppressed_faction days = -1 }
-				parameter:empire = {
-					add_modifier = { modifier = suppressed_authoritarian days = -1 }
-				}
-			}
-
-			ai_weight = {
-				base = 0
-			}
-		}
-		cancel_suppress_faction = {
-			title = "CANCEL_SUPPRESS_FACTION"
-			description = "CANCEL_SUPPRESS_FACTION_DESC"
-
-			potential = {
-				exists = owner
-				parameter:empire = {
-					has_modifier = suppressed_authoritarian
-				}
-			}
-
-			effect = {
-				remove_modifier = suppressed_faction
-				parameter:empire = {
-					remove_modifier = suppressed_authoritarian
-				}
-			}
-
-			ai_weight = {
-				base = 0
-			}
-		}
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = authoritarian
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = authoritarian
+	}
+	actions = {
 		# Faction Extortion Buttons
 		extort_faction = {
 			title = "EXTORT_FACTION"

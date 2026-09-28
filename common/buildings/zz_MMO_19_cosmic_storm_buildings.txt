@@ -158,7 +158,6 @@ building_advanced_storm_attraction_center = {
 
 	resources = {
 		category = planet_buildings_storm_tech
-		category = planet_buildings_storm_tech
 		inline_script = {
 			script = buildings/nomadic_cost_switcher
 			REGULAR_RESOURCE = minerals

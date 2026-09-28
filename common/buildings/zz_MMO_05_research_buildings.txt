@@ -1,4 +1,5 @@
 
+
 # Shroud-Forged
 building_shroud_observatory_1 = {
 	base_buildtime = @b1_time

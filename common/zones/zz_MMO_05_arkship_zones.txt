@@ -1,0 +1,80 @@
+
+
+zone_ark_knights = {
+	icon = GFX_district_specialization_knight_commander
+	base_buildtime = @zone_buildtime
+
+	swap_type = district_orders_demesne
+	swap_type_weight = 5
+
+	potential = { # planet (arkship) scope
+		exists = owner
+		owner = {
+			has_origin = origin_toxic_knights
+			NOT = {
+				has_country_flag = quest_abandoned
+			}
+		}
+		OR = {
+			has_carrier_flag = toxic_knights_arkship
+			has_building = building_order_castle
+		}
+	}
+
+	unlock = { # planet (arkship) scope
+		hidden_trigger = {
+			exists = owner
+			owner = {
+				OR = {
+					has_country_flag = decision_toxic_knights
+					has_origin = origin_toxic_knights
+				}
+				NOT = {
+					has_country_flag = quest_abandoned
+				}
+			}
+			OR = {
+				has_carrier_flag = toxic_knights_arkship
+				has_building = building_order_castle
+			}
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	max_buildings = 3
+
+	zone_sets = {
+		ark_urban
+	}
+
+	included_building_sets = {
+		knights
+		fortress
+		origin
+	}
+
+	triggered_district_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		job_knight_add = @scaling_district_2_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+}

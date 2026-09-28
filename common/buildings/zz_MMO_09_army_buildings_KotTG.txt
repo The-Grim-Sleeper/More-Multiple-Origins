@@ -1,3 +1,4 @@
+
 building_military_academy = {
 	base_buildtime = @b2_time
 	empire_limit = 1

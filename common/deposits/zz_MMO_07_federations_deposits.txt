@@ -201,6 +201,10 @@ d_buried_lithoids_overlord = {
 			minerals = 1000
 		}
 	}
+
+	ai_weight = {
+		weight = 2
+	}
 }
 
 d_lithoid_crater = {

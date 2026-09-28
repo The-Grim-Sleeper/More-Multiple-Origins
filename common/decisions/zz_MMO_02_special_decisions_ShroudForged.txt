@@ -24,7 +24,6 @@ decision_open_shroud_rift = {
 	}
 
 	potential = {
-		exists = owner
 		is_artificial = no
 		owner = {
 			OR = {
@@ -61,56 +60,62 @@ decision_open_shroud_rift = {
 	}
 
 	effect = {
+		custom_tooltip = decision_open_shroud_rift_effect_tt
 		if = {
 			limit = {
 				has_deposit = d_shroud_rift_deposit
 			}
-			random_list = {
-				0 = {
-					modifier = {
-						add = value:get_shroud_rift_decision_uses
-					}
-					tooltip = {
-						change_pc = pc_shrouded
-					}
-					hidden_effect = {
+			custom_tooltip = decision_open_shroud_rift_consumed_tt
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_deposit = d_shroud_rift_deposit
+				}
+				random_list = {
+					0 = {
+						modifier = {
+							add = value:get_shroud_rift_decision_uses
+						}
 						carrier_event = {
 							id = shroud_forged.160
 							scopes = {
 								from = owner
 							}
 						}
-						add_deposit = d_shroud_rift_deposit
-						kill_all_pop = yes
 						remove_all_buildings = yes
-						destroy_colony = yes
 						close_shroud_rift_effect = yes
+						clear_planet_modifiers = yes
+						clear_deposits = yes
+						shroud_world_zro_deposit_effect = yes
 						change_pc = pc_shrouded
+						destroy_colony = yes
 					}
-				}
-				10 = {
-					modifier = {
-						subtract = value:get_shroud_rift_decision_uses
+					10 = {
+						modifier = {
+							subtract = value:get_shroud_rift_decision_uses
+						}
+						decision_shroud_region_effect = yes
 					}
-					decision_shroud_region_effect = yes
 				}
 			}
-		}
-		else_if = {
-			limit = {
-				is_artificial = no
-				NOT = { is_planet_class = pc_machine }
-				NOT = { is_planet_class = pc_hive }
-				any_deposit = {
-					is_blocker = no
+			else_if = {
+				limit = {
 					NOR = {
-						has_deposit_category = deposit_cat_rare
-						has_deposit_category = deposit_cat_rare_resource
-						has_deposit_category = deposit_cat_rare_blocker
+						is_planet_class = pc_machine
+						is_planet_class = pc_hive
+					}
+					any_deposit = {
+						is_blocker = no
+						NOR = {
+							has_deposit_category = deposit_cat_rare
+							has_deposit_category = deposit_cat_rare_resource
+							has_deposit_category = deposit_cat_rare_blocker
+						}
 					}
 				}
+				decision_shroud_region_effect = yes
 			}
-			decision_shroud_region_effect = yes
 		}
 	}
 

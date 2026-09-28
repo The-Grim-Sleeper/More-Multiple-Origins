@@ -1,3 +1,5 @@
+
+
 storm_resistant_production_multiplier = {
 	base = 1
 

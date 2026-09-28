@@ -1,4 +1,13 @@
 
+@traders_from_civic = 200
+@crime_floor_from_legal_crime = 5
+@trade_value_from_jobs = 0.01
+
+@high_trade_from_jobs = 0.15
+@med_trade_from_jobs = 0.10
+@low_trade_from_jobs = 0.05
+
+
 building_amusement_megaplex = {
 	base_buildtime = @b2_time
 	planet_limit = 1

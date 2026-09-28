@@ -17,7 +17,6 @@ storm_chasers_quest = {
 			}
 
 			has_cosmic_storms_dlc = yes
-			is_nomadic = no
 		}
 	}
 	
@@ -267,10 +266,8 @@ toxic_knight_quest = {
 			NOR = {
 				has_country_flag = decision_toxic_knights
 				has_origin = origin_toxic_knights
-				#has_country_flag = decision_toxic_knights #From xhk_decision_origins
 			}
 			has_toxoids = yes
-			is_nomadic = no
 		}
 	}
 
@@ -1844,6 +1841,7 @@ decision_origins_calamitous_birth = {
 		NOR = {
 			has_calamitous_birth_origin = yes
 		}
+		is_nomadic = no
 	}
 
 
@@ -1874,6 +1872,7 @@ decision_origins_cosmic_dawn = {
 		NOR = {
 			has_cosmic_dawn_origin = yes
 		}
+		is_nomadic = no
 	}
 
 	effect = {
@@ -1894,291 +1893,65 @@ decision_origins_cosmic_dawn = {
 	}
 }
 
-#
-# Shattered Ring
-# Synthetic Fertility
-# Teachers of the Shroud (Shroudwalker Apprentice)
-# Starlit Citadel
-# Clone Army
-# Calamitous Birth
-# Cosmic Dawn
-# Slingshot to the Stars
-#
-# origin_wilderness
-# wilderness_quest
-#
-#OR = {
-#	has_country_flag = decision_wilderness
-#	has_origin = origin_wilderness
-#}
-#
-#
-#
-##Doomsday
-#doomsday_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_doomsday
-#					has_origin = origin_doomsday
-#				}
-#			}
-#			has_federations_dlc = yes
-#		}
-#	}
-#	effect = {
-#		set_country_flag = decision_doomsday
-#		country_event = { id = origin.60 }
-#		country_event = { id = timeline_mulori.7 days = 4}
-#	}
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-#
-#
-#
-#
-#legendary_leader_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#
-#	resources = {
-#		category = edicts
-#	}
-#
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_legendary_leader
-#					has_origin = origin_legendary_leader
-#				}
-#			}
-#			host_has_dlc = "Galactic Paragons"
-#		}
-#	}
-#
-#	effect = {
-#		set_country_flag = decision_legendary_leader
-#		country_event = { id = mulori.8 days = 1 }
-#		country_event = { id = timeline_mulori.22 days = 4}
-#		owner_main_species = {
-#			change_species_characteristics = {
-#				add_trait = trait_perfected_genes
-#				add_traits_at_start_of_list = yes
-#			}
-#		}
-#	}
-#
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-##Lithoids
-#lithoids_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_lithoid
-#					has_origin = origin_lithoid
-#				}
-#			}
-#			has_lithoids = yes
-#		}
-#	}
-#	effect = {
-#		set_country_flag = decision_lithoid
-#		country_event = { id = timeline_mulori.8 days = 4}
-#		capital_scope = {
-#			add_deposit = d_lithoid_crater
-#			add_deposit = d_buried_lithoids
-#			add_deposit = d_buried_lithoids
-#			add_deposit = d_buried_lithoids
-#			add_deposit = d_buried_lithoids
-#			add_modifier = { modifier = lithoid_crater }
-#		}
-#		if = {
-#			limit = { owner_main_species = { NOR = {has_trait = trait_lithoid has_trait = trait_machine_unit has_trait = trait_mechanical}}}
-#			country_event = { id = warning_event.01 }
-#		}
-#
-#		#owner_main_species = {
-#		#	change_species_characteristics = {
-#		#		add_trait = trait_lithoid
-#		#		add_traits_at_start_of_list = yes
-#		#	}
-#		#}
-#	}
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-##Slingshot to the Stars
-#slingshot_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_star_slingshot
-#					has_origin = origin_star_slingshot
-#				}
-#			}
-#			has_overlord_dlc = yes
-#		}
-#	}
-#	effect = {
-#		add_modifier = {
-#			modifier = slingshot_country_modifier
-#		}
-#		set_country_flag = decision_star_slingshot
-#		country_event = { id = origin.3500 }
-#		country_event = { id = timeline_mulori.6 days = 4}
-#	}
-#
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-##Teachers of the shroud
-#shroudwalker_apprentice_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_shroudwalker_apprentice
-#					has_origin = origin_shroudwalker_apprentice
-#				}
-#			}
-#			has_overlord_dlc = yes
-#		}
-#	}
-#	effect = {
-#		owner_main_species = {
-#			change_species_characteristics = {
-#				add_trait = trait_latent_psionic
-#				add_traits_at_start_of_list = yes
-#			}
-#		}
-#		set_country_flag = decision_shroudwalker_apprentice
-#		country_event = { id = timeline_mulori.14 days = 4}
-#		country_event = { id = origin.5600 }
-#		country_event = { id = origin.5605 days = 1 }
-#	}
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-##Scion
-#scion_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_scion
-#					has_origin = origin_scion
-#				}
-#			}
-#			has_federations_dlc = yes
-#		}
-#	}
-#	effect = {
-#		add_research_option = tech_xeno_linguistics
-#		add_tech_progress = {
-#			tech = tech_xeno_linguistics
-#			progress = 0.50
-#		}
-#		set_country_flag = decision_scion
-#		country_event = { id = origin.5 }
-#		country_event = { id = timeline_mulori.15 days = 4}
-#	}
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-##Starlit Citadel
-#starlit_citadel_quest = {
-#	length = 1
-#	icon = "GFX_edict_type_policy"
-#	resources = {
-#		category = edicts
-#	}
-#	potential = {
-#		AND = {
-#			is_ai = no
-#			years_passed < 1
-#			NOT = {
-#				OR = {
-#					has_country_flag = decision_starlit_citadel
-#					has_origin = origin_starlit_citadel
-#				}
-#			}
-#			has_biogenesis_dlc = yes
-#		}
-#	}
-#	effect = {
-#		add_modifier = {
-#			modifier = starlit_citadel_country_modifier
-#		}
-#		set_country_flag = decision_starlit_citadel
-#		country_event = { id = timeline_mulori.20 days = 4}
-#		country_event = { id = mulori.7 days = 1}
-#	}
-#	ai_weight = {
-#		weight = 0
-#	}
-#}
-#
-# Mindwarden
-# Synthetic Fertility
-#				OR = {
-#					has_country_flag = decision_clone_army
-#					has_origin = origin_clone_army
-#				}
-#
-#					has_country_flag = decision_cosmic_dawn
+# Shroudwalker Apprentice
+decision_origins_shroudwalker_apprentice = {
+	length = 1
+	icon = "GFX_edict_type_policy"
+	
+	resources = {
+		category = edicts
+	}
+
+	potential = {
+		has_overlord_dlc = yes
+		is_ai = no
+		days_passed < 180
+		NOR = {
+			has_country_flag = decision_origins_shroudwalker_apprentice
+			has_origin = origin_shroudwalker_apprentice
+		}
+	}
+
+	allow = {
+		days_passed > 0
+	}
+
+	effect = {
+		hidden_effect = {
+			set_country_flag = decision_origins_shroudwalker_apprentice
+			# every_owned_species = {
+			# 	limit = {
+			# 		is_robotic = yes
+			# 	}
+			# 	change_species_characteristics = {
+			# 		add_trait = trait_latent_psionic_robot
+			# 	}
+			# } # This is what Shroud Forged is for
+			every_owned_species = {
+				limit = {
+					is_robotic = no
+				}
+				change_species_characteristics = {
+					add_trait = trait_latent_psionic
+				}
+			}
+
+			set_country_flag = first_contact_event
+			set_country_flag = Story2 # Already encountered spacefarers
+			establish_communications_no_message = event_target:shroudwalker_enclave_country
+			set_country_flag = shroudwalker_enclave_diplomacy_engaged
+			set_country_flag = shroudwalker_enclave_bought_shroud_beacon
+
+			every_system = {
+				limit = {
+					has_star_flag = shroudwalker_enclave_system
+				}
+				root = { set_visited = prev }
+			}
+
+		}
+		add_research_option = tech_psionic_theory
+		custom_tooltip = "edict_decision_origins_shroudwalker_apprentice_tt"
+		
+	}
+}

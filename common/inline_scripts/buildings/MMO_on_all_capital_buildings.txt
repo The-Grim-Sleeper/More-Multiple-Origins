@@ -8,7 +8,7 @@ triggered_planet_modifier = { #basic shelter
 				has_technology = tech_industrial_storm_protection
 			}
 		}
-		solar_system = {
+		solar_system? = {
 			has_star_flag = storm_system
 		}
 	}
@@ -28,7 +28,7 @@ triggered_planet_modifier = { #add advanced shelter effect
 				has_technology = tech_advanced_industrial_storm_protection
 			}
 		}
-		solar_system = {
+		solar_system? = {
 			has_star_flag = storm_system
 		}
 	}
@@ -38,6 +38,7 @@ triggered_planet_modifier = { #add advanced shelter effect
 		planet_technician_energy_produces_add = 1
 	}
 }
+
 triggered_planet_modifier = {
 	potential = {
 		exists = owner
@@ -75,7 +76,7 @@ triggered_country_modifier = {
 		exists = owner
 		is_capital = yes
 		owner = {
-			is_megacorp = yes
+			has_corporate_government = yes # not is_megacorp: survives becoming Galactic Emperor (auth_imperial)
 			has_country_flag = decision_evolutionary_predators
 			is_mutation_authority = yes
 		}
