@@ -31,8 +31,8 @@ storm_chasers_quest = {
 				}
 			}
 			add_modifier = { modifier = storm_chaser_county_modifier }
-			country_event = { id = cstorms.3101 days = 1 }
 			country_event = { id = timeline_MMO.01 days = 4}
+			country_event = { id = cstorms.3101 days = 1 }
 		}
 	}
 	ai_weight = {
@@ -251,6 +251,7 @@ arc_welders_quest = {
 	}
 }
 
+# Knights of the Toxic God
 toxic_knight_quest = {
 	length = 1
 	icon = "GFX_edict_type_policy"
@@ -293,6 +294,7 @@ toxic_knight_quest = {
 	}
 }
 
+# Necrophage
 necrophage_quest = {
 	length = 1
 	icon = "GFX_edict_type_policy"
@@ -307,7 +309,6 @@ necrophage_quest = {
 				OR = {
 					has_country_flag = decision_necrophage
 					has_origin = origin_necrophage
-					#has_country_flag = decision_origins_necrophage #From xhk_decision_origins
 				}
 			}
 			has_necroids = yes
