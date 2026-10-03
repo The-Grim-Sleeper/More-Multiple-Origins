@@ -1,4 +1,6 @@
 
+namespace = cstorms
+
 ### Stormfall Situation ###
 
 # Fired by: on_game_start_country
