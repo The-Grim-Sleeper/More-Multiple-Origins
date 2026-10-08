@@ -26,7 +26,7 @@ country_event = {
         FROM = { save_event_target_as = quantum_catapult_system }
         if = {
             limit = {
-                has_origin = origin_star_slingshot
+                has_star_slingshot_origin = yes
                 has_tech_option = tech_quantum_catapult
             }
             add_tech_progress = {
@@ -36,7 +36,7 @@ country_event = {
         }
         else_if = {
             limit = {
-                has_origin = origin_star_slingshot
+                has_star_slingshot_origin = yes
                 NOT = { has_technology = tech_quantum_catapult }
             }
             give_technology = {
