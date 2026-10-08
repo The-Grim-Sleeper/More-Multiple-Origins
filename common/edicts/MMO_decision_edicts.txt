@@ -1724,8 +1724,6 @@ decision_origins_synthetic_fertility= {
 
 			# starting event
 			country_event = { id = machine_age.3100 }
-
-
 		}
 
 
@@ -1751,7 +1749,16 @@ decision_origins_synthetic_fertility= {
 				value = 300
 			}
 		}
-
+		if = {
+			limit = {
+				OR = {
+					has_clone_army_origin = yes
+					has_country_flag = decision_necrophage
+					has_origin = origin_necrophage
+				}
+			}
+			country_event = { id = warning_event.01 }
+		}
 		# set_variable = {
 		# 		which = remaining_synth_fert_pops
 		# 		value = 5700
