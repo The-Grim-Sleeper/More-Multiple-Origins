@@ -111,21 +111,22 @@ country_event = {
 		owner = {
 			save_event_target_as = toxic_knights_owner
 		}
+		capital_scope = {
+			set_carrier_flag = toxic_knights_arkship
 
-		set_carrier_flag = toxic_knights_arkship
-	
-		add_zone = {
-			district = district_ark_city
-			zone = zone_ark_knights
-			zone_slot = 1
-			replace = yes
+			add_zone = {
+				district = district_ark_city
+				zone = zone_ark_knights
+				zone_slot = 1
+				replace = yes
+			}
+			add_building = {
+				zone = zone_ark_knights
+				building = building_order_keep
+			}
+			set_colony_type = col_arkship_fortress_knights
 		}
-		add_building = {
-			zone = zone_ark_knights
-			building = building_order_keep
-		}
-		set_colony_type = col_arkship_fortress_knights
-	
+		
 		solar_system = {
 			# Turn a (non-homeworld) planet in the system into the Toxic God's toxic world,
 			# carrying the unique blockers and flagged as a Toxic terraforming candidate so
