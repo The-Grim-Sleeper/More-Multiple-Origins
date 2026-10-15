@@ -23,8 +23,7 @@ zone_ark_knights = {
 
 	unlock = { # planet (arkship) scope
 		hidden_trigger = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_country_flag = decision_toxic_knights
 					has_origin = origin_toxic_knights
@@ -35,6 +34,7 @@ zone_ark_knights = {
 			}
 			OR = {
 				has_carrier_flag = toxic_knights_arkship
+				has_planet_flag = toxic_knights_settled_world
 				has_building = building_order_castle
 			}
 		}
@@ -51,10 +51,16 @@ zone_ark_knights = {
 		}
 	}
 
+	convert_to = {
+		zone_habitat_knights
+		zone_fortress
+	}
+
 	max_buildings = 3
 
 	zone_sets = {
 		ark_urban
+		knights_settled_world
 	}
 
 	included_building_sets = {
