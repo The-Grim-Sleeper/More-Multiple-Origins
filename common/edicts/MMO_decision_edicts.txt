@@ -1503,10 +1503,6 @@ unplugged_quest = {
 			fail_text = "requires_no_machine_intelligence"
 			is_gestalt = no
 		}
-		custom_tooltip = {
-			text = graphical_culture_tooltip_not_biological
-			country_uses_bio_ships = no
-		}
 	}
 
 	effect = {
@@ -1538,6 +1534,10 @@ unplugged_quest = {
 				OR = {
 					owner_main_species = { has_trait = trait_mechanical}
 					owner.capital_scope = {carrier_is_type = ship}
+					custom_tooltip = {
+						text = graphical_culture_tooltip_not_biological
+						country_uses_bio_ships = no
+					}
 				}
 			}
 			country_event = { id = warning_event.01 }
