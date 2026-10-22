@@ -1,0 +1,833 @@
+
+# MAIN MENU
+
+# Curator Main Menu
+# All other topic inherit from this one, so we need a copy here
+country_event = {
+    id = leviathans.500
+    title = leviathans.500.name
+    desc = leviathans.500a.desc
+    desc = leviathans.500b.desc
+    desc = leviathans.500c.desc
+    desc = leviathans.500d.desc
+    desc = leviathans.500e.desc
+    desc = leviathans.500f.desc
+    desc = leviathans.500g.desc
+    desc = leviathans.500h.desc
+    desc = leviathans.500i.desc
+    desc = leviathans.500j.desc
+    desc = leviathans.500k.desc
+    desc = leviathans.500l.desc
+
+    is_triggered_only = yes
+    diplomatic = yes
+    custom_gui = "enclave_curator_window"
+    custom_gui_option = "enclave_curator_option"
+    picture_event_data = {
+        portrait = event_target:curator_enclave_country
+        room = enclave_curator_room
+    }
+    location = event_target:curator_enclave_system
+    event_message_type = ENCLAVE_DIPLOMACY
+
+    trigger = {
+        exists = event_target:curator_enclave_country
+        NOT = { has_country_flag = attacked_curators }
+    }
+
+    immediate = {
+        set_country_flag = curator_intro
+    }
+
+    # Research (Curator Insight)
+    option = {
+        name = leviathans.500.b
+        trigger = { is_homicidal = no }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.b.alreadyaided
+                NOT = { has_modifier = curator_insight }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.507 }
+        }
+    }
+    # Information about Guardians/Leviathans
+    option = {
+        name = leviathans.500.c
+        trigger = { is_homicidal = no }
+        hidden_effect = {
+            country_event = { id = leviathans.508 }
+        }
+    }
+    # Scientist
+    option = {
+        name = leviathans.500.d
+        trigger = {
+            is_homicidal = no
+            is_gestalt = no
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.d.opinion
+                event_target:curator_enclave_country = {
+                    trust = {
+                        who = root
+                        value >= 50
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = leviathans.500.d.alreadyrecruited
+                NOT = {
+                    any_owned_leader = { has_trait = leader_trait_curator }
+                }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.590 }
+        }
+    }
+    # Gestalt Trait
+    option = {
+        name = leviathans.500.e
+        trigger = {
+            is_homicidal = no
+            is_gestalt = yes
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.e.opinion
+                event_target:curator_enclave_country = {
+                    trust = {
+                        who = root
+                        value >= 50
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = leviathans.500.e.alreadyshared
+                NOT = {
+                    any_owned_leader = { has_trait = leader_trait_curator }
+                }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.598 }
+        }
+    }
+    # Intel
+    option = {
+        name = leviathans.500.h
+        trigger = {
+            is_homicidal = no
+            any_country = {
+                valid_curators_intel_trade_target = yes
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.d.opinion
+                event_target:curator_enclave_country = {
+                    trust = {
+                        who = root
+                        value >= 50
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.599 }
+        }
+    }
+    # Think Tank
+    option = {
+        name = leviathans.500.f
+        trigger = {
+            is_homicidal = no
+            event_target:curator_enclave_country = {
+                NOT = { has_country_flag = think_tank@root }
+            }
+            OR = {
+                any_system_within_border = {
+                    has_star_flag = enclave
+                    any_fleet_in_system = {
+                        exists = owner
+                        owner = {
+                            is_same_value = event_target:curator_enclave_country
+                        }
+                    }
+                }
+                any_owned_fleet = {
+                    is_waystation_ship = yes
+                    solar_system = {
+                        has_star_flag = enclave
+                        any_fleet_in_system = {
+                            exists = owner
+                            owner = {
+                                is_same_value = event_target:curator_enclave_country
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.d.opinion
+                event_target:curator_enclave_country = {
+                    trust = {
+                        who = root
+                        value >= 50
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.511 }
+        }
+    }
+    # Infinity Machine's secret (after finishing Infinity Sphere chain)
+    option = {
+        name = leviathans.500.g
+        trigger = {
+            has_country_flag = pantagruel
+            has_country_flag = asked_about_infinity_machine
+            NOT = { has_country_flag = offered_information }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.4000 }
+        }
+    }
+    # L-Cluster Clue
+    option = {
+        name = leviathans.500.i
+        trigger = {
+            has_event_chain = l_cluster_chain
+            NOR = {
+                is_homicidal = yes
+                has_global_flag = l_cluster_opened
+                has_completed_event_chain_counter = {
+                    event_chain = l_cluster_chain
+                    counter = clues
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.i.tooltip.noclue
+                NOT = { has_country_flag = curator_clue_purchased }
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.600 }
+        }
+    }
+    # Containment Vessel
+    option = {
+        name = leviathans.500.j
+        trigger = {
+            has_grand_archive_dlc = yes
+            has_technology = tech_gravity_wells
+            NOR = {
+                has_country_flag = tech_containment_vessel_acquired
+                has_technology = tech_containment_vessel
+            }
+
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.j.opinion
+                event_target:curator_enclave_country = {
+                    trust = {
+                        who = root
+                        value >= 80
+                    }
+                }
+            }
+
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:curator_purchase_cost|COST|5000|
+            }
+            nomad_can_afford_enclave_cost = { COST = 100 }
+        }
+
+        add_resource = {
+            energy = -1
+            mult = value:curator_purchase_cost|COST|5000|
+        }
+
+        add_research_option = tech_containment_vessel
+        hidden_effect = {
+            set_country_flag = tech_containment_vessel_acquired
+        }
+    }
+    # Grand Archive Collection Amendments
+    option = {
+        name = leviathans.500.k
+        trigger = {
+            has_grand_archive_dlc = yes
+            has_grand_archive = yes
+            OR = {
+                is_eligible_for_collection_stage_1_reward_any_reward = yes
+                is_eligible_for_collection_stage_2_reward_any_reward = yes
+                is_eligible_for_collection_stage_3_reward_any_reward = yes
+            }
+        }
+        hidden_effect = {
+            country_event = { id = leviathans.4100 }
+        }
+    }
+    option = {
+        name = leviathans.500.k
+        trigger = {
+            has_grand_archive_dlc = yes
+            has_grand_archive = yes
+            is_eligible_for_collection_stage_1_reward_any_reward = no
+            is_eligible_for_collection_stage_2_reward_any_reward = no
+            is_eligible_for_collection_stage_3_reward_any_reward = no
+            OR = {
+                has_received_every_stage_1_reward = no
+                has_received_every_stage_2_reward = no
+                has_received_every_stage_3_reward = no
+            }
+        }
+        is_dialog_only = yes
+        response_text = leviathans.500.k.reply.reward_unavailable
+    }
+    option = {
+        name = leviathans.500.k
+        trigger = {
+            has_grand_archive_dlc = yes
+            has_grand_archive = yes
+            has_received_every_stage_1_reward = yes
+            has_received_every_stage_2_reward = yes
+            has_received_every_stage_3_reward = yes
+        }
+        is_dialog_only = yes
+        response_text = leviathans.500.k.reply.over
+    }
+    # Curator Navigation Guidance (Nomads)
+    option = {
+        name = leviathans.500.l
+        trigger = {
+            is_homicidal = no
+            is_nomadic = yes
+            has_ascension_perk = ap_wanderlust
+            event_target:curator_enclave_country = {
+                trust = { who = root  value >= 30 }
+            }
+            any_system = {
+                OR = {
+                    AND = {
+                        has_star_flag = ancient_wonders_system
+                        root = {
+                            NOT = { has_country_flag = ancient_wonders_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = antique_threat_system
+                        root = {
+                            NOT = { has_country_flag = antique_threat_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = enclave
+                        root = {
+                            NOT = { has_country_flag = enclave_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = galactic_landmark_system
+                        root = {
+                            NOT = { has_country_flag = galactic_landmark_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = marauder_system
+                        root = {
+                            NOT = { has_country_flag = marauder_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = natural_spectacle_system
+                        root = {
+                            NOT = { has_country_flag = natural_spectacle_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = precursor_system
+                        root = {
+                            NOT = { has_country_flag = precursor_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = space_ecology_system
+                        root = {
+                            NOT = { has_country_flag = space_ecology_completed }
+                        }
+                    }
+                }
+                NOR = {
+                    has_star_flag = visited_by_nomad@root
+                    has_star_flag = curator_guidance_target@root
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                fail_text = leviathans.500.l.opinion
+                event_target:curator_enclave_country = {
+                    trust = { who = root  value >= 50 }
+                }
+            }
+            resource_stockpile_compare = {
+                resource = trade
+                value >= 2500
+            }
+            custom_tooltip = {
+                fail_text = leviathans.500.l.cooldown
+                NOT = { has_country_flag = curator_guidance_cooldown }
+            }
+        }
+        custom_tooltip = leviathans.500.l.tt
+        add_resource = { trade = -2500 }
+        set_timed_country_flag = { flag = curator_guidance_cooldown days = 180 }
+        random_system = {
+            limit = {
+                OR = {
+                    AND = {
+                        has_star_flag = ancient_wonders_system
+                        root = {
+                            NOT = { has_country_flag = ancient_wonders_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = antique_threat_system
+                        root = {
+                            NOT = { has_country_flag = antique_threat_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = enclave
+                        root = {
+                            NOT = { has_country_flag = enclave_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = galactic_landmark_system
+                        root = {
+                            NOT = { has_country_flag = galactic_landmark_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = marauder_system
+                        root = {
+                            NOT = { has_country_flag = marauder_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = natural_spectacle_system
+                        root = {
+                            NOT = { has_country_flag = natural_spectacle_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = precursor_system
+                        root = {
+                            NOT = { has_country_flag = precursor_completed }
+                        }
+                    }
+                    AND = {
+                        has_star_flag = space_ecology_system
+                        root = {
+                            NOT = { has_country_flag = space_ecology_completed }
+                        }
+                    }
+                }
+                NOR = {
+                    has_star_flag = visited_by_nomad@root
+                    has_star_flag = curator_guidance_target@root
+                }
+            }
+            save_event_target_as = curator_guidance_system
+        }
+        if = {
+            limit = { exists = event_target:curator_guidance_system }
+            event_target:curator_guidance_system = {
+                set_star_flag = curator_guidance_target@root
+                root = {
+                    create_point_of_interest = {
+                        id = curator_guidance_poi@prev
+                        name = curator_guidance_poi_name
+                        desc = curator_guidance_poi_desc
+                        event_chain = nomad_exploration_chain
+                        location = prev
+                    }
+                }
+            }
+        }
+        if = {
+            limit = { NOT = { exists = event_target:curator_guidance_system } }
+            add_resource = { trade = 2500 }
+        }
+        is_dialog_only = yes
+        response_text = leviathans.500.l.desc
+    }
+    # Goodbye
+    option = {
+        name = {
+            trigger = { has_valid_civic = civic_fanatic_purifiers }
+            text = SCUM
+        }
+        name = {
+            trigger = { has_valid_civic = civic_hive_devouring_swarm }
+            text = TASTY
+        }
+        name = {
+            trigger = { has_valid_civic = civic_machine_terminator }
+            text = EXTERMINATE
+        }
+        name = {
+            trigger = { is_genocidal_infernal = yes }
+            text = BURN
+        }
+        name = {
+            trigger = {
+                NOR = {
+                    has_valid_civic = civic_fanatic_purifiers
+                    has_valid_civic = civic_hive_devouring_swarm
+                    has_valid_civic = civic_machine_terminator
+                    is_genocidal_infernal = yes
+                }
+            }
+            text = GOODBYE
+        }
+        default_hide_option = yes
+    }
+}
+
+
+# Toxic God
+country_event = {
+    id = leviathans.558
+    base = leviathans.500
+    desc_clear = yes
+    option_clear = yes
+
+    title = leviathans.558.name
+    desc = {
+        text = leviathans.558.desc
+        trigger = {
+            any_country = {
+                is_country_type = guardian_toxic_god
+                has_communications = root
+            }
+        }
+    }
+    desc = {
+        text = leviathans.558.desc.knights
+        trigger = {
+            OR = {
+                has_country_flag = decision_toxic_knights
+                has_origin = origin_toxic_knights
+            }
+            NOT = { has_global_flag = toxic_god_spawned }
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = { has_global_flag = toxic_god_spawned }
+            random_system = {
+                limit = { has_star_flag = guardian_toxic_god_system }
+                save_event_target_as = toxic_god_system
+            }
+        }
+    }
+
+    option = {
+        name = {
+            trigger = {
+                NOT = { has_country_flag = bought_toxic_god_info_1 }
+            }
+            text = leviathans.558.A
+        }
+        name = {
+            trigger = {
+                has_country_flag = bought_toxic_god_info_1
+            }
+            text = leviathans.558.AA
+        }
+        allow = {
+            if = {
+                limit = {
+                    OR = {
+                        has_country_flag = decision_toxic_knights
+                        has_origin = origin_toxic_knights
+                    }
+                    NOR = {
+                        has_global_flag = toxic_god_spawned
+                        has_country_flag = bought_toxic_god_info_1
+                    }
+                }
+                resource_stockpile_compare = {
+                    resource = energy
+                    value >= value:curator_purchase_cost|COST|1000|
+                }
+            }
+            nomad_can_afford_enclave_cost = { COST = 100 }
+        }
+        is_dialog_only = yes
+        response_text = leviathans.558.A.reply
+        if = {
+            limit = {
+                NOT = { has_country_flag = bought_toxic_god_info_1 }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_country_flag = decision_toxic_knights
+                        has_origin = origin_toxic_knights
+                    }
+                    NOT = { has_global_flag = toxic_god_spawned }
+                }
+                add_resource = {
+                    energy = -1
+                    mult = value:curator_purchase_cost|COST|1000|
+                }
+                random_situation = {
+                    limit = { is_situation_type = situation_toxic_knights }
+                    add_situation_progress = 3
+                }
+            }
+            hidden_effect = { set_country_flag = bought_toxic_god_info_1 }
+        }
+    }
+    option = {
+        name = {
+            trigger = {
+                NOT = { has_country_flag = bought_toxic_god_info_2 }
+            }
+            text = leviathans.558.B
+        }
+        name = {
+            trigger = {
+                has_country_flag = bought_toxic_god_info_2
+            }
+            text = leviathans.558.BB
+        }
+        allow = {
+            if = {
+                limit = {
+                    has_origin = origin_toxic_knights
+                    NOR = {
+                        has_global_flag = toxic_god_spawned
+                        has_country_flag = bought_toxic_god_info_2
+                    }
+                }
+                resource_stockpile_compare = {
+                    resource = energy
+                    value >= value:curator_purchase_cost|COST|1000|
+                }
+            }
+            nomad_can_afford_enclave_cost = { COST = 100 }
+        }
+        is_dialog_only = yes
+        response_text = leviathans.558.B.reply
+        if = {
+            limit = {
+                NOT = { has_country_flag = bought_toxic_god_info_2 }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_country_flag = decision_toxic_knights
+                        has_origin = origin_toxic_knights
+                    }
+                    NOT = { has_global_flag = toxic_god_spawned }
+                }
+                add_resource = {
+                    energy = -1
+                    mult = value:curator_purchase_cost|COST|1000|
+                }
+                random_situation = {
+                    limit = { is_situation_type = situation_toxic_knights }
+                    add_situation_progress = 3
+                }
+            }
+            hidden_effect = { set_country_flag = bought_toxic_god_info_2 }
+        }
+    }
+    #Unfortunately, we cannot use the standard options, because the Toxic God is MUCH stronger than regular Leviathans
+    option = { # Can we fight it? (No)
+        name = leviathans.506.f
+        trigger = { fleet_power < 30000 }
+        is_dialog_only = yes
+        response_text = leviathans.5106.f1.reply
+    }
+    option = { # Can we fight it? (Probably not)
+        name = leviathans.506.f
+        trigger = {
+            fleet_power > 30000
+            fleet_power < 60000
+        }
+        is_dialog_only = yes
+        response_text = leviathans.5106.f2.reply
+    }
+    option = { # Can we fight it? (Maybe)
+        name = leviathans.506.f
+        trigger = {
+            fleet_power > 60000
+            fleet_power < 120000
+        }
+        is_dialog_only = yes
+        response_text = leviathans.5106.f3.reply
+    }
+    option = { # Can we fight it? (Yes)
+        name = leviathans.506.f
+        trigger = { fleet_power > 120000 }
+        is_dialog_only = yes
+        response_text = leviathans.5106.f4.reply
+    }
+    option = { # Back
+        name = leviathans.506.d
+        hidden_effect = {
+            country_event = { id = leviathans.500 }
+        }
+    }
+    option = { # Sign Off
+        name = GOODBYE
+        default_hide_option = yes
+    }
+}
+
+# Opus Sentinel (Unplugged)
+country_event = {
+    id = leviathans.559
+    base = leviathans.500
+    desc_clear = yes
+    option_clear = yes
+
+    title = leviathans.559.name
+    desc = {
+        text = leviathans.559.desc
+        trigger = {
+            NOT = { has_unplugged_origin = yes }
+        }
+    }
+    desc = {
+        text = leviathans.559.desc.unplugged
+        trigger = {
+            has_unplugged_origin = yes
+        }
+    }
+
+    # More info
+    option = {
+        name = leviathans.559.a
+        response_text = leviathans.559.a.reply
+        is_dialog_only = yes
+    }
+    # Unplugged response
+    option = {
+        name = leviathans.559.b
+        response_text = leviathans.559.b.reply
+        is_dialog_only = yes
+        trigger = {
+            has_unplugged_origin = yes
+            NOT = { has_country_flag = curator_unplugged_notalk }
+        }
+        hidden_effect = {
+            set_country_flag = curator_unplugged_notalk
+        }
+    }
+    # Purchase location
+    option = {
+        name = leviathans.559.c
+        response_text = leviathans.559.c.reply
+        trigger = {
+            NOR = {
+                has_country_flag = bought_opus_sentinel_info
+                has_country_flag = opus_sentinel_encounter
+            }
+            OR = { # is able to accept relevant event chains
+                NOT = { has_unplugged_origin = yes }
+                AND = {
+                    has_unplugged_origin = yes
+                    has_event_chain = unplugged_origin_machine_legacy_chain
+                }
+            }
+            exists = event_target:origin_unplugged_opus_sentinel
+        }
+        allow = {
+            event_target:curator_enclave_country = {
+                trust = {
+                    who = root
+                    value >= 40
+                }
+            }
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+            nomad_can_afford_enclave_cost = { COST = 1000 }
+        }
+        add_resource = {
+            energy = -1000
+        }
+        custom_tooltip = opinion20
+        hidden_effect = {
+            set_country_flag = bought_opus_sentinel_info
+            event_target:curator_enclave_country = {
+                add_trust = {
+                    who = root
+                    amount = 20
+                }
+            }
+            # Unplugged: set a PoI (inside Machine Legacy event chain)
+            if = {
+                limit = {
+                    has_unplugged_origin = yes
+                }
+                create_point_of_interest = {
+                    id = unplugged_curator_poi_opus_sentinel
+                    name = curator_poi_title
+                    desc = unplugged_curator_poi_opus_sentinel_desc
+                    event_chain = unplugged_origin_machine_legacy_chain
+                    location = event_target:origin_unplugged_machine_legacy_core
+                }
+            }
+            # Non-Unplugged: set a PoI (custom version of 'create_curator_guardian_poi')
+            else = {
+                if = {
+                    limit = {
+                        NOT = { has_event_chain = curator_poi_chain }
+                    }
+                    begin_event_chain = {
+                        event_chain = curator_poi_chain
+                        target = event_target:origin_unplugged_opus_sentinel
+                    }
+                }
+                create_point_of_interest = {
+                    id = curator_poi_opus_sentinel
+                    name = curator_poi_title
+                    desc = unplugged_curator_poi_opus_sentinel_desc
+                    event_chain = curator_poi_chain
+                    location = event_target:origin_unplugged_machine_legacy_core
+                }
+            }
+        }
+    }
+
+    # Standard options
+    inline_script = enclaves/curators_guardians_options
+
+    after = {
+        hidden_effect = {
+            remove_country_flag = curator_unplugged_notalk # used in Unplugged dialog
+        }
+    }
+}
