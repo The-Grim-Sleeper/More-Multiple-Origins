@@ -10,7 +10,10 @@ zone_ark_knights = {
 	potential = { # planet (arkship) scope
 		exists = owner
 		owner = {
-			has_origin = origin_toxic_knights
+			OR = {
+				has_country_flag = decision_toxic_knights
+				has_origin = origin_toxic_knights
+			}
 			NOT = {
 				has_country_flag = quest_abandoned
 			}

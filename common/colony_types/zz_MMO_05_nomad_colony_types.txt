@@ -1,0 +1,91 @@
+
+
+col_arkship_fortress_knights = {
+	icon = GFX_colony_type_fortress
+
+	potential = {
+		uses_district_set = nomad
+		owner = {
+			OR = {
+				has_country_flag = decision_toxic_knights
+				has_origin = origin_toxic_knights
+			}
+		}
+		OR = {
+			has_building = building_order_keep
+			has_building = building_order_castle
+		}
+	}
+
+	planet_modifier = {
+		planet_army_build_speed_mult = 0.25
+		ship_armor_mult = 0.05
+		ship_fire_rate_mult = 0.05
+		soldier_jobs_bonus_workforce_mult = 0.15
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner
+			owner_or_space_owner = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			soldier_jobs_bonus_workforce_mult = 0.05
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				has_building = building_order_keep
+				has_building = building_order_castle
+			}
+		}
+		pop_knight_bonus_workforce_mult = 0.05
+	}
+
+	ai_building_set_affinity = {
+		fortress = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_arkship_fortress_knights
+		}
+		modifier = {
+			add = 1000
+			OR = {
+				has_building = building_order_keep
+				has_building = building_order_castle
+			}
+		}
+		modifier = {
+			has_any_fortress_zone = yes
+			add = @zone_urban
+		}
+		complex_trigger_modifier = {
+			trigger = num_buildings
+			parameters = {
+				type = building_stronghold
+			}
+			mode = add
+			mult = 3
+		}
+		complex_trigger_modifier = {
+			trigger = num_buildings
+			parameters = {
+				type = building_fortress
+			}
+			mode = add
+			mult = 6
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_ark_city
+			}
+			mode = add
+		}
+	}
+}

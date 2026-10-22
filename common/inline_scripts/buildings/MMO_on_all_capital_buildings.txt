@@ -1,3 +1,20 @@
+
+
+# Corporate Evolutionary Predators
+triggered_country_modifier = {
+	potential = {
+		exists = owner
+		is_capital = yes
+		owner = {
+			has_corporate_government = yes # not is_megacorp: survives becoming Galactic Emperor (auth_imperial)
+			has_country_flag = decision_evolutionary_predators
+			is_mutation_authority = yes
+		}
+	}
+	commercial_pact_mult = 0.01
+	mult = owner.species.species_traits_evopred_count
+}
+
 #Storm Chasers get Storm Shelter effects for free
 triggered_planet_modifier = { #basic shelter
 	potential = {
@@ -83,4 +100,21 @@ triggered_country_modifier = {
 	}
 	commercial_pact_mult = 0.01
 	mult = owner.species.species_traits_evopred_count
+}
+
+triggered_planet_modifier = {
+	potential = {
+		OR = {
+			has_carrier_flag = toxic_knights_arkship
+			has_planet_flag = toxic_knights_settled_world
+			has_planet_flag = toxic_knights_habitat
+		}
+		capital_tier >= 4
+		owner? = {
+			OR = {
+				has_country_flag = decision_toxic_knights
+			}
+		}
+	}
+	job_knight_add = 100
 }
