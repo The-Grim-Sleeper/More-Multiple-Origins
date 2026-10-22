@@ -50,7 +50,7 @@ country_event = {
 					}
 				}
 			}
-			planet_event = { id = astral_planes.2120 }
+			colony_event = { id = astral_planes.2120 }
 		}
 
 		if = {
