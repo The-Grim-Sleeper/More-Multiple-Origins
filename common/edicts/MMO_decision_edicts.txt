@@ -1082,7 +1082,7 @@ riftworld_quest = {
 			}
 			set_country_flag = decision_riftworld
 			country_event = { id = astral_planes.2100 }
-			country_event = { id = timeline_MMO.18 days = 4}
+			country_event = { id = timeline_MMO.19 days = 4}
 		}
 		if = {
 			limit = { owner.capital_scope = {carrier_is_type = ship}}
