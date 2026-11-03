@@ -20,6 +20,9 @@ terraform_link = {
 		exists = owner
 		#is_mutation_authority = yes
 		is_hive_empire = yes
-		has_country_flag = decision_evolutionary_predators
+		OR = {
+			has_origin = origin_evolutionary_predators
+			has_country_flag = decision_evolutionary_predators
+		}
 	}
 }

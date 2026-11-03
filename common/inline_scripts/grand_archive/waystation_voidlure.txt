@@ -73,8 +73,8 @@ waystation_voidlure_$CATEGORY$ = {
 		owner = {
 			OR = {
 				has_tradition = tr_domestication_finish
-				has_country_flag = decision_primal_calling
 				has_origin = origin_primal_calling
+				has_country_flag = decision_primal_callingng
 			}
 			OR = {
 				has_encountered_$CATEGORY$ = yes
