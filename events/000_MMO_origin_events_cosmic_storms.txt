@@ -11,10 +11,7 @@ country_event = { #
 
 	trigger = {
 		has_cosmic_storms_dlc = yes
-		OR = {
-			has_country_flag = decision_storm_chasers
-			has_origin = origin_storm_chasers
-		}
+		has_storm_chasers_origin =yes
 	}
 
 	immediate = {
@@ -94,10 +91,7 @@ country_event = {
 
 	trigger = {
 		has_cosmic_storms_dlc = yes
-		OR = {
-			has_country_flag = decision_storm_chasers
-			has_origin = origin_storm_chasers
-		}
+		has_storm_chasers_origin = yes
 	}
 
 	option = {
@@ -158,12 +152,7 @@ country_event = {
 		end_event_chain = cs_stormfrenzy_chain
 		custom_tooltip = "nexus_opinion_summon_hit_tt"
 		trigger = {
-			owner = { 
-				OR = {
-					has_country_flag = decision_storm_chasers
-					has_origin = origin_storm_chasers
-				}
-			}
+			owner = { has_storm_chasers_origin = yes }
 		} #we do this so the little storm chaser icon appears with this option.
 	}
 
@@ -218,12 +207,7 @@ country_event = {
 		end_event_chain = cs_stormfrenzy_chain
 		custom_tooltip = "cstorms.3235.a.tt"
 		trigger = {
-			owner = { 
-				OR = {
-					has_country_flag = decision_storm_chasers
-					has_origin = origin_storm_chasers
-				}
-			}
+			owner = { has_storm_chasers_origin = yes }
 		} #we do this so the little storm chaser icon appears with this option.
 		owner = {
 			if = {

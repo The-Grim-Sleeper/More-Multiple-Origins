@@ -25,10 +25,7 @@ leader_trait_storm_rider_commander = {
 		has_cosmic_storms_dlc = yes
 		exists = owner
 		owner = {
-			OR = {
-				has_origin = origin_storm_chasers
-				has_country_flag = decision_storm_chasers
-			}
+			has_storm_chasers_origin = yes
 		}
 	}
 
@@ -101,12 +98,7 @@ leader_trait_storm_rider_scientist = {
 	leader_potential_add = {
 		has_cosmic_storms_dlc = yes
 		exists = owner
-		owner = {
-			OR = {
-				has_origin = origin_storm_chasers
-				has_country_flag = decision_storm_chasers
-			}
-		}
+		owner = { has_storm_chasers_origin = yes }
 	}
 
 	#more XP, less lifespan in the field
@@ -187,12 +179,7 @@ leader_trait_storm_rider_official = {
 
 	leader_potential_add = {
 		has_cosmic_storms_dlc = yes
-		owner = {
-			OR = {
-				has_origin = origin_storm_chasers
-				has_country_flag = decision_storm_chasers
-			}
-		}
+		owner = { has_storm_chasers_origin = yes }
 	}
 
 	#more XP, less lifespan in the field

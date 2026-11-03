@@ -11,10 +11,7 @@ storm_chasers_quest = {
 		AND = {
 			is_ai = no
 			years_passed < @yearsBeforeDeadline
-			NOR = {
-				has_country_flag = decision_storm_chasers
-				has_origin = origin_storm_chasers
-			}
+			NOT = { has_storm_chasers_origin = yes }
 
 			has_cosmic_storms_dlc = yes
 		}

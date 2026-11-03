@@ -44,10 +44,7 @@ building_storm_attraction_center = {
 				exists = owner
 				NOT = {
 					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
+						has_storm_chasers_origin =yes
 					}
 				}
 			}
@@ -61,10 +58,7 @@ building_storm_attraction_center = {
 				exists = owner
 				NOT = {
 					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
+						has_storm_chasers_origin =yes
 					}
 				}
 			}
@@ -170,10 +164,7 @@ building_advanced_storm_attraction_center = {
 				exists = owner
 				NOT = {
 					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
+						has_storm_chasers_origin =yes
 					}
 				}
 			}
@@ -187,10 +178,7 @@ building_advanced_storm_attraction_center = {
 				exists = owner
 				NOT = {
 					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
+						has_storm_chasers_origin =yes
 					}
 				}
 			}
@@ -234,10 +222,7 @@ building_advanced_storm_attraction_center = {
 			AND = {
 				exists = owner
 				owner = {
-					OR = {
-						has_country_flag = decision_storm_chasers
-						has_origin = origin_storm_chasers
-					}
+					has_storm_chasers_origin =yes
 				}
 			}
 		}
@@ -262,10 +247,7 @@ building_storm_resistant_production = { # see also 'building_wilderness_storm_re
 		exists = owner
 		owner = {
 			is_wilderness_empire = no
-			NOR = {
-				has_country_flag = decision_storm_chasers
-				has_origin = origin_storm_chasers
-			}
+			NOT = { has_storm_chasers_origin = yes }
 		}
 		OR = {
 			owner = { is_ai = no }
@@ -379,10 +361,7 @@ building_advanced_storm_resistant_production = { # see also 'building_wilderness
 		owner = {
 			OR = {
 				is_wilderness_empire = no
-				NOR = {
-					has_country_flag = decision_storm_chasers
-					has_origin = origin_storm_chasers
-				}
+				NOT = { has_storm_chasers_origin = yes }
 			}
 		}
 		if = {

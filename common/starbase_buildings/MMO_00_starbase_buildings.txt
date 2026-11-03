@@ -37,10 +37,7 @@ storm_attraction_computer = {
 				exists = owner
 				NOT = {
 					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
+						has_storm_chasers_origin = yes
 					}
 				}
 			}
@@ -53,12 +50,7 @@ storm_attraction_computer = {
 			trigger = {
 				exists = owner
 				NOT = {
-					owner = {
-						OR = {
-							has_country_flag = decision_storm_chasers
-							has_origin = origin_storm_chasers
-						}
-					}
+					owner = { has_storm_chasers_origin = yes }
 				}
 			}
 			rare_crystals = 0.75

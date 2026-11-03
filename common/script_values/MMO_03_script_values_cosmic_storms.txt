@@ -9,10 +9,7 @@ storm_resistant_production_multiplier = {
 		OR = {
 			has_building = building_storm_resistant_production
 			owner? = {
-				AND = {
-					has_country_flag = decision_storm_chasers
-					has_technology = tech_industrial_storm_protection
-				}
+				has_storm_chasers_origin = yes
 			}
 		}
 		NOT = {

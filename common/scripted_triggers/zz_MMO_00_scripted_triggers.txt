@@ -65,10 +65,7 @@ influence_building_destruction_trigger = {
 	}
 	owner = {
 		has_storm_attraction_civic = no
-		NOR = {
-			has_country_flag = decision_storm_chasers
-			has_origin = origin_storm_chasers
-		}
+		NOT = { has_storm_chasers_origin = yes }
 	}
 }
 

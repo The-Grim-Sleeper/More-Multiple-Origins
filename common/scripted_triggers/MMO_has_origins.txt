@@ -95,3 +95,10 @@ has_calamitous_birth_origin = {
         has_origin = origin_lithoid
     }
 }
+
+has_storm_chasers_origin = {
+    OR = {
+        has_country_flag = decision_storm_chasers
+        has_origin = origin_storm_chasers
+    }
+}

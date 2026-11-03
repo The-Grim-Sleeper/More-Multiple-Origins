@@ -136,10 +136,7 @@ country_event = {
 		# Adds the Storm Rider trait
 		if = {
 			limit = {
-				OR = {
-					has_country_flag = decision_storm_chasers
-					has_origin = origin_storm_chasers
-				}
+				OR = { has_storm_chasers_origin = yes }
 			}
 			from = {
 				switch = {
@@ -488,12 +485,7 @@ country_event = {
 		# Storm Chasers
 		# Adds the Storm Rider trait
 		if = {
-			limit = {
-				OR = {
-					has_country_flag = decision_storm_chasers
-					has_origin = origin_storm_chasers
-				}
-			}
+			limit = { has_storm_chasers_origin = yes }
 			every_owned_leader = {
 				switch = {
 					trigger = leader_class
@@ -755,12 +747,7 @@ leader_event = {
 		# Adds the Storm Rider trait
 		if = {
 			limit = {
-				owner = {
-					OR = {
-						has_country_flag = decision_storm_chasers
-						has_origin = origin_storm_chasers
-					}
-				}
+				owner = { has_storm_chasers_origin = yes }
 			}
 			switch = {
 				trigger = leader_class

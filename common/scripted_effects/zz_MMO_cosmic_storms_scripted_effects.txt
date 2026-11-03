@@ -7,10 +7,7 @@ choose_storm_location_weighted = {
 			modifier = {
 				exists = owner
 				owner = {
-					OR = {
-						has_country_flag = decision_storm_chasers
-						has_origin = origin_storm_chasers
-					}
+					has_storm_chasers_origin = yes
 				}
 
 				factor = @storm_chasers_storm_spawn_chance_mult
