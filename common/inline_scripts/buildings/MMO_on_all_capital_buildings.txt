@@ -112,7 +112,7 @@ triggered_planet_modifier = {
 		}
 		capital_tier >= 2
 		owner? = {
-			has_origin = decision_toxic_knights
+			has_country_flag = decision_toxic_knights
 		}
 	}
 	job_knight_commander_add = 1
@@ -128,7 +128,7 @@ triggered_planet_modifier = {
 		}
 		capital_tier >= 4
 		owner? = {
-			has_origin = decision_toxic_knights
+			has_country_flag = decision_toxic_knights
 		}
 	}
 	job_knight_add = 100
