@@ -84,7 +84,7 @@ has_tr_cloning_finish_tradition = {
 
 has_starlit_citadel_origin = {
     OR = {
-        has_country_flag = decision_origins_starlit_citadel
+        has_country_flag = decision_starlit_citadel
         has_origin = origin_starlit_citadel
     }
 }
