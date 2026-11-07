@@ -102,7 +102,7 @@ country_event = {
         custom_tooltip = story.207.a.tooltip
         if = {
             limit = {
-                has_origin = has_fruitful_origin = yes
+                has_fruitful_origin = yes
             }
             set_country_flag = pacified_crystals
             custom_tooltip = story.207.a.fruitful.tooltip

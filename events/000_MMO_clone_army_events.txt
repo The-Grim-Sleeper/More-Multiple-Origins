@@ -186,4 +186,3 @@ country_event = {
 		hidden_effect = { country_event = { id = clones.21 } }
 	}
 }
-}
