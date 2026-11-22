@@ -46,12 +46,14 @@ country_event = {
 			add_research_option = tech_habitat_1
 
 		}
-		capital_star = {
+		capital_scope = {
 			add_deposit = d_toxic_god_blight_upon_the_land
 			add_deposit = d_toxic_god_deitys_swarms
 			add_deposit = d_toxic_god_pools_most_venemous
 			add_deposit = d_toxic_god_pestilential_wasteland
 			add_deposit = d_toxic_god_envenomed_seas
+		}
+		capital_star = {
 			
 			solar_system = {
 				random_system_planet = {
