@@ -116,7 +116,7 @@ event = {
 				change_pc = pc_habitat
 				set_planet_flag = megastructure
 				set_planet_flag = habitat
-				has_ring = no
+				set_ring = no
 				save_event_target_as = home_habitat
 			}
 			spawn_planet = {
