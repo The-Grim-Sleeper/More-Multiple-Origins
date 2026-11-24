@@ -4,5 +4,5 @@ tags={
 	"Utilities"
 }
 name="More Multiple Origins"
-supported_version="v4.4.6"
+supported_version="v4.6.0"
 remote_file_id="3730341922"
