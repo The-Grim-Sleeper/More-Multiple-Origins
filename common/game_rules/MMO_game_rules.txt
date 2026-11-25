@@ -442,7 +442,7 @@ can_fill_ruler_job = {
 				}
 			}
 			# Rule out Organic Trophies
-			NOT = {
+			NOR = {
 				has_citizenship_type = {
 					type = citizenship_organic_trophy
 					country = owner

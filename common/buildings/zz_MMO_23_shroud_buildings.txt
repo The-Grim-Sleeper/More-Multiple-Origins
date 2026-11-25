@@ -13,8 +13,7 @@ building_materiality_engine = {
 
 	potential = {
 		has_shroud_dlc = yes
-		exists = owner
-		owner = {
+		owner? = {
 			OR = {
 				has_country_flag = decision_shroud_forged
 				has_origin = origin_shroud_forged

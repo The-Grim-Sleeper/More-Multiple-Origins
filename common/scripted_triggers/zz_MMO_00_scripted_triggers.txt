@@ -60,7 +60,7 @@ has_engineered_evolution_synergy = {
 influence_building_destruction_trigger = {
 	exists = owner
 	owner = { is_ai = yes }
-	solar_system = {
+	solar_system? = {
 		system_has_storm_repelling_tech = yes
 	}
 	owner = {

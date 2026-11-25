@@ -99,6 +99,7 @@ decision_consecrate_arkship_knights = {
 				has_origin = origin_toxic_knights
 			}
 			has_relic = r_toxic_god
+			is_nomadic = yes
 		}
 		uses_district_set = nomad
 		is_capital = no

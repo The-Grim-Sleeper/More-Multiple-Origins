@@ -8,8 +8,7 @@ zone_ark_knights = {
 	swap_type_weight = 5
 
 	potential = { # planet (arkship) scope
-		exists = owner
-		owner = {
+		owner? = {
 			OR = {
 				has_country_flag = decision_toxic_knights
 				has_origin = origin_toxic_knights

@@ -25,7 +25,7 @@ decision_open_shroud_rift = {
 
 	potential = {
 		is_artificial = no
-		owner = {
+		owner? = {
 			OR = {
 				has_country_flag = decision_shroud_forged
 				has_origin = origin_shroud_forged

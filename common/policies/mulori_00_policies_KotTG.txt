@@ -1,4 +1,133 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 knightly_duties = {
 	potential = {
 		is_country_type = default
@@ -21,13 +150,17 @@ knightly_duties = {
 			ship_anomaly_generation_chance_mult = 0.05
 		}
 
-		AI_weight = {
+		ai_weight = {
 			factor = 5 #This should make sure AIs stick to this policy
 		}
 	}
 
 	option = {
 		name = "military_knights"
+
+		potential = {
+			owner = { is_nomadic = no }
+		}
 
 		policy_flags = {
 			toxic_knights_military
@@ -36,6 +169,23 @@ knightly_duties = {
 		modifier = {
 			ship_home_territory_fire_rate_mult = 0.2
 			ship_fire_rate_mult = 0.10
+			army_damage_mult = 0.10
+		}
+	}
+
+	option = {
+		name = "military_knights_nomad"
+
+		potential = {
+			owner = { is_nomadic = yes }
+		}
+
+		policy_flags = {
+			toxic_knights_military
+		}
+
+		modifier = {
+			ship_fire_rate_mult = 0.15
 			army_damage_mult = 0.10
 		}
 	}

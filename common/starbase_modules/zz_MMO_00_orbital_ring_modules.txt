@@ -7,9 +7,8 @@ orbital_ring_vivarium_tank = {
 	category = sm_naval_support_cat
 
 	potential = {
-		exists = owner
 		is_orbital_ring = yes
-		owner = {
+		owner? = {
 			OR = {
 				has_technology = tech_gravity_wells
 				has_origin = origin_primal_calling

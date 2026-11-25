@@ -7,8 +7,7 @@ zone_habitat_knights = {
 	swap_type_weight = 5
 
 	potential = { # planet scope
-		exists = owner
-		owner = {
+		owner? = {
 			OR = {
 				has_country_flag = decision_toxic_knights
 				has_origin = origin_toxic_knights
@@ -18,7 +17,7 @@ zone_habitat_knights = {
 			}
 		}
 		OR = {
-			has_carrier_flag = toxic_knights_habitat
+			has_planet_flag = toxic_knights_habitat
 			has_building = building_order_castle
 		}
 	}
@@ -36,7 +35,7 @@ zone_habitat_knights = {
 				}
 			}
 			OR = {
-				has_carrier_flag = toxic_knights_habitat
+				has_planet_flag = toxic_knights_habitat
 				has_building = building_order_castle
 			}
 		}

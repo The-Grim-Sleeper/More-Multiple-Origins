@@ -60,13 +60,13 @@ leader_trait_storm_rider_commander = {
 	#limits storm devastation as governor
 	triggered_planet_modifier = {
 		potential = {
-			is_ruler = no
+			leader_can_govern = yes
 		}
 		planet_storm_devastation_mult = -0.3
 	}
 	triggered_sector_modifier = {
 		potential = {
-			is_ruler = no
+			leader_can_govern = yes
 		}
 		planet_storm_devastation_mult = -0.15
 	}
@@ -135,7 +135,7 @@ leader_trait_storm_rider_scientist = {
 	triggered_planet_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = yes
 		}
 		planet_jobs_physics_research_produces_mult = 0.07
@@ -145,7 +145,7 @@ leader_trait_storm_rider_scientist = {
 	triggered_sector_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = yes
 		}
 		planet_jobs_physics_research_produces_mult = 0.035
@@ -196,7 +196,7 @@ leader_trait_storm_rider_official = {
 	triggered_planet_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = no
 		}
 		pop_entertainer_bonus_workforce_mult = 0.1
@@ -205,7 +205,7 @@ leader_trait_storm_rider_official = {
 	triggered_planet_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = yes
 		}
 		pop_entertainer_bonus_workforce_mult = 0.2
@@ -214,7 +214,7 @@ leader_trait_storm_rider_official = {
 	triggered_sector_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = no
 		}
 		pop_entertainer_bonus_workforce_mult = 0.05
@@ -223,7 +223,7 @@ leader_trait_storm_rider_official = {
 	triggered_sector_modifier = {
 		potential = {
 			is_councilor = no
-			is_ruler = no
+			leader_can_govern = yes
 			is_leader_in_storm = yes
 		}
 		pop_entertainer_bonus_workforce_mult = 0.1

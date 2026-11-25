@@ -36,11 +36,7 @@ can_remove_overtuned_traits = {
 #this = species, from = country
 can_add_unplugged_traits = {
 	hidden_trigger = { exists = from }
-	OR = {
-		has_trait = trait_unplugged_cybernetic_positives_3
-		has_trait = trait_unplugged_cybernetic_positives_2
-		has_trait = trait_unplugged_cybernetic_positives_1
-	}
+	has_unplugged_positive_trait = yes
 	from = {
 		has_unplugged_origin = yes
 	}

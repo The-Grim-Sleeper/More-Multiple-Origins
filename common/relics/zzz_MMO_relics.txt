@@ -35,6 +35,17 @@ r_toxic_god = {
 		weapon_type_strike_craft_weapon_damage_mult = 0.15
 	}
 
+	triggered_country_modifier = {
+		potential = {
+			OR = {
+				has_origin = origin_toxic_knights
+				has_country_flag = decision_toxic_knights
+			}
+			is_nomadic = yes
+		}
+		custom_tooltip = arkship_knights_detox_unlock_tt
+	}
+
 	score = 3000
 
 	active_effect = {
@@ -199,7 +210,7 @@ r_plasmic_core = {
 				is_robot_empire = yes
 				is_wilderness_empire = yes
 				has_origin = origin_evolutionary_predators
-				any_owned_planet = {
+				any_owned_colony = {
 					any_owned_pop_group = {
 						is_robot_pop_group = no
 						NOT = { pop_group_has_trait = trait_plasmic }

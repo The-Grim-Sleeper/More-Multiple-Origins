@@ -114,5 +114,13 @@ necro_apprentice = {
 	}
 
 	inline_script = "jobs/automodding_priority_unity"
+
+	leader_background_class_weight = {
+		official = @leader_background_class_match
+	}
+
+	leader_background_ethic_weight = {
+		ethic_spiritualist = @leader_background_ethic_match
+	}
 	
 }

@@ -183,5 +183,33 @@ wrangler = {
 		}
 	}
 
+	
 	inline_script = "jobs/automodding_priority_research"
+	leader_background_class_weight = {
+		commander = {
+			base = 0
+			modifier = {
+				add = @leader_background_class_match
+				OR = {
+					wrangler_is_beastfighter_trigger = yes
+					wrangler_is_trophy_hunter_trigger = yes
+				}
+			}
+		}
+		scientist = @leader_background_class_match
+	}
+
+	leader_background_ethic_weight = {
+		ethic_militarist = {
+			base = 0
+			modifier = {
+				add = @leader_background_ethic_match
+				OR = {
+					wrangler_is_beastfighter_trigger = yes
+					wrangler_is_trophy_hunter_trigger = yes
+				}
+			}
+		}
+		ethic_pacifist = @leader_background_ethic_match
+	}
 }

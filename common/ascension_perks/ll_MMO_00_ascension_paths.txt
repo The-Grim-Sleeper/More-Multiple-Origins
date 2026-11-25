@@ -41,7 +41,10 @@ ap_engineered_evolution = {
 		}
 		if = {
 			limit = {
-				NOT ={ has_clone_army_origin = yes }
+				NOR ={
+					has_clone_army_origin = yes
+					is_country_type = awakened_fallen_empire
+				}
 			}
 			custom_tooltip = {
 				fail_text = "requires_ascension_perks_2"
@@ -146,6 +149,7 @@ ap_the_flesh_is_weak = {
 				num_ascension_perks > 1
 				has_origin = origin_cybernetic_creed
 				has_origin = origin_unplugged
+				is_country_type = awakened_fallen_empire
 				has_country_flag = decision_unplugged
 			}
 		}
@@ -266,7 +270,10 @@ ap_synthetic_evolution = {
 		}
 		custom_tooltip = {
 			fail_text = "requires_ascension_perks_2"
-			num_ascension_perks > 1
+			OR = {
+				num_ascension_perks > 1
+				is_country_type = awakened_fallen_empire
+			}
 		}
 		custom_tooltip = {
 			fail_text = "requires_not_ap_engineered_evolution"
@@ -361,7 +368,10 @@ ap_mind_over_matter = {
 			}
 			custom_tooltip = {
 				fail_text = "requires_ascension_perks_2"
-				num_ascension_perks > 1
+				OR = {
+					num_ascension_perks > 1
+					is_country_type = awakened_fallen_empire
+				}
 			}
 		}
 		else_if = {

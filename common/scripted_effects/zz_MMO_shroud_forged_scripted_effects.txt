@@ -33,6 +33,25 @@ turn_main_species_to_psionic = {
 				limit = { is_exact_same_species = event_target:changing_species }
 				change_species = event_target:psionic_species
 			}
+			if = {
+				limit = {
+					has_origin = origin_shroud_forged
+					species? = {
+						NOT = {
+							is_exact_same_species = event_target:psionic_species
+						}
+					}
+				}
+				every_owned_pop_group = {
+					limit = {
+						is_exact_same_species = event_target:psionic_species
+					}
+					set_citizenship_type = {
+						type = citizenship_full_machine
+						cooldown = no
+					}
+				}
+			}
 			every_owned_leader = {
 				limit = { is_exact_same_species = event_target:changing_species }
 				change_species = event_target:psionic_species
@@ -73,7 +92,12 @@ mind_over_matter_immediate = {
 			OR = {
 				is_same_species = root
 				AND = {
-					root = { has_origin = origin_shroud_forged }
+					root = {
+						OR = {
+							has_country_flag = decision_shroud_forged
+							has_origin = origin_shroud_forged
+						}
+					}
 					has_species_flag = original_main_species
 				}
 			}
@@ -136,7 +160,7 @@ mind_over_matter_immediate = {
 	if = {
 		limit = {
 			any_planet_within_border = {
-				has_carrier_flag = fotd_seperatist_planet@root
+				has_planet_flag = fotd_seperatist_planet@root
 				owner = {
 					has_country_flag = fotd_seperatist_country@root
 				}

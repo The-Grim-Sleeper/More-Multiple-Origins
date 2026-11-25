@@ -212,11 +212,7 @@ citizenship_assimilation = {
 			if = {
 				limit = { is_lonely_hive_mind_pop = yes }
 				from = {
-					OR = {
-						can_perform_genetic_assimilation = yes
-						has_active_tradition = tr_cybernetics_transubstantiation_synthesis
-						has_active_tradition = tr_cybernetics_assimilator_inevitable_assimilation
-					}
+					can_assimilate_hive_minded_pops = yes
 				}
 			}
 		}

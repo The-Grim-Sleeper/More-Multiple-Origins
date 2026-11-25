@@ -1,7 +1,7 @@
-@fe_automation_worker_1 = 0.75
-@fe_automation_worker_2 = 1.00
-@fe_automation_specialist_1 = 0.25
-@fe_automation_specialist_2 = 0.50
+
+
+
+
 
 building_fe_assembly_1 = {
 	base_buildtime = @b3_time
@@ -19,20 +19,24 @@ building_fe_assembly_1 = {
 	potential = {
 		exists = owner
 		OR = {
-			owner = {
+			owner? = {
 				is_regular_empire = yes
-				NOT = { has_policy_flag = robots_outlawed }
+				NOT = {
+					has_policy_flag = robots_outlawed
+				}
 				OR = {
-					NOT = { has_ascension_perk = ap_engineered_evolution }
+					NOT = {
+						has_ascension_perk = ap_engineered_evolution
+					}
 					is_materialist = yes
 				}
 			}
-			owner = {
+			owner? = {
 				is_machine_empire = yes
 			}
 		}
 
-		owner = {
+		owner? = {
 			OR = {
 				is_fallen_empire = yes
 				has_technology = tech_fe_assembly_1
@@ -50,10 +54,12 @@ building_fe_assembly_1 = {
 	allow = {
 		custom_tooltip = {
 			fail_text = ancrel.10004.failtext
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
-					check_variable = { which = fe_assembly_1_build_count value >= 1 }
+					check_variable = {
+						which = fe_assembly_1_build_count
+						value >= 1
+					}
 					is_fallen_empire = yes
 					has_technology = tech_fe_assembly_1
 				}
@@ -62,8 +68,7 @@ building_fe_assembly_1 = {
 	}
 
 	destroy_trigger = {
-		exists = owner
-		owner = {
+		owner? = {
 			is_fallen_empire = no
 			is_machine_empire = no
 			OR = {
@@ -86,7 +91,9 @@ building_fe_assembly_1 = {
 		}
 		cost = {
 			trigger = {
-				owner = { is_wilderness_empire = yes }
+				owner? = {
+					is_wilderness_empire = yes
+				}
 			}
 			biomass = @b3_biomass
 		}
@@ -94,8 +101,7 @@ building_fe_assembly_1 = {
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_wilderness_empire = yes
 				has_tradition = tr_purity_finish
 			}
@@ -106,8 +112,7 @@ building_fe_assembly_1 = {
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_origin = origin_mechanists
 					has_country_flag = decision_mechanists
@@ -119,34 +124,26 @@ building_fe_assembly_1 = {
 				has_auto_modding_trait = yes
 			}
 		}
-		modifier = {
-			auto_mod_monthly_add = 200
-		}
+		auto_mod_monthly_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = synth_unscheduled_updates
 			}
 		}
-		modifier = {
-			planet_pop_assembly_mult = 0.1
-		}
+		planet_pop_assembly_mult = 0.1
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = synth_safe_updates
 			}
 		}
-		modifier = {
-			planet_pop_assembly_mult = -0.1
-			planet_stability_add = 1
-		}
+		planet_pop_assembly_mult = -0.1
+		planet_stability_add = 1
 	}
 
 	inline_script = {
@@ -154,28 +151,23 @@ building_fe_assembly_1 = {
 		AMOUNT = 150
 	}
 
-	triggered_planet_modifier = {
-		potential = {
-			exists = owner
-			owner = { is_wilderness_empire = no }
-		}
-		job_roboticist_automated_workforce_mult = @fe_automation_specialist_1
-		job_replicator_automated_workforce_mult = @fe_automation_specialist_1
+	inline_script = {
+		script = jobs/fe_automation
+		JOB = roboticist
+		GESTALT_JOB = replicator
+		TIER = specialist_1
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_machine_empire = yes
 			}
 			any_owned_pop_group = {
 				has_auto_modding_trait = yes
 			}
 		}
-		modifier = {
-			auto_mod_monthly_add = 200
-		}
+		auto_mod_monthly_add = 200
 	}
 
 	on_queued = {
@@ -199,20 +191,28 @@ building_fe_assembly_1 = {
 			}
 		}
 		else_if = {
-			limit = { is_variable_set = local_spent_biomass }
-			owner = {
+			limit = {
+				is_variable_set = local_spent_biomass
+			}
+			owner? = {
 				global_biomass_spender = yes
 			}
 		}
-		owner = {
-			subtract_variable = { which = fe_assembly_1_build_count value = 1 }
+		owner? = {
+			subtract_variable = {
+				which = fe_assembly_1_build_count
+				value = 1
+			}
 		}
 	}
 
 	on_unqueued = {
 		unqueue_biomass_effect = yes
-		owner = {
-			change_variable = { which = fe_assembly_1_build_count value = 1 }
+		owner? = {
+			change_variable = {
+				which = fe_assembly_1_build_count
+				value = 1
+			}
 		}
 	}
 
@@ -238,20 +238,24 @@ building_fe_assembly_2 = {
 	potential = {
 		exists = owner
 		OR = {
-			owner = {
+			owner? = {
 				is_regular_empire = yes
-				NOT = { has_policy_flag = robots_outlawed }
+				NOT = {
+					has_policy_flag = robots_outlawed
+				}
 				OR = {
 					is_ai = no
-					NOT = { has_ascension_perk = ap_engineered_evolution }
+					NOT = {
+						has_ascension_perk = ap_engineered_evolution
+					}
 					is_materialist = yes
 				}
 			}
-			owner = {
+			owner? = {
 				is_machine_empire = yes
 			}
 		}
-		owner = {
+		owner? = {
 			OR = {
 				is_fallen_empire = yes
 				has_technology = tech_fe_assembly_2
@@ -269,10 +273,12 @@ building_fe_assembly_2 = {
 	allow = {
 		custom_tooltip = {
 			fail_text = ancrel.10004.failtext
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
-					check_variable = { which = fe_assembly_1_upgrade_count value >= 1 }
+					check_variable = {
+						which = fe_assembly_1_upgrade_count
+						value >= 1
+					}
 					is_fallen_empire = yes
 					has_technology = tech_fe_assembly_2
 				}
@@ -280,13 +286,16 @@ building_fe_assembly_2 = {
 		}
 		custom_tooltip = {
 			fail_text = cosmogenesis_aborted_tt
-			NOT = { owner = { has_country_flag = cosmogenesis_aborted } }
+			NOT = {
+				owner? = {
+					has_country_flag = cosmogenesis_aborted
+				}
+			}
 		}
 	}
 
 	destroy_trigger = {
-		exists = owner
-		owner = {
+		owner? = {
 			is_fallen_empire = no
 			is_machine_empire = no
 			OR = {
@@ -309,7 +318,9 @@ building_fe_assembly_2 = {
 		}
 		cost = {
 			trigger = {
-				owner = { is_wilderness_empire = yes }
+				owner? = {
+					is_wilderness_empire = yes
+				}
 			}
 			biomass = @b3_biomass
 		}
@@ -317,8 +328,7 @@ building_fe_assembly_2 = {
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_wilderness_empire = yes
 				has_tradition = tr_purity_finish
 			}
@@ -332,22 +342,18 @@ building_fe_assembly_2 = {
 		AMOUNT = 300
 	}
 
-	triggered_planet_modifier = {
-		potential = {
-			exists = owner
-			owner = { is_wilderness_empire = no }
-		}
-		job_roboticist_automated_workforce_mult = @fe_automation_specialist_2
-		job_replicator_automated_workforce_mult = @fe_automation_specialist_2
+	inline_script = {
+		script = jobs/fe_automation
+		JOB = roboticist
+		GESTALT_JOB = replicator
+		TIER = specialist_2
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_origin = origin_mechanists
-					has_country_flag = decision_mechanists
 					is_individual_machine = yes
 					has_country_flag = synthetic_empire
 				}
@@ -356,49 +362,38 @@ building_fe_assembly_2 = {
 				has_auto_modding_trait = yes
 			}
 		}
-		modifier = {
-			auto_mod_monthly_add = 500
-		}
+		auto_mod_monthly_add = 500
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = synth_unscheduled_updates
 			}
 		}
-		modifier = {
-			planet_pop_assembly_mult = 0.1
-		}
+		planet_pop_assembly_mult = 0.1
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = synth_safe_updates
 			}
 		}
-		modifier = {
-			planet_pop_assembly_mult = -0.1
-			planet_stability_add = 1
-		}
+		planet_pop_assembly_mult = -0.1
+		planet_stability_add = 1
 	}
 
 	triggered_planet_modifier = {
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_machine_empire = yes
 			}
 			any_owned_pop_group = {
 				has_auto_modding_trait = yes
 			}
 		}
-		modifier = {
-			auto_mod_monthly_add = 500
-		}
+		auto_mod_monthly_add = 500
 	}
 
 	on_queued = {
@@ -422,20 +417,28 @@ building_fe_assembly_2 = {
 			}
 		}
 		else_if = {
-			limit = { is_variable_set = local_spent_biomass }
-			owner = {
+			limit = {
+				is_variable_set = local_spent_biomass
+			}
+			owner? = {
 				global_biomass_spender = yes
 			}
 		}
-		owner = {
-			subtract_variable = { which = fe_assembly_1_upgrade_count value = 1 }
+		owner? = {
+			subtract_variable = {
+				which = fe_assembly_1_upgrade_count
+				value = 1
+			}
 		}
 	}
 
 	on_unqueued = {
 		unqueue_biomass_effect = yes
-		owner = {
-			change_variable = { which = fe_assembly_1_upgrade_count value = 1 }
+		owner? = {
+			change_variable = {
+				which = fe_assembly_1_upgrade_count
+				value = 1
+			}
 		}
 	}
 

@@ -17,6 +17,12 @@ triggered_planet_modifier = {
 				is_same_value = ROOT.solar_system
 			}
 		}
+		OR = {
+			is_capital = yes
+			owner.capital_scope.solar_system = {
+				is_same_value = root.solar_system
+			}
+		}
 	}
 	planet_jobs_produces_mult = 0.1
 }
@@ -526,6 +532,71 @@ triggered_planet_pop_group_modifier_for_species = {
 	key = tiyanki_trophy
 	bonus_pop_growth = @tiyanki_trophy_pop_growth
 }
+
+# Absolute Pacifist Ethic
+triggered_planet_modifier = {
+	potential = {
+		planet_stability >= 0.9
+		exists = owner
+		owner = {
+			has_ethic = ethic_absolute_pacifist
+		}
+	}
+	planet_jobs_produces_mult = 0.1
+}
+
+# Administrative Enforcement tenet
+triggered_planet_modifier = {
+	potential = {
+		has_carrier_flag = used_decision_ideology_authority
+		owner? = {
+			is_hive_empire = no
+			is_machine_empire = no
+		}
+	}
+	job_politician_add = @decision_ideology_authority_jobs_count
+}
+
+triggered_planet_modifier = {
+	potential = {
+		has_carrier_flag = used_decision_ideology_authority
+		owner? = { is_hive_empire = yes }
+	}
+	job_spawning_drone_add = @decision_ideology_authority_gestalt_jobs_count
+}
+
+triggered_planet_modifier = {
+	potential = {
+		has_carrier_flag = used_decision_ideology_authority
+		owner? = { is_machine_empire = yes }
+	}
+	job_replicator_add = @decision_ideology_authority_gestalt_jobs_count
+}
+
+# Homogeneity Tenet - Hive Mind
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_hive_empire = yes
+			has_active_tenet = tenet_homogeneity
+		}
+	}
+	job_spawning_drone_add = 1
+	mult = owner.modifier:capital_buildings_assembler_add
+}
+
+# Homogeneity Tenet - Machine
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_machine_empire = yes
+			has_active_tenet = tenet_homogeneity
+		}
+	}
+	job_replicator_add = 1
+	mult = owner.modifier:capital_buildings_assembler_add
+}
+
 
 inline_script = {
 	script = buildings/MMO_on_all_capital_buildings
