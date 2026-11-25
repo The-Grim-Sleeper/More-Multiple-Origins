@@ -204,7 +204,7 @@ ship_event = {
 				text = newline
 				success_text = {
 					text = grand_archive.6015.desc.specimen_extra
-					has_carrier_flag = treasure_trove_specimen_extra
+					has_planet_flag = treasure_trove_specimen_extra
 				}
 			}
 		}

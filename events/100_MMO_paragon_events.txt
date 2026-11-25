@@ -22,6 +22,13 @@ country_event = {
 				is_imperial_authority = yes
 				is_mutation_authority = yes
 			}
+			AND = {
+				is_golden_generation_leader_death = yes
+				OR = {
+					NOT = { has_country_flag = has_triggered_golden_generation_funeral }
+					from = { is_ruler = yes }
+				}
+			}
 		}
 		is_country_type = default
 		exists = from
@@ -55,12 +62,23 @@ country_event = {
 					factor = 5
 					has_country_flag = recently_had_leader_funeral
 				}
+				# First Golden Generation leader death usually gets a funeral
+				modifier = {
+					factor = 0
+					is_golden_generation_leader_death = yes
+				}
 			}
 			0 = { # Funeral event
 				# Rulers should almost always get a funeral
 				modifier = {
 					add = 1000
 					from = { is_ruler = yes }
+				}
+
+				# First Golden Generation leader death usually gets a funeral
+				modifier = {
+					factor = 1000
+					is_golden_generation_leader_death = yes
 				}
 
 				# Slightly increase odds for more interesting leaders
@@ -118,36 +136,7 @@ country_event = {
 					years = 5
 				}
 
-				# Make a clone since the original is going to be deleted before any followup event is triggered.
-				create_country = {
-					flag = none
-					default_ships = no
-					name = "NAME_dead_leader_country"
-					type = faction
-					auto_delete = yes
-				}
-				last_created_country = {
-					clone_leader = {
-						target = from
-						effect = {
-							set_immortal = yes
-							save_event_target_as = dead_leader_clone
-						}
-					}
-				}
-				last_created_leader = {
-					set_owner = root
-					# This is a hack to make the leader not be added to player country.
-					# We must kill the leader once the event chain is done
-					exile_leader_as = dead_leader_clone_exile
-					set_years_served = from # Copy years served from the original
-					if = {
-						limit = {
-							from = { is_ruler = yes }
-						}
-						set_leader_flag = was_ruler_before_death
-					}
-				}
+				create_dead_leader_clone = yes
 
 				if = {
 					limit = {
@@ -194,8 +183,30 @@ country_event = {
 country_event = {
 	id = paragon.550
 	title = "paragon.550.name"
-	desc = "paragon.550.desc"
-	picture = GFX_evt_news_room
+	desc = {
+		trigger = {
+			if = {
+				limit = {
+					is_golden_generation_leader_death = yes
+					from = { has_trait = leader_trait_backup_clone }
+				}
+				text = paragon.550.desc.golden_generation_clone
+			}
+			else_if = {
+				limit = { is_golden_generation_leader_death = yes }
+				text = paragon.550.desc.golden_generation_default
+			}
+			else = { text = paragon.550.desc }
+		}
+	}
+	picture = {
+		trigger = { is_golden_generation_leader_death = no }
+		picture = GFX_evt_news_room
+	}
+	picture = {
+		trigger = { is_golden_generation_leader_death = yes }
+		picture = GFX_evt_golden_generation_academy
+	}
 	show_sound = event_life_support_fail
 	is_triggered_only = yes
 
@@ -205,10 +216,15 @@ country_event = {
 			set_leader_flag = funeral_option_private
 			set_variable = { which = num_funeral_options_added value = 1 }
 
-			# Rulers should always have the public funeral option
+			# Rulers and Golden Generation leaders should always have the public funeral option
 			if = {
 				limit = {
-					has_leader_flag = was_ruler_before_death
+					OR = {
+						has_leader_flag = was_ruler_before_death
+						owner? = {
+							is_golden_generation_leader_death = yes
+						}
+					}
 				}
 				set_leader_flag = funeral_option_public
 				change_variable = { which = num_funeral_options_added value = 1 }
@@ -261,6 +277,20 @@ country_event = {
 								root = { is_materialist = yes }
 							}
 						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_materialist = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_materialist
+								root = { ideology? = { is_materialist = yes } }
+							}
+						}
 						modifier = {
 							factor = 0
 							species = {
@@ -284,6 +314,20 @@ country_event = {
 								root = { is_spiritualist = yes }
 							}
 						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_spiritualist = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_spiritualist
+								root = { ideology? = { is_spiritualist = yes } }
+							}
+						}
 						set_leader_flag = funeral_option_spiritualist
 					}
 					10 = {
@@ -296,6 +340,20 @@ country_event = {
 							NOR = {
 								has_ethic = ethic_militarist
 								root = { is_militarist = yes }
+							}
+						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_militarist = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_militarist
+								root = { ideology? = { is_militarist = yes } }
 							}
 						}
 						set_leader_flag = funeral_option_militarist
@@ -312,6 +370,20 @@ country_event = {
 								root = { is_pacifist = yes }
 							}
 						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_pacifist = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_pacifist
+								root = { ideology? = { is_pacifist = yes } }
+							}
+						}
 						set_leader_flag = funeral_option_pacifist
 					}
 					10 = {
@@ -324,6 +396,20 @@ country_event = {
 							NOR = {
 								has_ethic = ethic_xenophobe
 								root = { is_xenophobe = yes }
+							}
+						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_xenophobe = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_xenophobe
+								root = { ideology? = { is_xenophobe = yes } }
 							}
 						}
 						set_leader_flag = funeral_option_xenophobe
@@ -340,6 +426,20 @@ country_event = {
 								root = { is_xenophile = yes }
 							}
 						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_xenophile = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_xenophile
+								root = { ideology? = { is_xenophile = yes } }
+							}
+						}
 						set_leader_flag = funeral_option_xenophile
 					}
 					10 = {
@@ -354,6 +454,20 @@ country_event = {
 								root = { is_authoritarian = yes }
 							}
 						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_authoritarian = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_authoritarian
+								root = { ideology? = { is_authoritarian = yes } }
+							}
+						}
 						set_leader_flag = funeral_option_authoritarian
 					}
 					10 = {
@@ -366,6 +480,20 @@ country_event = {
 							NOR = {
 								has_ethic = ethic_egalitarian
 								root = { is_egalitarian = yes }
+							}
+						}
+						modifier = { # Another ethic that's fanatic decreases likelihood
+							factor = @leader_death_choice_other_ethic
+							root = {
+								is_fanatic = yes
+								is_fanatic_egalitarian = no
+							}
+						}
+						modifier = { # Ethic of ideology or dead leader increases likelihood
+							factor = @leader_death_choice_ideology_or_leader
+							OR = {
+								has_ethic = ethic_egalitarian
+								root = { ideology? = { is_egalitarian = yes } }
 							}
 						}
 						set_leader_flag = funeral_option_egalitarian
@@ -415,10 +543,7 @@ country_event = {
 		if = { #Randomise the EvoPred option
 			limit = {
 				is_imperial_authority = yes
-				OR = {
-					has_country_flag = decision_evolutionary_predators
-					has_origin = origin_evolutionary_predators
-				}
+				has_origin = origin_evolutionary_predators
 				is_mutation_authority = yes
 				exists = ruler
 			}
@@ -462,6 +587,20 @@ country_event = {
 					from = { set_leader_flag = evopred_ruler_eats_agenda }
 				}
 			}
+		}
+
+		# Only the first Golden Generation leader death gets a funeral (if non-ruler)
+		if = {
+			limit = {
+				NOT = { has_country_flag = has_triggered_golden_generation_funeral }
+				is_golden_generation_leader_death = yes
+			}
+			set_country_flag = has_triggered_golden_generation_funeral
+		}
+
+		if = {
+			limit = { is_golden_generation_leader_death = yes }
+			setup_general_event_pool_trigger = yes
 		}
 	}
 

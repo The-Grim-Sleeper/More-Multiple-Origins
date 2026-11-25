@@ -66,7 +66,7 @@ country_event = {
 						NOR = {
 							is_planet_class = pc_gas_giant
 							exists = archaeological_site
-							has_carrier_flag = suppress_archaeological_sites
+							has_planet_flag = suppress_archaeological_sites
 						}
 					}
 					prev = {
@@ -233,7 +233,7 @@ country_event = {
 						is_homeworld = no
 						NOT = { is_planet_class = pc_gas_giant }
 						NOT = { exists = archaeological_site }
-						NOT = { has_carrier_flag = suppress_archaeological_sites }
+						NOT = { has_planet_flag = suppress_archaeological_sites }
 					}
 					create_archaeological_site = site_something_waiting
 					root = {
@@ -267,7 +267,7 @@ country_event = {
 						is_homeworld = no
 						NOT = { is_planet_class = pc_gas_giant }
 						NOT = { exists = archaeological_site }
-						NOT = { has_carrier_flag = suppress_archaeological_sites }
+						NOT = { has_planet_flag = suppress_archaeological_sites }
 					}
 					create_archaeological_site = site_buried_deep
 					root = {
@@ -301,7 +301,7 @@ country_event = {
 						is_homeworld = no
 						NOT = { is_planet_class = pc_gas_giant }
 						NOT = { exists = archaeological_site }
-						NOT = { has_carrier_flag = suppress_archaeological_sites }
+						NOT = { has_planet_flag = suppress_archaeological_sites }
 					}
 					create_archaeological_site = site_in_memoriam
 					root = {
@@ -335,7 +335,7 @@ country_event = {
 						is_homeworld = no
 						NOT = { is_planet_class = pc_gas_giant }
 						NOT = { exists = archaeological_site }
-						NOT = { has_carrier_flag = suppress_archaeological_sites }
+						NOT = { has_planet_flag = suppress_archaeological_sites }
 					}
 					create_archaeological_site = site_the_last_stand
 					root = {
@@ -369,7 +369,7 @@ country_event = {
 						is_homeworld = no
 						NOT = { is_planet_class = pc_gas_giant }
 						NOT = { exists = archaeological_site }
-						NOT = { has_carrier_flag = suppress_archaeological_sites }
+						NOT = { has_planet_flag = suppress_archaeological_sites }
 					}
 					create_archaeological_site = site_dark_secret
 					root = {

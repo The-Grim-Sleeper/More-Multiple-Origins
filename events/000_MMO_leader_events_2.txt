@@ -17,39 +17,14 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	trigger = {
 		NOT = { has_country_flag = spawning_renowned_leader }
 	}
 
 	immediate = {
 
-		# Aptitude Traditions
-		# Adds a random common trait
-		if = {
-			limit = {
-				has_tradition = tr_aptitude_finish
-			}
-			from = {
-				add_trait = {
-					trait = random_common
-					show_message = no
-				}
-			}
-		}
-
-		# Optimized Neurology
-		# Adds a random common trait
-		if = {
-			limit = {
-				has_optimized_neurology_tradition = yes
-			}
-			from = {
-				add_trait = {
-					trait = random_common
-					show_message = no
-				}
-			}
+		from = {
+			add_initial_leader_traits_effect = yes
 		}
 
 		# Aristocratic Elite
@@ -129,6 +104,43 @@ country_event = {
 					trait = leader_trait_tactical_algorithms
 					show_message = no
 				}
+			}
+		}
+
+		# Specialist Subjects
+		if = {
+			limit = {
+				from = { has_specialist_subject_leader_trait = no }
+			}
+			if = {
+				limit = {
+					is_specialist_subject_tier = {
+						TYPE = bulwark
+						TIER = 2
+					}
+					from = { leader_class = commander }
+				}
+				from = { add_bulwark_leader_trait = yes }
+			}
+			else_if = {
+				limit = {
+					is_specialist_subject_tier = {
+						TYPE = scholarium
+						TIER = 2
+					}
+					from = { leader_class = scientist }
+				}
+				from = { add_scholarium_leader_trait = yes }
+			}
+			else_if = {
+				limit = {
+					is_specialist_subject_tier = {
+						TYPE = prospectorium
+						TIER = 2
+					}
+					from = { leader_class = official }
+				}
+				from = { add_prospectorium_leader_trait = yes }
 			}
 		}
 
@@ -343,6 +355,46 @@ country_event = {
 				}
 			}
 		}
+
+		# Reaver trait
+		# Adds the Plunderer trait
+		if = {
+			limit = {
+				from.species = { has_trait = trait_reavers }
+				from = {
+					leader_class = commander
+					is_xenophile = no
+					is_pacifist = no
+				}
+			}
+			from = {
+				give_trait_no_notify_ignore_autocracy_restriction = {
+					TRAIT = leader_trait_plunderer
+				}
+			}
+		}
+
+		# Cybernetic Creed traits
+		# Adds the Ritualistic Implants trait
+		if = {
+			limit = {
+				from.species = { has_cybernetic_creed_trait = yes }
+				from = {
+					NOR = {
+						leader_class = envoy
+						has_trait = leader_trait_ritualistic_implants_cyborg
+						has_trait = leader_trait_psionic
+						has_any_chosen_one_leader_trait = yes
+					}
+				}
+			}
+			from = {
+				add_trait = {
+					trait = leader_trait_ritualistic_implants_cyborg
+					show_message = no
+				}
+			}
+		}
 	}
 }
 
@@ -363,6 +415,11 @@ country_event = {
 				has_valid_civic = civic_aristocratic_elite
 			}
 			every_owned_leader = {
+				limit = {
+					NOT = {
+						leader_class = envoy
+					}
+				}
 				random_list = {
 					80 = {  }
 					20 = {
@@ -474,6 +531,8 @@ country_event = {
 			every_owned_leader = {
 				limit = {
 					leader_class = commander
+					is_gestalt_node = no
+					is_ruler = no
 				}
 				add_trait = {
 					trait = leader_trait_tactical_algorithms
@@ -521,6 +580,11 @@ country_event = {
 				}
 			}
 			every_owned_leader = {
+				limit = {
+					NOT = {
+						leader_class = envoy
+					}
+				}
 				give_trait_no_notify_ignore_autocracy_restriction = {
 					TRAIT = leader_trait_adventurous_spirit_3
 				}
@@ -542,6 +606,43 @@ country_event = {
 					trait = leader_trait_psionic
 					show_message = no
 				}
+			}
+		}
+
+		# Reaver trait
+		# Adds the Plunderer trait
+		every_owned_leader = {
+			limit = {
+				is_xenophile = no
+				is_pacifist = no
+				is_gestalt = no
+				leader_class = commander
+				species = {
+					has_trait = trait_reavers
+				}
+			}
+			give_trait_no_notify_ignore_autocracy_restriction = {
+				TRAIT = leader_trait_plunderer
+			}
+		}
+
+		# Cybernetic Creed traits
+		# Adds the Ritualistic Implants trait
+		every_owned_leader = {
+			limit = {
+				species = {
+					has_cybernetic_creed_trait = yes
+				}
+				NOR = {
+					leader_class = envoy
+					has_trait = leader_trait_ritualistic_implants_cyborg
+					has_trait = leader_trait_psionic
+					has_any_chosen_one_leader_trait = yes
+				}
+			}
+			add_trait = {
+				trait = leader_trait_ritualistic_implants_cyborg
+				show_message = no
 			}
 		}
 	}
@@ -664,32 +765,7 @@ leader_event = {
 			}
 		}
 
-		# Aptitude Traditions
-		# Adds a random common trait
-		if = {
-			limit = {
-				owner = {
-					has_tradition = tr_aptitude_finish
-				}
-			}
-			add_trait = {
-				trait = random_common
-				show_message = no
-			}
-		}
-
-		# Optimized Neurology
-		# Adds a random common trait
-		if = {
-			limit = {
-				owner = {
-					has_optimized_neurology_tradition = yes
-				}
-			}
-			add_trait = {
-				trait = random_common
-			}
-		}
+		add_initial_leader_traits_effect = yes
 
 		# Under One Rule
 		if = {
@@ -740,6 +816,49 @@ leader_event = {
 			}
 			give_trait_no_notify_ignore_autocracy_restriction = {
 				TRAIT = leader_trait_corsair
+			}
+		}
+
+		# Specialist Subjects
+		if = {
+			limit = {
+				has_specialist_subject_leader_trait = no
+			}
+			if = {
+				limit = {
+					leader_class = commander
+					owner = {
+						is_specialist_subject_tier = {
+							TYPE = bulwark
+							TIER = 2
+						}
+					}
+				}
+				add_bulwark_leader_trait = yes
+			}
+			else_if = {
+				limit = {
+					leader_class = scientist
+					owner = {
+						is_specialist_subject_tier = {
+							TYPE = scholarium
+							TIER = 2
+						}
+					}
+				}
+				add_scholarium_leader_trait = yes
+			}
+			else_if = {
+				limit = {
+					leader_class = official
+					owner = {
+						is_specialist_subject_tier = {
+							TYPE = prospectorium
+							TIER = 2
+						}
+					}
+				}
+				add_prospectorium_leader_trait = yes
 			}
 		}
 
@@ -820,6 +939,86 @@ leader_event = {
 						trait = leader_trait_has_backup_clone
 						show_message = no
 					}
+				}
+			}
+		}
+
+		# Reaver trait
+		# Adds the Plunderer trait
+		if = {
+			limit = {
+				is_xenophile = no
+				is_pacifist = no
+				leader_class = commander
+				species = {
+					has_trait = trait_reavers
+				}
+			}
+			give_trait_no_notify_ignore_autocracy_restriction = {
+				TRAIT = leader_trait_plunderer
+			}
+		}
+
+		# Cybernetic Creed traits
+		# Adds the Ritualistic Implants trait
+		if = {
+			limit = {
+				species = {
+					has_cybernetic_creed_trait = yes
+				}
+				NOR = {
+					leader_class = envoy
+					has_trait = leader_trait_ritualistic_implants_cyborg
+					has_trait = leader_trait_psionic
+					has_any_chosen_one_leader_trait = yes
+				}
+			}
+			add_trait = {
+				trait = leader_trait_ritualistic_implants_cyborg
+				show_message = no
+			}
+		}
+
+		# Elite Academy
+		if = {
+			limit = {
+				owner = {
+					num_buildings = {
+						type = building_elite_academy
+						value > 0
+						disabled = no
+						in_construction = no
+					}
+				}
+			}
+			give_trait_no_notify_ignore_autocracy_restriction = {
+				TRAIT = leader_trait_elite_alumnus
+			}
+		}
+	}
+}
+
+# Add Imperial Ruler trait on changing to Imperial authority.
+country_event = {
+	id = leader.201
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = default
+		is_imperial_authority = yes
+		exists = ruler
+	}
+
+	immediate = {
+		ruler = {
+			if = {
+				limit = {
+					NOT = { has_trait = trait_imperial_heir }
+				}
+				add_trait = {
+					trait = trait_imperial_heir
 				}
 			}
 		}

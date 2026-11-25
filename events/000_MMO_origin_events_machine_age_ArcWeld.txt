@@ -1,3 +1,5 @@
+namespace = machine_age
+
 country_event = {
 	id = machine_age.3405
 	title = "machine_age.3405.name"

@@ -10,6 +10,23 @@ country_event = {
 		if = {
 			limit = { NOT = { has_ethic = ethic_gestalt_consciousness } }
 			if = {
+				limit = { is_nomadic = yes }
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = decision_treasure_hunters
+							has_origin = origin_treasure_hunters
+						}
+						has_country_flag = met_captain_hoo
+					}
+					country_event = { id = pirate.12 days = 1 random = 30 }
+				}
+				else = {
+					country_event = { id = pirate.11 days = 1 random = 30 }
+				}
+				break = yes
+			}
+			if = {
 				limit = {
 					OR = {
 						has_country_flag = decision_treasure_hunters
@@ -30,6 +47,23 @@ country_event = {
 				is_wilderness_empire = no
 			}
 			if = {
+				limit = { is_nomadic = yes }
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = decision_treasure_hunters
+							has_origin = origin_treasure_hunters
+						}
+						has_country_flag = met_captain_hoo
+					}
+					country_event = { id = pirate.16 days = 1 random = 30 }
+				}
+				else = {
+					country_event = { id = pirate.14 days = 1 random = 30 }
+				}
+				break = yes
+			}
+			if = {
 				limit = {
 					OR = {
 						has_country_flag = decision_treasure_hunters
@@ -46,6 +80,23 @@ country_event = {
 		}
 		if = {
 			limit = { is_machine_empire = yes }
+			if = {
+				limit = { is_nomadic = yes }
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = decision_treasure_hunters
+							has_origin = origin_treasure_hunters
+						}
+						has_country_flag = met_captain_hoo
+					}
+					country_event = { id = pirate.16 days = 1 random = 30 }
+				}
+				else = {
+					country_event = { id = pirate.14 days = 1 random = 30 }
+				}
+				break = yes
+			}
 			if = {
 				limit = {
 					OR = {

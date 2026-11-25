@@ -373,7 +373,7 @@ ship_event = {
                 has_unplugged_origin = yes
             }
             fromfrom = {
-                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+                NOT = { has_planet_flag = creators_planet_monitor_scrapped }
             }
         }
     }
@@ -385,7 +385,7 @@ ship_event = {
                 has_unplugged_origin = yes
             }
             fromfrom = {
-                has_carrier_flag = creators_planet_monitor_scrapped
+                has_planet_flag = creators_planet_monitor_scrapped
             }
         }
     }
@@ -414,7 +414,7 @@ ship_event = {
                 has_unplugged_origin = yes
             }
             fromfrom = {
-                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+                NOT = { has_planet_flag = creators_planet_monitor_scrapped }
             }
         }
         fromfrom = {
@@ -429,7 +429,7 @@ ship_event = {
                 has_unplugged_origin = yes
             }
             fromfrom = {
-                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+                NOT = { has_planet_flag = creators_planet_monitor_scrapped }
             }
         }
     }
@@ -441,7 +441,7 @@ ship_event = {
                 has_unplugged_origin = yes
             }
             fromfrom = {
-                has_carrier_flag = creators_planet_monitor_scrapped
+                has_planet_flag = creators_planet_monitor_scrapped
             }
         }
     }
@@ -470,11 +470,11 @@ ship_event = {
                 NOT = { has_unplugged_origin = yes }
             }
             fromfrom = {
-                NOT = { has_carrier_flag = creators_planet_monitor_scrapped }
+                NOT = { has_planet_flag = creators_planet_monitor_scrapped }
             }
         }
         fromfrom = {
-            set_carrier_flag = creators_planet_monitor_scrapped
+            set_planet_flag = creators_planet_monitor_scrapped
         }
         controller = {
             add_monthly_resource_mult = {

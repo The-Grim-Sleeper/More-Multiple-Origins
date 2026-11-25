@@ -1,4 +1,4 @@
-
+namespace = unique
 
 fleet_event = {	# Unique Specimens
 	id = unique.10

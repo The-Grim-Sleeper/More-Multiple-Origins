@@ -122,6 +122,17 @@ fleet_event = { #Enter the toxic system, meet the entity
 	option = { # The God wishes to test our mettle! Bring our armies!
 		name = toxoids.7310.b
 	}
+
+	after = {
+		if = {
+			limit = {
+				controller = {
+					is_nomadic = yes
+				}
+			}
+			custom_tooltip = toxic_knights_settling_unlocked_tt
+		}
+	}
 }
 
 fleet_event = { #Enter the toxic system, meet the entity - Non Knight
@@ -208,7 +219,24 @@ fleet_event = { #Enter the toxic system, but there is not entity
 			modifier = despair_of_the_knightly_order
 		}
 		hidden_effect = {
-			controller = { country_event = { id = toxoids.8020 days = 6000 random = 1500 } }
+			controller = {
+				country_event = {
+					id = toxoids.8020
+					days = 6000
+					random = 1500
+				}
+			}
+		}
+	}
+
+	after = {
+		if = {
+			limit = {
+				controller = {
+					is_nomadic = yes
+				}
+			}
+			custom_tooltip = toxic_knights_settling_unlocked_tt
 		}
 	}
 }
@@ -235,6 +263,17 @@ country_event = { # Upon defeating the Entity
 	option = { # Tame it
 		name = toxoids.7315.a
 		custom_tooltip = toxoids.7315.a.tt
+		if = {
+			limit = {
+				is_nomadic = yes
+			}
+			custom_tooltip = arkship_knights_detox_unlock_tt
+			hidden_effect = {
+				add_modifier = {
+					modifier = knights_detox_unlocked
+				}
+			}
+		}
 		hidden_effect = {
 			owner = {
 				set_country_flag = knights_detox
@@ -327,12 +366,15 @@ country_event = {
 				has_country_flag = decision_toxic_knights
 				has_origin = origin_toxic_knights
 			}
-			NOT = { is_nomadic = yes }
-			NOT = {
+			is_nomadic = no
+			NOR = {
 				has_country_flag = toxic_knights_lost_keep
 				has_country_flag = toxic_knights_destroyed_keep
 				any_owned_planet = {
 					has_planet_flag = toxic_knights_habitat
+				}
+				any_owned_planet = {
+					has_planet_flag = toxic_knights_settled_world
 				}
 				any_planet_within_border = {
 					has_planet_flag = keep_evacuated
@@ -348,15 +390,20 @@ country_event = {
 					has_country_flag = decision_toxic_knights
 					has_origin = origin_toxic_knights
 				}
-				NOT = {
+				NOR = {
 					has_country_flag = toxic_knights_lost_keep
 					has_country_flag = toxic_knights_destroyed_keep
 					any_owned_planet = {
 						has_planet_flag = toxic_knights_habitat
 					}
+					any_owned_planet = {
+						has_planet_flag = toxic_knights_settled_world
+					}
 				}
 			}
-			country_event = { id = toxoids.8015 }
+			country_event = {
+				id = toxoids.8015
+			}
 			random_situation = {
 				limit = {
 					#is_owned_by = root
@@ -377,7 +424,10 @@ carrier_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		has_planet_flag = toxic_knights_habitat
+		OR = {
+			has_planet_flag = toxic_knights_habitat
+			has_planet_flag = toxic_knights_settled_world
+		}
 		owner = {
 			OR = {
 				has_country_flag = decision_toxic_knights
@@ -412,8 +462,12 @@ country_event = {
 		NOT = {
 			has_country_flag = toxic_knights_destroyed_keep
 		}
-		any_owned_planet = {
-			has_planet_flag = toxic_knights_habitat
+		any_owned_colony = {
+			OR = {
+				has_planet_flag = toxic_knights_habitat
+				has_planet_flag = toxic_knights_settled_world
+				has_carrier_flag = toxic_knights_arkship
+			}
 		}
 	}
 

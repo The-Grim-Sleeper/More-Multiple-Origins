@@ -118,9 +118,6 @@ country_event = {
 
 	after = {
 		custom_tooltip = shroud.2750.a.tt
-		hidden_effect = {
-			open_shroud_tab = yes
-		}
 	}
 }
 
@@ -189,7 +186,6 @@ situation_event = {
 					breach_shroud = yes
 				}
 				set_country_flag = psionic_traditions_unlocked
-				open_shroud_tab = yes
 			}
 		}
 		destroy_situation = this
