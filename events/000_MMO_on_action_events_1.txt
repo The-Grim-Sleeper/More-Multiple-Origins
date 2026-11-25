@@ -2871,6 +2871,7 @@ country_event = {
 				}
 			}
 		}
+		try_give_open_stars_first_contact_bonus = yes
 
 		trigger = {
 			OR = {
@@ -3165,6 +3166,7 @@ country_event = {
 				}
 			}
 		}
+		try_give_open_stars_first_contact_bonus = yes
 
 		ai_chance = {
 			factor = 1
@@ -3427,6 +3429,7 @@ country_event = {
 				}
 			}
 		}
+		try_give_open_stars_first_contact_bonus = yes
 
 		trigger = {
 			NOR = {

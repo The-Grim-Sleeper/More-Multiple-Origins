@@ -1,4 +1,6 @@
 
+namespace = colony_mod
+
 carrier_event = { #titanic life
 	id = colony_mod.2
 	title = "colony_mod.2.name"
@@ -22,6 +24,7 @@ carrier_event = { #titanic life
 		NOR = {
 			has_carrier_flag = titanic_life_colony_flag
 			is_planet_class = pc_volcanic
+			is_planet_class = pc_ark
 		}
 		pop_amount > 0
 	}
@@ -83,7 +86,35 @@ carrier_event = { #titanic life
 			owner = root
 		}
 		if = {
-			limit = { owner = { NOR = { has_origin = origin_evolutionary_predators has_country_flag = decision_evolutionary_predators } } }
+			limit = {
+				owner = {
+					is_hive_empire = yes
+				}
+			}
+			if = {
+				limit = {
+					owner = {
+						NOR = { has_origin = origin_evolutionary_predators has_country_flag = decision_evolutionary_predators }
+					}
+				}
+				add_modifier = {
+					modifier = "eat_the_titans_hive"
+					days = -1
+				}
+			}
+			else = {
+				add_modifier = {
+					modifier = "eat_the_titans_evopred_hive"
+					days = -1
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owner = {
+					NOR = { has_origin = origin_evolutionary_predators has_country_flag = decision_evolutionary_predators }
+				}
+			}
 			add_modifier = {
 				modifier = "eat_the_titans"
 				days = -1
@@ -98,6 +129,8 @@ carrier_event = { #titanic life
 	}
 
 }
+
+namespace = colony
 
 carrier_event = { #hell
 	id = colony.3006
@@ -604,8 +637,7 @@ country_event = {
 		if = {
 			limit = {
 				OR  = {
-					has_origin = origin_ocean_paradise
-					has_origin = origin_ocean_machines
+					is_ocean_paradise_empire = yes
 					AND = {
 						has_country_flag = decision_ocean_paradise
 						home_planet = { is_planet_class = pc_ocean }
@@ -695,8 +727,7 @@ country_event = {
 		else_if = {
 			limit = {
 				OR = {
-					has_origin = origin_post_apocalyptic
-					has_origin = origin_post_apocalyptic_machines
+					is_apocalyptic_empire = yes
 					AND = {
 						has_country_flag = decision_post_apocalyptic
 						home_planet = { is_planet_class = pc_nuked }
@@ -767,7 +798,7 @@ country_event = {
 							if = {
 								limit = {
 									root.home_planet = {
-										has_carrier_flag = planet_earth
+										has_planet_flag = planet_earth
 									}
 								}
 								generate_earth_deposits_and_blockers = yes

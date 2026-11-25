@@ -116,18 +116,7 @@ country_event = {
 				country_event = { id = crisis.8156 days = 7 }
 				synth_queen_debuff = yes
 			}
-			every_country = {
-				limit = {
-					OR = {
-						is_country_type = awakened_synth_queen
-						is_country_type = synth_queen_convoys
-						is_country_type = synth_queen_outposts
-					}
-				}
-				set_faction_hostility = {
-					set_hostile = yes
-				}
-			}
+			synth_queen_set_war_hostility = yes
 			set_global_flag = synth_queen_war_started
 			remove_country_flag = crisis.8060.war.1.flag
 			set_country_flag = synth_queen_cannot_yeet_the_fleets

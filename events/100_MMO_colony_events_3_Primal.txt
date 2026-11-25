@@ -1,5 +1,5 @@
 
-namespace = colony
+namespace = colony_mod
 
 #Gatekeeper - Colony Events
 carrier_event = {

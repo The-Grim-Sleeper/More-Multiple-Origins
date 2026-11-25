@@ -104,9 +104,11 @@ ship_event = {
 	}
 	option = {
 		exclusive_trigger = {
-			OR = {
-				has_country_flag = decision_evolutionary_predators
-				has_origin = origin_evolutionary_predators
+			owner = { 
+				OR = {
+					has_country_flag = decision_evolutionary_predators
+					has_origin = origin_evolutionary_predators
+				}
 			}
 		}
 		name = anomaly.15.b.evopred
@@ -136,9 +138,11 @@ ship_event = {
 
 	option = {
 		exclusive_trigger = {
-			OR = {
-				has_country_flag = decision_evolutionary_predators
-				has_origin = origin_evolutionary_predators
+			owner = {
+				OR = {
+					has_country_flag = decision_evolutionary_predators
+					has_origin = origin_evolutionary_predators
+				}
 			}
 		}
 		name = anomaly.115.b.evopred

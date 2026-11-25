@@ -126,7 +126,7 @@ country_event = {
 		fromfromfrom.solar_system = {
 			random_system_planet = {
 				limit = {
-					has_carrier_flag = biomechanical_world
+					has_planet_flag = biomechanical_world
 				}
 				save_global_event_target_as = biomechanical_world_target
 			}

@@ -20,12 +20,19 @@ ship_event = {
 			has_precursor_intro = no
 		}
 		solar_system = { has_star_flag = precursor_zroni_1 }
-		NOT = { has_global_flag = zroni_started }
+		OR = {
+			NOT = { has_global_flag = zroni_started }
+			owner = {
+				# We want the Lost Makers which rolled Zroni to get it
+				has_origin = origin_lost_makers
+				has_country_flag = lost_makers_precursor_zroni_1_selected
+			}
+		}
 		FROM = {
 			has_anomaly = no
 			is_colony = no
 			NOT = { exists = archaeological_site }
-			NOT = { has_carrier_flag = suppress_archaeological_sites }
+			NOT = { has_planet_flag = suppress_archaeological_sites }
 			habitable_planet = yes
 		}
 	}
@@ -36,6 +43,27 @@ ship_event = {
 			owner = {
 				has_shoulders_of_giants_origin = yes
 				has_country_flag = origin_shoulders_closure
+			}
+		}
+		modifier = {
+			factor = @origin_lost_makers_multiplier
+			owner = {
+				has_origin = origin_lost_makers
+				has_country_flag = lost_makers_precursor_zroni_1_selected
+			}
+		}
+		modifier = {
+			factor = 0
+			owner = {
+				has_origin = origin_lost_makers
+				NOT = { has_country_flag = lost_makers_precursor_zroni_1_selected }
+			}
+		}
+		modifier = {
+			factor = 0
+			solar_system = { has_star_flag = lost_makers_precursor_system }
+			owner = {
+				NOT = { has_country_flag = precursor_system_spawned@prev.solar_system }
 			}
 		}
 	}
@@ -94,12 +122,19 @@ ship_event = {
 				has_star_flag = sol_system
 			}
 		}
-		NOT = { has_global_flag = baol_started }
+		OR = {
+			NOT = { has_global_flag = baol_started }
+			controller = {
+				# We want the Lost Makers which rolled Baol to get it
+				has_origin = origin_lost_makers
+				has_country_flag = lost_makers_precursor_baol_1_selected
+			}
+		}
 		FROM = {
 			has_anomaly = no
 			is_star = no
 			NOT = { exists = archaeological_site }
-			NOT = { has_carrier_flag = suppress_archaeological_sites }
+			NOT = { has_planet_flag = suppress_archaeological_sites }
 			NOR = {
 				is_planet_class = pc_gas_giant
 				is_planet_class = pc_molten
@@ -114,6 +149,27 @@ ship_event = {
 			owner = {
 				has_shoulders_of_giants_origin = yes
 				has_country_flag = origin_shoulders_closure
+			}
+		}
+		modifier = {
+			factor = @origin_lost_makers_multiplier
+			owner = {
+				has_origin = origin_lost_makers
+				has_country_flag = lost_makers_precursor_baol_1_selected
+			}
+		}
+		modifier = {
+			factor = 0
+			owner = {
+				has_origin = origin_lost_makers
+				NOT = { has_country_flag = lost_makers_precursor_baol_1_selected }
+			}
+		}
+		modifier = {
+			factor = 0
+			solar_system = { has_star_flag = lost_makers_precursor_system }
+			owner = {
+				NOT = { has_country_flag = precursor_system_spawned@prev.solar_system }
 			}
 		}
 	}

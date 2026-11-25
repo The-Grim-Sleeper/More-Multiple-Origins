@@ -1059,6 +1059,10 @@ carrier_event = {
 			OR = {
 				has_country_flag = decision_evolutionary_predators
 				has_origin = origin_evolutionary_predators
+				AND = {
+					has_origin = origin_nomadic_purger
+					overlord? = { has_origin = origin_evolutionary_predators }
+				}
 			}
 		}
 		habitable_planet_not_urban = yes
@@ -1066,33 +1070,45 @@ carrier_event = {
 	}
 
 	immediate = {
+		# A nomad purge vassal harvests for its overlord, so the harvest is tracked against the overlord instead.
 		if = {
-			limit = { NOT = { has_carrier_flag = evolutionary_predator_assimilate@owner } }
-			export_trigger_value_to_variable = {
-				trigger = planet_size
-				variable = days_by_planet_size
+			limit = {
+				owner = { has_origin = origin_nomadic_purger }
 			}
-			multiply_variable = {
-				which = days_by_planet_size
-				value = 360
-			}
-			set_carrier_flag = evolutionary_predator_assimilate@owner
-			add_modifier = {
-				modifier = fresh_biosphere
-				days = 1
-				time_multiplier = days_by_planet_size
-			}
-			carrier_event = {
-				id = bio.1020
-				days = days_by_planet_size
-				scopes = { from = owner }
-			}
+			evopred_biosphere_harvest_effect = { HARVESTER = owner.overlord SCHEDULE_DOWNGRADE = yes }
 		}
 		else = {
-			add_modifier = { modifier = exhausted_biosphere }
+			evopred_biosphere_harvest_effect = { HARVESTER = owner SCHEDULE_DOWNGRADE = yes }
 		}
+		#if = {
+		#	limit = { NOT = { has_carrier_flag = evolutionary_predator_assimilate@owner } }
+		#	export_trigger_value_to_variable = {
+		#		trigger = planet_size
+		#		variable = days_by_planet_size
+		#	}
+		#	multiply_variable = {
+		#		which = days_by_planet_size
+		#		value = 360
+		#	}
+		#	set_carrier_flag = evolutionary_predator_assimilate@owner
+		#	add_modifier = {
+		#		modifier = fresh_biosphere
+		#		days = 1
+		#		time_multiplier = days_by_planet_size
+		#	}
+		#	carrier_event = {
+		#		id = bio.1020
+		#		days = days_by_planet_size
+		#		scopes = { from = owner }
+		#	}
+		#}
+		#else = {
+		#	add_modifier = { modifier = exhausted_biosphere }
+		#}
 	}
 }
+
+
 
 carrier_event = {
 	id = bio.1015 #removes the modifier if you lose the planet
@@ -1121,29 +1137,18 @@ carrier_event = {
 						has_origin = origin_evolutionary_predators
 					}
 				}
-				NOT = { has_carrier_flag = evolutionary_predator_assimilate@from }
 			}
-			export_trigger_value_to_variable = {
-				trigger = planet_size
-				variable = days_by_planet_size
-			}
-			multiply_variable = {
-				which = days_by_planet_size
-				value = 360
-			}
-			set_carrier_flag = evolutionary_predator_assimilate@from
-			add_modifier = { modifier = fresh_biosphere days = 1 time_multiplier = days_by_planet_size }
+			evopred_biosphere_harvest_effect = { HARVESTER = from }
 		}
+		# A nomad purge vassal harvests for its overlord, so the harvest is tracked against the overlord instead.
 		else_if = {
 			limit = {
 				from = {
-					OR = {
-						has_country_flag = decision_evolutionary_predators
-						has_origin = origin_evolutionary_predators
-					}
+					has_origin = origin_nomadic_purger
+					overlord? = { has_origin = origin_evolutionary_predators }
 				}
 			}
-			add_modifier = { modifier = exhausted_biosphere }
+			evopred_biosphere_harvest_effect = { HARVESTER = from.overlord }
 		}
 	}
 }

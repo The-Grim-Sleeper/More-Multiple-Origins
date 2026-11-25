@@ -16,8 +16,8 @@ carrier_event = {
 			NOT = {
 				any_system_planet = {
 					OR = {
-						has_carrier_flag = hold_the_line_habitat
-						has_carrier_flag = habitat
+						has_planet_flag = hold_the_line_habitat
+						has_planet_flag = habitat
 					}
 				}
 			}
@@ -41,7 +41,7 @@ carrier_event = {
 	}
 
 	immediate = {
-		set_carrier_flag = hold_the_line_habitat
+		has_planet_flag = hold_the_line_habitat
 		create_archaeological_site = site_hold_the_line
 		create_ambient_object = {
 			type = unidentified_habitat

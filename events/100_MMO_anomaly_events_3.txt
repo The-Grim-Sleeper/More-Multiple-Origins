@@ -88,7 +88,7 @@ ship_event = {
 		trigger = {
 			owner = {
 				NOR = {
-					has_ethic = "ethic_fanatic_xenophile"
+					is_fanatic_xenophile = yes
 					has_origin = origin_evolutionary_predators
 					has_country_flag = decision_evolutionary_predators
 				}
@@ -285,7 +285,7 @@ ship_event = {
 						OR = {
 							is_xenophobe = yes
 							is_militarist = yes
-							has_ethic = "ethic_fanatic_egalitarian"
+							is_fanatic_egalitarian = yes
 						}
 					}
 				}
@@ -296,11 +296,9 @@ ship_event = {
 			if = {
 				limit = {
 					owner = {
-						NOR = {
-							has_ethic = "ethic_fanatic_egalitarian"
-							is_xenophobe = yes
-							is_militarist = yes
-						}
+						is_fanatic_egalitarian = no
+						is_xenophobe = no
+						is_militarist = no
 					}
 				}
 				owner = {

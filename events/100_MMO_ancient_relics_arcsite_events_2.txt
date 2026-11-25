@@ -705,6 +705,7 @@ fleet_event = {
 				has_leviathans = yes
 				exists = event_target:curator_enclave_country
 				NOT = { owner = { has_communications = event_target:curator_enclave_country } }
+				NOT = { owner = { has_event_chain = find_the_curators } }
 			}
 			owner = {
 				begin_event_chain = {

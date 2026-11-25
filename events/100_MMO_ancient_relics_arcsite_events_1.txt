@@ -38,6 +38,21 @@ country_event = { #Goodnight sweet Baol
 			set_country_flag = green_thumb_achievement
 		}
 	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = { has_origin = origin_lost_makers }
+					country_event = {
+						id = forceofwill.3400
+						days = 10
+						scopes = { from = event_target:the_last_baol_obj }
+					}
+				}
+			}
+		}
+	}
 }
 
 fleet_event = { #City of Bones Stage 3
