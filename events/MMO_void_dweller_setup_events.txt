@@ -116,7 +116,7 @@ event = {
 				change_pc = pc_habitat
 				set_planet_flag = megastructure
 				set_planet_flag = habitat
-				set_ring = no
+	#			set_ring = no
 				save_event_target_as = home_habitat
 			}
 			spawn_planet = {
@@ -151,68 +151,72 @@ event = {
 			capital_star.solar_system = {
 			random_system_planet = {
 				limit = { has_planet_flag = void_dwellers_homeworld }
-				set_planet_size = 6
-				set_carrier_flag = habitat_level_2
-				set_planet_flag = habitat
-				set_planet_entity = {
-					entity = "habitat_phase_03_entity"
-					graphical_culture = owner
-				}
-				add_building = building_hab_major_capital
-				add_building = building_holo_theatres
-				add_building = building_commercial_zone
-				remove_building = building_hab_capital
-				add_district_and_planet_size_if_needed_effect_amount = {
-					amount = 2
-					district = district_hab_housing
-				}
-				add_district_and_planet_size_if_needed_effect_amount = {
-					amount = 2
-					district = district_hab_energy
-				}
-				if ={
-					limit = {
-						OR = {
-							AND = {
-								is_lithoid_empire = no
-								is_mechanical_species = no
-								is_infernal_empire = no
-							}
-							is_catalytic_empire = yes
-							country_uses_bio_ships = yes
-						}
-					}
-					add_zone = {
-						district = district_hab_energy
-						zone = zone_habitat_hydroponics
-					}
-					add_building = {
-						zone = zone_habitat_hydroponics
-						building = building_hydroponics_farm
-					}
-				}
-				add_district_and_planet_size_if_needed_effect_amount = {
-					amount = 1
-					district = district_hab_science
-				}
-				add_district_and_planet_size_if_needed_effect_amount = {
-					amount = 2
-					district = district_hab_mining
-				}
-				add_zone = {
-					district = district_hab_housing
-					zone = zone_habitat_research_unity
-					zone_slot = 1
-				}
-				add_zone = {
-					district = district_hab_housing
-					zone = zone_industrial
-					zone_slot = 2
-				}
-				add_building = {
-					building = building_factory_1
-					zone = zone_industrial
-				}
+
+				# 01_start_of_game_effects.txt
+				void_dweller_home_planet_districts_setup = yes
+
+			#	set_planet_size = 6
+			#	set_carrier_flag = habitat_level_2
+			#	set_planet_flag = habitat
+			#	set_planet_entity = {
+			#		entity = "habitat_phase_03_entity"
+			#		graphical_culture = owner
+			#	}
+			#	add_building = building_hab_major_capital
+			#	add_building = building_holo_theatres
+			#	add_building = building_commercial_zone
+			#	remove_building = building_hab_capital
+			#	add_district_and_planet_size_if_needed_effect_amount = {
+			#		amount = 2
+			#		district = district_hab_housing
+			#	}
+			#	add_district_and_planet_size_if_needed_effect_amount = {
+			#		amount = 2
+			#		district = district_hab_energy
+			#	}
+			#	if ={
+			#		limit = {
+			#			OR = {
+			#				AND = {
+			#					is_lithoid_empire = no
+			#					is_mechanical_species = no
+			#					is_infernal_empire = no
+			#				}
+			#				is_catalytic_empire = yes
+			#				country_uses_bio_ships = yes
+			#			}
+			#		}
+			#		add_zone = {
+			#			district = district_hab_energy
+			#			zone = zone_habitat_hydroponics
+			#		}
+			#		add_building = {
+			#			zone = zone_habitat_hydroponics
+			#			building = building_hydroponics_farm
+			#		}
+			#	}
+			#	add_district_and_planet_size_if_needed_effect_amount = {
+			#		amount = 1
+			#		district = district_hab_science
+			#	}
+			#	add_district_and_planet_size_if_needed_effect_amount = {
+			#		amount = 2
+			#		district = district_hab_mining
+			#	}
+			#	add_zone = {
+			#		district = district_hab_housing
+			#		zone = zone_habitat_research_unity
+			#		zone_slot = 1
+			#	}
+			#	add_zone = {
+			#		district = district_hab_housing
+			#		zone = zone_industrial
+			#		zone_slot = 2
+			#	}
+			#	add_building = {
+			#		building = building_factory_1
+			#		zone = zone_industrial
+			#	}
 			}
 			every_system_planet = {
 				limit = { has_deposit_for = shipclass_mining_station }
